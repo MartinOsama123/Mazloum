@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 
 
@@ -14,7 +15,7 @@ import 'package:flutter/material.dart';
 // }
 
 class SupplierRegisteration extends StatelessWidget {
-
+  String dropdownValue = "Industry";
   @override
   Widget build(BuildContext context) {
 
@@ -27,16 +28,20 @@ class SupplierRegisteration extends StatelessWidget {
 
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("We need some information about your company",style: TextStyle(fontSize: 24),textAlign: TextAlign.center,),
-              Spacer(),
-              SupplierMainInfo(),
-              Spacer(),
-              FlatButton(onPressed: (){}, child: Text("Next",style: TextStyle(fontSize: 18,letterSpacing: 1,color: Colors.white),),color: Theme.of(context).accentColor,minWidth: 200,height: 40,),
-            ],
-          ),
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("We need some information about your company",style: TextStyle(fontSize: 24),textAlign: TextAlign.center,),
+                Spacer(),
+                SupplierMainInfo(),
+                Spacer(),
+             Expanded(child: DescriptionSupplier()),
+                Spacer(),
+                FlatButton(onPressed: (){}, child: Text("Next",style: TextStyle(fontSize: 18,letterSpacing: 1,color: Colors.white),),color: Theme.of(context).accentColor,minWidth: 200,height: 40,),
+              ],
+            ),
+
         ),
       ),
 
@@ -44,6 +49,49 @@ class SupplierRegisteration extends StatelessWidget {
   }
 }
 
+
+class DescriptionSupplier extends StatefulWidget {
+  DescriptionSupplier({Key key}) : super(key: key);
+
+
+
+
+  @override
+  _MyDescriptionSupplier createState() => _MyDescriptionSupplier();
+}
+class _MyDescriptionSupplier extends State<DescriptionSupplier> {
+  String dropdownValue = "Industry";
+
+  @override
+  Widget build(BuildContext context) {
+    body:
+    return
+
+      DropdownButton<String>(
+        value: dropdownValue,
+        icon: Icon(Icons.arrow_downward),
+        iconSize: 24,
+        elevation: 16,
+        style: TextStyle(color: Colors.deepPurple),
+        underline: Container(
+          height: 2,
+          color: Colors.deepPurpleAccent,
+        ),
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+        items: <String>['Industry', 'Two', 'Free', 'Four']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      );
+  }
+}
 class SupplierMainInfo extends StatelessWidget {
   const SupplierMainInfo({
     Key key,

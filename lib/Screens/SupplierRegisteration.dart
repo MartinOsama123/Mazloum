@@ -36,7 +36,7 @@ class SupplierRegisteration extends StatelessWidget {
                 Spacer(),
                 SupplierMainInfo(),
                 Spacer(),
-             Expanded(child: DescriptionSupplier()),
+             Container(width:200,child: DescriptionSupplier()),
                 Spacer(),
                 FlatButton(onPressed: (){}, child: Text("Next",style: TextStyle(fontSize: 18,letterSpacing: 1,color: Colors.white),),color: Theme.of(context).accentColor,minWidth: 200,height: 40,),
               ],
@@ -64,10 +64,8 @@ class _MyDescriptionSupplier extends State<DescriptionSupplier> {
 
   @override
   Widget build(BuildContext context) {
-    body:
-    return
+    return DropdownButton<String>(
 
-      DropdownButton<String>(
         value: dropdownValue,
         icon: Icon(Icons.arrow_downward),
         iconSize: 24,
@@ -92,11 +90,33 @@ class _MyDescriptionSupplier extends State<DescriptionSupplier> {
       );
   }
 }
-class SupplierMainInfo extends StatelessWidget {
+class SupplierMainInfo extends StatefulWidget {
   const SupplierMainInfo({
     Key key,
   }) : super(key: key);
 
+  @override
+  _SupplierMainInfoState createState() => _SupplierMainInfoState();
+}
+
+class _SupplierMainInfoState extends State<SupplierMainInfo> {
+   TextEditingController _userText, _passText, _emailText, _confirmPassText;
+   bool emailCorrect = false;
+   void initState() {
+     super.initState();
+    _userText = new TextEditingController();
+     _emailText = new TextEditingController();
+     _passText = new TextEditingController();
+     _confirmPassText = new TextEditingController();
+   }
+
+   void dispose() {
+     _userText.dispose();
+     _emailText.dispose();
+     _passText.dispose();
+     _confirmPassText.dispose();
+     super.dispose();
+   }
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -107,6 +127,7 @@ class SupplierMainInfo extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            controller: _userText,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Name',
@@ -115,14 +136,23 @@ class SupplierMainInfo extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            controller: _emailText,
+            onChanged: (newValue){
+              if(newValue.contains("@"))
+              setState(() {
+                emailCorrect = true;
+              });
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Email',
+              errorText: !emailCorrect ? "Must Contain @" : null
             ),),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            controller: _passText,
             obscureText: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -132,6 +162,7 @@ class SupplierMainInfo extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextField(
+            controller: _confirmPassText,
             obscureText: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),

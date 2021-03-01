@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Screens/VendorLogin/Widgets/VendorLogin.dart';
+import 'package:vendors/Screens/VendorMainPage/VendorMainPage.dart';
 
 import 'Screens/SupplierRegistration/SupplierRegisteration.dart';
 
@@ -19,10 +20,11 @@ class MyApp extends StatelessWidget {
 
         primaryColor: AppColor.PrimaryColor,
         accentColor: AppColor.AccentColor,
+        backgroundColor: AppColor.OffWhiteColor,
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: VendorLoginScreen(),
+      home: VendorMainScreen(),
     );
   }
 }

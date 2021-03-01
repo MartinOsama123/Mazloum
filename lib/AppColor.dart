@@ -7,4 +7,5 @@ class AppColor {
   static const YellowColor = Color(0xFF60c33c);
   static const SilverColor = Color(0xFFbbc3c1);
   static const OffWhiteColor = Color(0xFFf5f7f8);
+  static const HorizontalPadding = 34.0;
 }

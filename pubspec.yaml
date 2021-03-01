@@ -47,6 +47,7 @@ flutter:
 
   assets:
     - images/group_359.png
+    - images/temp_logo.png
 
   fonts:
     - family: Montserrat

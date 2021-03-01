@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:vendors/AppColor.dart';
 
 // class MyHomePage extends StatefulWidget {
 //   MyHomePage({Key key, this.title}) : super(key: key);
@@ -18,15 +19,16 @@ class SupplierRegisteration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Supplier"),
-      ),
+
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                height: 250,
+                  child: Image.asset("images/group_359.png")),
               Text(
                 "We need some information about your company",
                 style: TextStyle(fontSize: 24),
@@ -81,10 +83,10 @@ class _MyDescriptionSupplier extends State<DescriptionSupplier> {
             isExpanded: true,
             iconSize: 24,
             elevation: 16,
-            style: TextStyle(color: Colors.blue),
+
             underline: Container(
               height: 2,
-              color: Colors.blue,
+              color: AppColor.PrimaryColor,
             ),
             onChanged: (String newValue) {
               setState(() {

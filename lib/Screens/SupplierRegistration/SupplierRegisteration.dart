@@ -30,9 +30,10 @@ class SupplierRegisteration extends StatelessWidget {
                 height: 250,
                   child: Image.asset("images/group_359.png")),
               Text(
-                "We need some information about your company",
-                style: TextStyle(fontSize: 24),
+                "Find your supplier now",
+                style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
+
               ),
               // Spacer(),
               // SupplierMainInfo(),
@@ -49,9 +50,12 @@ class SupplierRegisteration extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 18, letterSpacing: 1, color: Colors.white),
                 ),
-                color: Theme.of(context).accentColor,
-                minWidth: 200,
-                height: 40,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)
+                ),
+                minWidth: MediaQuery.of(context).size.width * 0.81,
+                height: MediaQuery.of(context).size.height * 0.07,
+                color: AppColor.PrimaryColor,
               ),
             ],
           ),

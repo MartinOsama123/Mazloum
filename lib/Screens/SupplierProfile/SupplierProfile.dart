@@ -100,12 +100,9 @@ class SupplierProfile extends StatelessWidget {
                         ),
                       ),
                     FlatButton.icon(onPressed: (){}, icon: Icon(Icons.mail), label: Text("Mail"),textColor: Colors.white,color: AppColor.PrimaryColor,minWidth: MediaQuery.of(context).size.width * 0.6,height: MediaQuery.of(context).size.height * 0.076,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
-
-                  ],),
+                  ],)
                 )
-
               ],),
-
           ),
         ),
       ),

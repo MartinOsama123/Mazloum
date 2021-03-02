@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:vendors/Screens/CreateTender/CreateTenderScreen.dart';
 import 'package:vendors/Screens/SupplierProfile/SupplierProfile.dart';
 
 class VendorMainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(child: Icon(Icons.add,color: Colors.white,size: 32,),elevation: 3,),
+      floatingActionButton: FloatingActionButton(child: Icon(Icons.add,color: Colors.white,size: 32,),elevation: 3,onPressed: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => CreateTenderScreen()),
+        );
+      },),
       body: SafeArea(
         child: Center(
           child: Column(

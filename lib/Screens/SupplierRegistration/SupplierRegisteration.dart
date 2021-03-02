@@ -20,52 +20,50 @@ class SupplierRegisteration extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding),
-        child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 250,
-                    child: Image.asset("images/group_359.png"),width: MediaQuery.of(context).size.width,),
-                Text(
-                  "Find your supplier now",
-                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-
-                ),
-                // Spacer(),
-                // SupplierMainInfo(),
-                // Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DescriptionSupplier(),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
-                  child: FlatButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Next",
-                      style: TextStyle(
-                          fontSize: 18, color: Colors.white),
-                    ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5)
-                    ),
-                    minWidth: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.07,
-                    color: AppColor.SupplierPrimaryColor,
-                  ),
-                ),
-              ],
-            ),
-
+      body:
+      Column(children: [
+        Container(
+          height: 250,
+          child: FittedBox(fit: BoxFit.fill,child: Image.asset("images/group_359.png")),width: MediaQuery.of(context).size.width,),
+          Expanded(child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding),
+            child: SupplierRegisterWidget(),
+          )),
+        ],
         ),
-      ),
+
     );
+  }
+}
+
+class SupplierRegisterWidget extends StatelessWidget {
+  const SupplierRegisterWidget({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return  Column(
+          children: [
+
+            Text(
+              "Find your supplier now",
+              style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+
+            ),
+            // Spacer(),
+            // SupplierMainInfo(),
+            // Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DescriptionSupplier(),
+            ),
+            Spacer(),
+          ],
+        );
+
+
   }
 }
 

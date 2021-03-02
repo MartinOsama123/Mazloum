@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vendors/AppColor.dart';
+import 'package:vendors/Screens/SupplierProfile/SupplierProfile.dart';
 import 'package:vendors/Screens/VendorLogin/Widgets/VendorLogin.dart';
 import 'package:vendors/Screens/VendorMainPage/VendorMainPage.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: VendorMainScreen(),
+      home: SupplierProfile(),
     );
   }
 }

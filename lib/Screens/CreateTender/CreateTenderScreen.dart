@@ -121,7 +121,7 @@ class CreateTenderScreen extends StatelessWidget {
                     DatePicker.showDatePicker(context,
 
                         minTime: DateTime.now(),
-                        maxTime: DateTime(DateTime.now().year,DateTime.now().month, DateTime.now().day),
+                        maxTime: DateTime(2022,12, 20),
                         theme: DatePickerTheme(
 
                             backgroundColor: Colors.white,

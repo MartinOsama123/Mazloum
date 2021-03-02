@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: VendorMainScreen(),
+      home: SupplierRegisteration(),
     );
   }
 }

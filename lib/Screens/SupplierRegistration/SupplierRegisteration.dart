@@ -15,50 +15,54 @@ import 'package:vendors/AppColor.dart';
 // }
 
 class SupplierRegisteration extends StatelessWidget {
-  String dropdownValue = "Industry";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                height: 250,
-                  child: Image.asset("images/group_359.png")),
-              Text(
-                "Find your supplier now",
-                style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding),
+        child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: 250,
+                    child: Image.asset("images/group_359.png"),width: MediaQuery.of(context).size.width,),
+                Text(
+                  "Find your supplier now",
+                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
 
-              ),
-              // Spacer(),
-              // SupplierMainInfo(),
-              // Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DescriptionSupplier(),
-              ),
-              Spacer(),
-              FlatButton(
-                onPressed: () {},
-                child: Text(
-                  "Next",
-                  style: TextStyle(
-                      fontSize: 18, letterSpacing: 1, color: Colors.white),
                 ),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5)
+                // Spacer(),
+                // SupplierMainInfo(),
+                // Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: DescriptionSupplier(),
                 ),
-                minWidth: MediaQuery.of(context).size.width * 0.81,
-                height: MediaQuery.of(context).size.height * 0.07,
-                color: AppColor.PrimaryColor,
-              ),
-            ],
-          ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                  child: FlatButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Next",
+                      style: TextStyle(
+                          fontSize: 18, color: Colors.white),
+                    ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5)
+                    ),
+                    minWidth: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    color: AppColor.SupplierPrimaryColor,
+                  ),
+                ),
+              ],
+            ),
+
         ),
       ),
     );

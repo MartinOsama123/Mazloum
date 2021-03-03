@@ -108,47 +108,67 @@ class _MyDescriptionSupplier extends State<DescriptionSupplier> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DropdownButton<String>(
-            value: dropdownValue,
-            icon: Icon(Icons.arrow_downward),
-            isExpanded: true,
-            iconSize: 24,
-            elevation: 16,
-
-            underline: Container(
-              height: 2,
-              color: AppColor.PrimaryColor,
-            ),
-            onChanged: (String newValue) {
-              setState(() {
-                dropdownValue = newValue;
-              });
-            },
-            items: <String>['Industry', 'Two', 'Free', 'Four']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  style: TextStyle(fontSize: 24),
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: DropdownButtonHideUnderline(
+            child: Container(
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(width: 1.0,color: AppColor.SupplierBorderColor),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
-              );
-            }).toList(),
+              ),
+              child: DropdownButton<String>(
+                value: dropdownValue,
+                icon: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(Icons.keyboard_arrow_down),
+                ),
+                isExpanded: true,
+                iconSize: 24,
+                elevation: 16,
+
+                onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                  });
+                },
+                items: <String>['Industry', 'Two', 'Free', 'Four']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        value,
+                        style: TextStyle(fontSize: 14,color: AppColor.SupplierTextColor),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
           ),
         ),
         Container(
           height: 200,
+          decoration: ShapeDecoration(
+            shape: RoundedRectangleBorder(
+              side: BorderSide(width: 1.0,color: AppColor.SupplierBorderColor),
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+            ),
+          ),
           child: TextField(
             controller: _descriptionText,
             decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border:  InputBorder.none,
                 labelText: 'Description',
+                labelStyle: TextStyle(color: AppColor.SupplierTextColor,fontSize: 14),
                 alignLabelWithHint: true,
-                contentPadding: EdgeInsets.all(6.0)),
+                contentPadding: EdgeInsets.all(15.0)),
             maxLines: null,
             minLines: null,
             textAlignVertical: TextAlignVertical.top,
+
             expands: true,
           ),
         ),

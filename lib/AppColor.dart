@@ -9,5 +9,7 @@ class AppColor {
   static const OffWhiteColor = Color(0xFFf5f7f8);
   static const SupplierPrimaryColor = Color(0xFFe56760);
   static const SupplierTextColor = Color(0xFF827e7d);
+  static const SupplierLabelColor= Color(0xFF2a1e1d);
+  static const SupplierBorderColor = Color(0xFFdeebe9);
   static const HorizontalPadding = 34.0;
 }

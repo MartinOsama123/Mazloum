@@ -26,36 +26,37 @@ class _SupplierRegisterationState extends State<SupplierRegisteration> {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: Column(children: [
-        Container(
-          height: 250,
-          child: FittedBox(fit: BoxFit.fill,child: Image.asset("images/group_359.png")),width: MediaQuery.of(context).size.width,),
-          Expanded(child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding,vertical: 12),
-            child: index == 1 ? SupplierMainInfo() : SupplierRegisterWidget()
-          )),
+      body: SafeArea(
+        child: Column(children: [
+          Container(
+            child: FittedBox(fit: BoxFit.cover,child: Image.asset("images/supplier_"+index.toString()+".png"))),
+            Expanded(child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding,vertical: 12),
+              child: index == 1 ? SupplierMainInfo() : SupplierRegisterWidget()
+            )),
 
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding,vertical: 12),
-          child: FlatButton(
-            onPressed: () {setState(() {
-              index++;
-            });},
-            child: Text(
-              "Next",
-              style: TextStyle(
-                  fontSize: 18, letterSpacing: 1, color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding,vertical: 12),
+            child: FlatButton(
+              onPressed: () {setState(() {
+                index++;
+              });},
+              child: Text(
+                "Next",
+                style: TextStyle(
+                    fontSize: 18, letterSpacing: 1, color: Colors.white),
+              ),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)
+              ),
+              minWidth: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.07,
+              color: AppColor.SupplierPrimaryColor,
             ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5)
-            ),
-            minWidth: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.07,
-            color: AppColor.SupplierPrimaryColor,
           ),
-        ),
-        ],
-        ),
+          ],
+          ),
+      ),
 
     );
   }
@@ -187,57 +188,45 @@ class _SupplierMainInfoState extends State<SupplierMainInfo> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
+        const Text("Get Your Tender Now",style: TextStyle(color: AppColor.SupplierPrimaryColor,fontSize: 20,fontWeight: FontWeight.bold)),
         Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _userText,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Name',
-            ),
-          ),
+          padding: const EdgeInsets.fromLTRB(0, 4, 0, 41),
+          child: const Text("Register",style: TextStyle(color: AppColor.SupplierLabelColor,fontSize: 14)),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _emailText,
-            onChanged: (newValue) {
-              if (newValue.contains("@"))
-                setState(() {
-                  emailCorrect = true;
-                });
-            },
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Email',
-                errorText: !emailCorrect ? "Must Contain @" : null),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _passText,
-            obscureText: true,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Password',
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: _confirmPassText,
-            obscureText: true,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Confirm Password',
-            ),
-          ),
-        ),
+        SupplierTextField(userText: _userText,placeholder: "Name"),
+        SupplierTextField(userText: _emailText,placeholder: "Email"),
+        SupplierTextField(userText: _passText,placeholder: "Password"),
+        SupplierTextField(userText: _confirmPassText,placeholder: "Confirm Password"),
       ],
+    );
+  }
+}
+
+class SupplierTextField extends StatelessWidget {
+  const SupplierTextField({
+    Key key,
+    @required TextEditingController userText,
+    @required String placeholder
+  }) : _userText = userText, _placeholder = placeholder, super(key: key);
+
+  final TextEditingController _userText;
+  final String _placeholder;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0,0,0,6),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.07,
+        child: TextField(
+          controller: _userText,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderSide: BorderSide(color: AppColor.SupplierBorderColor)),
+            labelText: _placeholder,
+          ),
+        ),
+      ),
     );
   }
 }

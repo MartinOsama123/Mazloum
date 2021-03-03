@@ -64,7 +64,7 @@ class _VendorLoginScreenState extends State<VendorLoginScreen> {
                       child: FlatButton(
                         onPressed: () {},
                         child: Text(
-                          "Next",
+                          "Confirm",
                           style: TextStyle(
                               fontSize: 18, letterSpacing: 1, color: Colors.white),
                         ),

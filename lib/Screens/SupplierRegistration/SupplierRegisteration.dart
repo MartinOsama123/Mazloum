@@ -14,21 +14,46 @@ import 'package:vendors/AppColor.dart';
 //   _MyHomePageState createState() => _MyHomePageState();
 // }
 
-class SupplierRegisteration extends StatelessWidget {
+class SupplierRegisteration extends StatefulWidget {
 
+  @override
+  _SupplierRegisterationState createState() => _SupplierRegisterationState();
+}
+
+class _SupplierRegisterationState extends State<SupplierRegisteration> {
+  int index = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body:
-      Column(children: [
+      body: Column(children: [
         Container(
           height: 250,
           child: FittedBox(fit: BoxFit.fill,child: Image.asset("images/group_359.png")),width: MediaQuery.of(context).size.width,),
           Expanded(child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding),
-            child: SupplierRegisterWidget(),
+            padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding,vertical: 12),
+            child: index == 1 ? SupplierMainInfo() : SupplierRegisterWidget()
           )),
+
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding,vertical: 12),
+          child: FlatButton(
+            onPressed: () {setState(() {
+              index++;
+            });},
+            child: Text(
+              "Next",
+              style: TextStyle(
+                  fontSize: 18, letterSpacing: 1, color: Colors.white),
+            ),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5)
+            ),
+            minWidth: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.07,
+            color: AppColor.SupplierPrimaryColor,
+          ),
+        ),
         ],
         ),
 

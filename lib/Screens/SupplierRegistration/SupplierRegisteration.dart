@@ -107,6 +107,7 @@ class _MyDescriptionSupplier extends State<DescriptionSupplier> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Align(alignment: Alignment.centerLeft,child: const Text("Choose Your Industry",style: TextStyle(fontSize: 14,color: AppColor.SupplierLabelColor,fontWeight: FontWeight.w600))),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
           child: DropdownButtonHideUnderline(
@@ -148,6 +149,11 @@ class _MyDescriptionSupplier extends State<DescriptionSupplier> {
               ),
             ),
           ),
+        ),
+
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Align(alignment: Alignment.centerLeft,child: const Text("Write a short description about yourself",style: TextStyle(fontSize: 14,color: AppColor.SupplierLabelColor,fontWeight: FontWeight.w600))),
         ),
         Container(
           height: 200,

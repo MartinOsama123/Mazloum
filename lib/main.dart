@@ -1,6 +1,10 @@
+import 'package:curved_bottom_navigation/curved_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vendors/AppColor.dart';
+import 'package:vendors/Screens/HomeScreen/HomeScreen.dart';
+
+import 'AppColor.dart';
 
 
 
@@ -39,58 +43,81 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const platform = const MethodChannel("com.flutter.epic/epic");
-  int _counter = 0;
+  int navPos = 0;
 
   void _incrementCounter() async {
     var value;
-   try{
-     value = await platform.invokeMethod("printy");
-   }catch (e){
-     print(e.toString());
-   }
-   print( value);
+    try {
+      value = await platform.invokeMethod("printy");
+    } catch (e) {
+      print(e.toString());
+    }
+    print(value);
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+      appBar: AppBar(
+        shape: ContinuousRectangleBorder(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(50.0),
+          ),),
+        toolbarHeight: 70,
+        leading:    IconButton(
+          icon: const Icon(Icons.search),
+          tooltip: 'Show Snackbar',
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('This is a snackbar')));
+          },
         ),
+        title: const Text('MAZLOUM',style: TextStyle(fontSize: 35),),
+        centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            tooltip: 'Show Snackbar',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('This is a snackbar')));
+            },
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: Stack(
+        children: [
+          IndexedStack(
+            index: navPos,
+            children: [
+              HomeScreen(),
+              Text("Two"),
+              Text("Three"),
+              Text("Four"),
+              Text("Five"),
+            ],
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: CurvedBottomNavigation(
+              bgColor: AppColor.PrimaryColor,
+              selected: navPos,
+              onItemClick: (i) {
+                setState(() {
+                  navPos = i;
+                });
+              },
+              items: [
+                Icon(Icons.home, color: Colors.white),
+                Icon(Icons.add_shopping_cart, color: Colors.white),
+                Icon(Icons.category, color: Colors.white),
+                Icon(Icons.person, color: Colors.white),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+

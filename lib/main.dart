@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: AppColor.PrimaryColor,
         accentColor: AppColor.AccentColor,
-        backgroundColor: AppColor.OffWhiteColor,
+        backgroundColor: Colors.white12,
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -44,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const platform = const MethodChannel("com.flutter.epic/epic");
-  int navPos = 0;
+  int navPos = 1;
 
   void _incrementCounter() async {
     var value;
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         actions: <Widget>[
             Badge(
-              position: BadgePosition.topEnd(top: 5, end: 4),
+              position: BadgePosition.topEnd(end: 0,top: 0),
               badgeColor: Colors.blue,
               badgeContent: Text(
                 '3',
@@ -95,14 +95,13 @@ class _MyHomePageState extends State<MyHomePage> {
               HomeScreen(),
               Text("Two"),
               Text("Three"),
-              Text("Four"),
-              Text("Five"),
             ],
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: CurvedBottomNavigation(
-              bgColor: AppColor.PrimaryColor,
+              bgColor: Colors.white,
+              fabBgColor: AppColor.PrimaryColor,
               selected: navPos,
               onItemClick: (i) {
                 setState(() {
@@ -110,10 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               items: [
-                Icon(Icons.home, color: Colors.white),
-                Icon(Icons.add_shopping_cart, color: Colors.white),
-                Icon(Icons.category, color: Colors.white),
-                Icon(Icons.person, color: Colors.white),
+
+
+                Icon(Icons.add_shopping_cart, color: navPos != 0 ? AppColor.PrimaryColor : Colors.white),
+                Icon(Icons.home, color: navPos != 1 ? AppColor.PrimaryColor : Colors.white),
+              //  Icon(Icons.category, color: navPos != 2 ? AppColor.PrimaryColor : Colors.white),
+                Icon(Icons.person, color: navPos != 3 ? AppColor.PrimaryColor : Colors.white),
               ],
             ),
           ),

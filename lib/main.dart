@@ -44,7 +44,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   static const platform = const MethodChannel("com.flutter.epic/epic");
-  int navPos = 1;
+  int navPos = 0;
 
   void _incrementCounter() async {
     var value;

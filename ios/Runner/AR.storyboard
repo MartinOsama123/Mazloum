@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController storyboardIdentifier="AR" id="BV1-FR-VrT" customClass="ViewController" customModule="Mazloum" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                            </arscnView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlj-50-kuU" userLabel="Product Button">
+                                <rect key="frame" x="334" y="742" width="60" height="60"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="diR-We-yQJ"/>
+                                    <constraint firstAttribute="height" constant="60" id="fzZ-Sq-ElN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <color key="tintColor" name="mazloumBack"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <imageReference key="image" image="magnifyingglass.circle.fill" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="bold"/>
+                                </state>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="OmG-a2-gbK"/>
+                                    <action selector="allProductsPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="lBx-z0-dmc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zub-WX-xu1">
+                                <rect key="frame" x="171" y="730" width="72" height="72"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="72" id="xcg-ID-zaf"/>
+                                    <constraint firstAttribute="height" constant="72" id="ynd-kE-wZg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <color key="tintColor" name="mazloumBack"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="bold"/>
+                                </state>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="UM3-sr-LVr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiE-29-31W" userLabel="Undo Button">
+                                <rect key="frame" x="25" y="752" width="50" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Sms-xb-0pj"/>
+                                    <constraint firstAttribute="height" constant="50" id="lOQ-00-Eev"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <color key="tintColor" name="mazloumBack"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="arrow.counterclockwise.circle.fill" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="medium"/>
+                                </state>
+                                <connections>
+                                    <action selector="undoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="ghQ-vd-IY9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lac-lb-2ED" userLabel="Cart Button">
+                                <rect key="frame" x="344" y="44" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="fHq-R9-aFg"/>
+                                    <constraint firstAttribute="height" constant="50" id="fau-3r-hc3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="tintColor" name="offwhite"/>
+                                <state key="normal" image="cart" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="heavy"/>
+                                </state>
+                                <connections>
+                                    <action selector="cartPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="R6p-2X-N97"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="1U9-Nl-Iys"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="zub-WX-xu1" secondAttribute="centerX" id="1hT-hV-4VR"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="zub-WX-xu1" secondAttribute="bottom" constant="60" id="Hei-V5-sBc"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="BrB-h1-WRS" secondAttribute="bottom" constant="24" id="TM1-jr-gHZ"/>
+                            <constraint firstItem="Lac-lb-2ED" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" id="Vv0-ox-1l7"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="JiE-29-31W" secondAttribute="bottom" constant="60" id="XLR-Cx-xpt"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="Hlj-50-kuU" secondAttribute="trailing" constant="20" id="aHU-NM-1uT"/>
+                            <constraint firstItem="JiE-29-31W" firstAttribute="leading" secondItem="U0K-SW-4ec" secondAttribute="leadingMargin" constant="5" id="cPq-Rr-cu1"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="fDl-vK-4Il"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="trailing" secondItem="Lac-lb-2ED" secondAttribute="trailing" constant="20" id="iFQ-am-lFY"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="Hlj-50-kuU" secondAttribute="bottom" constant="60" id="oHH-dA-ExP"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="topMargin" constant="-44" id="vbm-XG-Z1z"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="allProductsButton" destination="Hlj-50-kuU" id="cNI-La-4Jt"/>
+                        <outlet property="cartButton" destination="Lac-lb-2ED" id="Xti-3j-UoH"/>
+                        <outlet property="plusButton" destination="zub-WX-xu1" id="gmV-Fo-qSY"/>
+                        <outlet property="sceneView" destination="BrB-h1-WRS" id="QwU-SP-KZF"/>
+                        <outlet property="undoButton" destination="JiE-29-31W" id="pZM-J5-IIA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1042.0289855072465" y="118.52678571428571"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrow.counterclockwise.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <namedColor name="mazloumBack">
+            <color red="0.99607843137254903" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="offwhite">
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

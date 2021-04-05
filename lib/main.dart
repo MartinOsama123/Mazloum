@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Screens/SupplierProfile/SupplierProfile.dart';
 import 'package:vendors/Screens/VendorLogin/Widgets/VendorLogin.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SupplierRegisteration(),
+      home: MyHomePage(),
     );
   }
 }
@@ -41,13 +42,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static const platform = const MethodChannel("com.flutter.epic/epic");
   int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-
-      _counter++;
-    });
+  void _incrementCounter() async {
+    var value;
+   try{
+     value = await platform.invokeMethod("printy");
+   }catch (e){
+     print(e.toString());
+   }
+   print( value);
   }
 
   @override

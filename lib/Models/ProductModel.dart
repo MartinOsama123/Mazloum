@@ -25,7 +25,7 @@ class ProductModel {
   ProductModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['products'] != null) {
-      products = new List<Products>();
+      products = <Products>[];
       json['products'].forEach((v) {
         products.add(new Products.fromJson(v));
       });
@@ -33,25 +33,25 @@ class ProductModel {
     totalProducts = json['total_products'];
     totalPages = json['total_pages'];
     if (json['colors'] != null) {
-      colors = new List<Specifications>();
+      colors = <Specifications>[];
       json['colors'].forEach((v) {
         colors.add(new Specifications.fromJson(v));
       });
     }
     if (json['materials'] != null) {
-      materials = new List<Specifications>();
+      materials = <Specifications>[];
       json['materials'].forEach((v) {
         materials.add(new Specifications.fromJson(v));
       });
     }
     if (json['brands'] != null) {
-      brands = new List<Specifications>();
+      brands = <Specifications>[];
       json['brands'].forEach((v) {
         brands.add(new Specifications.fromJson(v));
       });
     }
     if (json['dimensions'] != null) {
-      dimensions = new List<Specifications>();
+      dimensions = <Specifications>[];
       json['dimensions'].forEach((v) {
         dimensions.add(new Specifications.fromJson(v));
       });

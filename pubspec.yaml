@@ -31,7 +31,7 @@ dependencies:
   flutter_rating_bar: ^3.2.0+1
   curved_bottom_navigation: ^1.0.0
   provider: ^5.0.0
-  dio: ^4.0.0
+  cached_network_image: ^3.0.0
   flutter_swiper: ^1.1.6
   badges: ^1.2.0
   http: ^0.13.1

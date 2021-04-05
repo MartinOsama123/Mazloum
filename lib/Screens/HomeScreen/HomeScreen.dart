@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:vendors/Data.dart';
@@ -32,9 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Swiper(
             itemBuilder: (BuildContext context, int index) {
               return ClipRRect(borderRadius: BorderRadius.circular(10.0),
-                  child: Image.network(
-                    "https://mazloum.genesiscreations.co/core/img/${snapshot.data.products[index].productImages[0]}",
-                    fit: BoxFit.fill,));
+                  child:
+              CachedNetworkImage(
+                imageUrl: "https://mazloum.genesiscreations.co/core/img/${snapshot.data.products[index].productImages[0]}",
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              fit: BoxFit.fill,),);
             },
             itemCount: snapshot.data.products.length,
             itemWidth: 400.0,

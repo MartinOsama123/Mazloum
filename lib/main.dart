@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:curved_bottom_navigation/curved_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,14 +76,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('MAZLOUM',style: TextStyle(fontSize: 35),),
         centerTitle: true,
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.shopping_cart),
-            tooltip: 'Show Snackbar',
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar')));
-            },
-          ),
+            Badge(
+              position: BadgePosition.topEnd(top: 5, end: 4),
+              badgeColor: Colors.blue,
+              badgeContent: Text(
+                '3',
+                style: TextStyle(color: Colors.white),
+              ),
+              child: IconButton(icon: Icon(Icons.shopping_cart), color: Colors.white,onPressed: (){},),
+            ),
         ],
       ),
       body: Stack(

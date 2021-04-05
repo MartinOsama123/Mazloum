@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 500,
             child: Swiper(
               itemBuilder: (BuildContext context,int index){
-                return  ClipRRect( borderRadius: BorderRadius.circular(8.0),child: Image.network("https://mazloum.genesiscreations.co/core/img/RemoteImages/images/0860110009.jpg",fit: BoxFit.fill,));
+                return  ClipRRect( borderRadius: BorderRadius.circular(10.0),child: Image.network("https://mazloum.genesiscreations.co/core/img/RemoteImages/images/0860110009.jpg",fit: BoxFit.fill,));
               },
               itemCount: 3,
               itemWidth: 400.0,

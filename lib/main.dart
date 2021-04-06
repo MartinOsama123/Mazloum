@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: AppColor.PrimaryColor,
         accentColor: AppColor.AccentColor,
-        backgroundColor: Colors.white12,
+        backgroundColor: AppColor.OffWhiteColor,
         fontFamily: 'Montserrat',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
@@ -89,20 +89,24 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Stack(
         children: [
-          IndexedStack(
-            index: navPos,
-            children: [
-              HomeScreen(),
-              Text("Two"),
-              Text("Three"),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding),
+            child: IndexedStack(
+              index: navPos,
+              children: [
+                HomeScreen(),
+                Text("Two"),
+                Text("Three"),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.bottomCenter,
             child: CurvedBottomNavigation(
-              bgColor: Colors.white,
-              fabBgColor: Colors.white,
 
+              navHeight: 50,
+              bgColor: Colors.white,
+              fabBgColor: Colors.white,fabSize: 50,
               selected: navPos,
               onItemClick: (i) {
                 setState(() {

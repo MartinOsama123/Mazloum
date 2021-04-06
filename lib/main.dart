@@ -101,7 +101,8 @@ class _MyHomePageState extends State<MyHomePage> {
             alignment: Alignment.bottomCenter,
             child: CurvedBottomNavigation(
               bgColor: Colors.white,
-              fabBgColor: AppColor.PrimaryColor,
+              fabBgColor: Colors.white,
+
               selected: navPos,
               onItemClick: (i) {
                 setState(() {
@@ -111,10 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
               items: [
 
 
-                Icon(Icons.add_shopping_cart, color: navPos != 0 ? AppColor.PrimaryColor : Colors.white),
-                Icon(Icons.home, color: navPos != 1 ? AppColor.PrimaryColor : Colors.white),
-              //  Icon(Icons.category, color: navPos != 2 ? AppColor.PrimaryColor : Colors.white),
-                Icon(Icons.person, color: navPos != 3 ? AppColor.PrimaryColor : Colors.white),
+                Icon(Icons.add_shopping_cart, color: navPos == 0 ? AppColor.PrimaryColor : Colors.grey),
+                Icon(Icons.home, color: navPos == 1 ? AppColor.PrimaryColor : Colors.grey),
+              //  Icon(Icons.category, color: navPos == 2 ? AppColor.PrimaryColor : Colors.white),
+                Icon(Icons.person, color: navPos == 2 ? AppColor.PrimaryColor : Colors.grey),
               ],
             ),
           ),

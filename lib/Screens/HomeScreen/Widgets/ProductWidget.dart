@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:vendors/AppColor.dart';
 
 import 'package:vendors/Models/ProductModel.dart';
+import 'package:vendors/Screens/DetailedScreen.dart';
 class ProductWidget extends StatelessWidget {
   final Products productsModel;
 
@@ -16,22 +17,27 @@ class ProductWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          width: 150,
-          height: 150,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: CachedNetworkImage(
-                  imageUrl:
-                  "https://mazloum.genesiscreations.co/core/img/${productsModel.productImages[0]}",
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                          child: CircularProgressIndicator(
-                            value: downloadProgress.progress,
-                            backgroundColor: Colors.red,
-                          )),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  fit: BoxFit.fill)),
+        GestureDetector(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => DetailedScreen(product: productsModel,)));
+          },
+          child: Container(
+            width: 150,
+            height: 150,
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: CachedNetworkImage(
+                    imageUrl:
+                    "https://mazloum.genesiscreations.co/core/img/${productsModel.productImages[0]}",
+                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                        Center(
+                            child: CircularProgressIndicator(
+                              value: downloadProgress.progress,
+                              backgroundColor: Colors.red,
+                            )),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    fit: BoxFit.fill)),
+          ),
         ),
         Spacer(),
         Align(

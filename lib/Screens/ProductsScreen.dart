@@ -45,12 +45,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
     @override
   Widget build(BuildContext context) {
    return Scaffold(
-     body:   PagedListView<int, Products>(
-         pagingController: _pagingController,
-         builderDelegate: PagedChildBuilderDelegate<Products>(
-           itemBuilder: (context, item, index) => GridViewWidget(length: _pagingController.itemList.length,products: _pagingController.itemList)
+     body:   RefreshIndicator(
+       onRefresh: () => Future.sync(
+             () => _pagingController.refresh(),
+       ),
+       child: PagedListView<int, Products>(
+           pagingController: _pagingController,
+           builderDelegate: PagedChildBuilderDelegate<Products>(
+             itemBuilder: (context, item, index) => GridViewWidget(length: _pagingController.itemList.length,products: _pagingController.itemList)
+           ),
          ),
-       )
+     )
 
    );
   }

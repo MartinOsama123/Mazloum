@@ -22,6 +22,20 @@ import 'package:http/http.dart' as http;
     print("Finsihed");
     return productModel;
   }
+  static Future<List<Products>> getProductsList({int page=1}) async{
+    ProductModel  productModel;
+
+    var response = await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS&page=$page"));
+    if (response != null && response.statusCode == 200) {
+      try {
+        productModel = ProductModel.fromJson(jsonDecode(response.body));
+      }catch(e){
+        print(e.toString());
+      }
+    }
+    print("Finsihed");
+    return productModel.products;
+  }
   //  ProductModel getProducts() {
   //    return fetchProducts();
   //   notifyListeners();

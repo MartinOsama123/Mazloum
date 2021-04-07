@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Data.dart';
 import 'package:vendors/Models/ProductModel.dart';
-import 'package:vendors/Screens/Widgets/ProductWidget.dart';
+
+import '../GridViewWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -73,27 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         if (snapshot.connectionState == ConnectionState.done) {
 
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            child: Container(
-                              child: GridView.count(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 20.0,
-                                mainAxisSpacing: 20.0,
-                                childAspectRatio: 0.7,
-                                shrinkWrap: true,
-                                physics: BouncingScrollPhysics(),
-                                children: List.generate(
-                                  snapshot.data.products.length,
-                                      (index) {
-                                    return ProductWidget(
-                                      productsModel: snapshot.data
-                                          .products[index], key: null,);
-                                  },
-                                ),
-                              ),
-                            ),
-                          );
+                          return GridViewWidget(length: snapshot.data.products.length,products: snapshot.data.products,);
                         } else if(snapshot.connectionState == ConnectionState.waiting){
                           return Center(child: CircularProgressIndicator());
                         }else {
@@ -108,5 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ));
   }
 }
+
+
 
 

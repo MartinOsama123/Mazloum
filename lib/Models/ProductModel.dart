@@ -212,4 +212,18 @@ class Specifications {
   }
 }
 
+class Productss {
+  List<Products> listProducts = [];
+
+
+  Productss(this.listProducts);
+
+  Productss.fromJson(Map<String, dynamic> json) {
+    List<Products> prices = json['products'];
+    for (var price in prices) {
+      listProducts.add(price);
+    }
+  }
+}
+
 

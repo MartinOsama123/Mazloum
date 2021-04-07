@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Screens/HomeScreen/HomeScreen.dart';
+import 'package:vendors/Screens/ProductsScreen.dart';
 
 import 'AppColor.dart';
 
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
               index: navPos,
               children: [
                 HomeScreen(),
-                Text("Two"),
+                ProductsScreen(),
                 Text("Three"),
               ],
             ),

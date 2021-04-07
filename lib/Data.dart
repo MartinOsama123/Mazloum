@@ -1,13 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:vendors/Models/ProductModel.dart';
 import 'package:http/http.dart' as http;
 
 
-  class Data  {
+  class Data  with ChangeNotifier{
   static const IP_ADDRESS = "https://mazloum.genesiscreations.co/core/core.php";
   static const PRODUCTS = "products";
-  static Future<ProductModel> getProducts() async{
+   static Future<ProductModel> getProducts() async{
     ProductModel  productModel;
 
     var response = await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS"));
@@ -21,5 +22,9 @@ import 'package:http/http.dart' as http;
     print("Finsihed");
     return productModel;
   }
+  //  ProductModel getProducts() {
+  //    return fetchProducts();
+  //   notifyListeners();
+  // }
 
 }

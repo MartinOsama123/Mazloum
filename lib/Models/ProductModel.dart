@@ -12,15 +12,15 @@ class ProductModel {
 
   ProductModel(
       {this.status,
-        this.products,
-        this.totalProducts,
-        this.totalPages,
-        this.colors,
-        this.materials,
-        this.brands,
-        this.dimensions,
-        this.lowestPrice,
-        this.highestPrice});
+      this.products,
+      this.totalProducts,
+      this.totalPages,
+      this.colors,
+      this.materials,
+      this.brands,
+      this.dimensions,
+      this.lowestPrice,
+      this.highestPrice});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -107,22 +107,25 @@ class Products {
 
   Products(
       {this.productId,
-        this.productNameEn,
-        this.productCategoryId,
-        this.productCategoryNameEn,
-        this.productCategoryNameAr,
-        this.productPrice,
-        this.productImages,
-        this.productBrandId,
-        this.productBrandNameEn,
-        this.productBrandNameAr,
-        this.isWishlisted,
-        this.isAvailable,
-        this.specifications,
-        this.relatedProducts,
-        this.numberInUnit,
-        this.tilesInUnit,
-        this.productDiscount});
+      this.productNameEn,
+      this.productCategoryId,
+      this.productCategoryNameEn,
+      this.productCategoryNameAr,
+      this.productPrice,
+      this.productImages,
+      this.productBrandId,
+      this.productBrandNameEn,
+      this.productBrandNameAr,
+      this.isWishlisted,
+      this.isAvailable,
+      this.specifications,
+      this.relatedProducts,
+      this.numberInUnit,
+      this.tilesInUnit,
+      this.productDiscount});
+  String get productImage {
+    return "https://mazloum.genesiscreations.co/core/img/${productImages[0]}";
+  }
 
   Products.fromJson(Map<String, dynamic> json) {
     productId = json['product_id'];
@@ -185,11 +188,11 @@ class Specifications {
 
   Specifications(
       {this.specId,
-        this.specNameEn,
-        this.specNameAr,
-        this.valueId,
-        this.valueNameEn,
-        this.valueNameAr});
+      this.specNameEn,
+      this.specNameAr,
+      this.valueId,
+      this.valueNameEn,
+      this.valueNameAr});
 
   Specifications.fromJson(Map<String, dynamic> json) {
     specId = json['spec_id'];
@@ -215,7 +218,6 @@ class Specifications {
 class Productss {
   List<Products> listProducts = [];
 
-
   Productss(this.listProducts);
 
   Productss.fromJson(Map<String, dynamic> json) {
@@ -225,5 +227,3 @@ class Productss {
     }
   }
 }
-
-

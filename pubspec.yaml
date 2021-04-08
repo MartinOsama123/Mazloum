@@ -36,6 +36,7 @@ dependencies:
   badges: ^1.2.0
   http: ^0.13.1
   infinite_scroll_pagination: ^3.0.1
+  shared_preferences: ^2.0.5
 
 dev_dependencies:
   flutter_test:

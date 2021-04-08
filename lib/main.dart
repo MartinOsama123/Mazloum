@@ -1,21 +1,32 @@
+import 'dart:convert';
+
 import 'package:badges/badges.dart';
 import 'package:curved_bottom_navigation/curved_bottom_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Screens/HomeScreen/HomeScreen.dart';
 import 'package:vendors/Screens/ProductsScreen.dart';
 
 import 'AppColor.dart';
-
-
+import 'Models/CartModel.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  SharedPreferences prefs;
+  Map userMap;
+  Cart user;
+  Future<void> initState() async {
+    prefs = await SharedPreferences.getInstance();
+    userMap = jsonDecode(prefs.getString('user'));
+    user = Cart.fromJson(userMap) ?? Cart();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,9 +41,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => MyHomePage(),
+        '/': (context) => ChangeNotifierProvider.value(
+            value: user ?? Cart(), child: MyHomePage()),
         // When navigating to the "/second" route, build the SecondScreen widget.
-
       },
     );
   }
@@ -40,8 +51,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-
 
   final String title;
 
@@ -70,9 +79,10 @@ class _MyHomePageState extends State<MyHomePage> {
         shape: ContinuousRectangleBorder(
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.circular(50.0),
-          ),),
+          ),
+        ),
         toolbarHeight: 70,
-        leading:    IconButton(
+        leading: IconButton(
           icon: const Icon(Icons.search),
           tooltip: 'Show Snackbar',
           onPressed: () {
@@ -80,24 +90,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SnackBar(content: Text('This is a snackbar')));
           },
         ),
-        title: const Text('MAZLOUM',style: TextStyle(fontSize: 35),),
+        title: const Text(
+          'MAZLOUM',
+          style: TextStyle(fontSize: 35),
+        ),
         centerTitle: true,
         actions: <Widget>[
-            Badge(
-              position: BadgePosition.topEnd(end: 0,top: 0),
+          Consumer<Cart>(builder: (context, value, child) {
+            child:
+            return Badge(
+              position: BadgePosition.topEnd(end: 0, top: 0),
               badgeColor: Colors.blue,
               badgeContent: Text(
-                '3',
+                '${value.getCartModel?.length ?? 0}',
                 style: TextStyle(color: Colors.white),
               ),
-              child: IconButton(icon: Icon(Icons.shopping_cart), color: Colors.white,onPressed: (){},),
-            ),
+              child: IconButton(
+                icon: Icon(Icons.shopping_cart),
+                color: Colors.white,
+                onPressed: () {},
+              ),
+            );
+          }),
         ],
       ),
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: AppColor.HorizontalPadding),
+            padding: const EdgeInsets.symmetric(
+                horizontal: AppColor.HorizontalPadding),
             child: IndexedStack(
               index: navPos,
               children: [
@@ -110,10 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Align(
             alignment: Alignment.bottomCenter,
             child: CurvedBottomNavigation(
-
               navHeight: 50,
               bgColor: Colors.white,
-              fabBgColor: Colors.white,fabSize: 50,
+              fabBgColor: Colors.white,
+              fabSize: 50,
               selected: navPos,
               onItemClick: (i) {
                 setState(() {
@@ -121,12 +142,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               items: [
-
-
-                Icon(Icons.add_shopping_cart, color: navPos == 0 ? AppColor.PrimaryColor : Colors.grey),
-                Icon(Icons.home, color: navPos == 1 ? AppColor.PrimaryColor : Colors.grey),
-              //  Icon(Icons.category, color: navPos == 2 ? AppColor.PrimaryColor : Colors.white),
-                Icon(Icons.person, color: navPos == 2 ? AppColor.PrimaryColor : Colors.grey),
+                Icon(Icons.add_shopping_cart,
+                    color: navPos == 0 ? AppColor.PrimaryColor : Colors.grey),
+                Icon(Icons.home,
+                    color: navPos == 1 ? AppColor.PrimaryColor : Colors.grey),
+                //  Icon(Icons.category, color: navPos == 2 ? AppColor.PrimaryColor : Colors.white),
+                Icon(Icons.person,
+                    color: navPos == 2 ? AppColor.PrimaryColor : Colors.grey),
               ],
             ),
           ),
@@ -135,4 +157,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-

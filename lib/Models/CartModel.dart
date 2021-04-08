@@ -8,14 +8,22 @@ class CartModel {
   Products product;
   int quantity;
   CartModel({this.product, this.quantity});
+  Map<String, dynamic> toJson() => {
+        'product': product,
+        'quantity': quantity,
+      };
+  factory CartModel.fromJson(Map<String, dynamic> parsedJson) {
+    return new CartModel(
+        product: parsedJson['product'], quantity: parsedJson['quantity']);
+  }
 }
 
 class Cart with ChangeNotifier {
-  List<CartModel> cartModel;
+  List<CartModel> cartModel = <CartModel>[];
   Cart({this.cartModel});
 
   factory Cart.fromJson(Map<String, dynamic> parsedJson) {
-    return new Cart(cartModel: parsedJson['name'] ?? <CartModel>[]);
+    return new Cart(cartModel: parsedJson['name']);
   }
 
   Map<String, dynamic> toJson() {
@@ -23,7 +31,7 @@ class Cart with ChangeNotifier {
   }
 
   Future<void> setCartModel(CartModel value) async {
-    print("VALUEEEEEE: ${value.product.productNameEn} ${value.quantity}");
+    // print("VALUEEEEEE: ${value.product.productNameEn} ${value.quantity}");
     if (cartModel == null) {
       cartModel = <CartModel>[];
     }
@@ -40,9 +48,10 @@ class Cart with ChangeNotifier {
     }
     SharedPreferences sharedUser = await SharedPreferences.getInstance();
 
-    print(this.toJson());
-    String user = jsonEncode(this.toJson());
+    cartModel.forEach((element) => print(element.product.productNameEn));
+    String user = jsonEncode(cartModel);
     sharedUser.setString('user', user);
+    print("get Sring: ${sharedUser.getString('user')}");
     notifyListeners();
   }
 

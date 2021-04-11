@@ -48,12 +48,21 @@ class Cart with ChangeNotifier {
               (element) => element.product.productId == value.product.productId)
           .quantity += 1;
     }
+    await encodingFunction();
+    notifyListeners();
+  }
+
+  void removeCart(int index) async {
+    cartModel.removeAt(index);
+    await encodingFunction();
+    notifyListeners();
+  }
+
+  Future<void> encodingFunction() async {
     SharedPreferences sharedUser = await SharedPreferences.getInstance();
 
-    cartModel.forEach((element) => print(element.product.productNameEn));
     String user = jsonEncode(Cart(cartModel: cartModel).toJson());
     sharedUser.setString('cart', user);
-    notifyListeners();
   }
 
   List<CartModel> get getCartModel => cartModel;

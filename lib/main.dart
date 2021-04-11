@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/AppColor.dart';
+import 'package:vendors/Screens/CartScreen.dart';
 import 'package:vendors/Screens/HomeScreen/HomeScreen.dart';
 import 'package:vendors/Screens/ProductsScreen.dart';
 
@@ -130,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   HomeScreen(),
                   ProductsScreen(),
-                  Text("Three"),
+                  CartScreen(),
                 ],
               ),
             ),

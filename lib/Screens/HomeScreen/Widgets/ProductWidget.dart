@@ -29,23 +29,7 @@ class ProductWidget extends StatelessWidget {
                           product: productsModel,
                         )));
           },
-          child: Container(
-            width: 150,
-            height: 150,
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: CachedNetworkImage(
-                    imageUrl:
-                        "https://mazloum.genesiscreations.co/core/img/${productsModel.productImages[0]}",
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) => Center(
-                                child: CircularProgressIndicator(
-                              value: downloadProgress.progress,
-                              backgroundColor: Colors.red,
-                            )),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
-                    fit: BoxFit.fill)),
-          ),
+          child: ImageView(productsModel: productsModel),
         ),
         Spacer(),
         Align(
@@ -82,5 +66,37 @@ class ProductWidget extends StatelessWidget {
         Spacer()
       ],
     );
+  }
+}
+
+class ImageView extends StatelessWidget {
+  final width;
+  final height;
+  const ImageView({
+    Key key,
+    @required this.productsModel,
+    this.width = 150.0,
+    this.height = 150.0,
+  }) : super(key: key);
+
+  final Products productsModel;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(15.0),
+        child: CachedNetworkImage(
+            width: this.width,
+            height: this.width,
+            imageUrl:
+                "https://mazloum.genesiscreations.co/core/img/${productsModel.productImages[0]}",
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                Center(
+                    child: CircularProgressIndicator(
+                  value: downloadProgress.progress,
+                  backgroundColor: Colors.red,
+                )),
+            errorWidget: (context, url, error) => Icon(Icons.error),
+            fit: BoxFit.fill));
   }
 }

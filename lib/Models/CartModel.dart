@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/Models/ProductModel.dart';
 
-class CartModel {
+class CartModel with ChangeNotifier {
   Products product;
   int quantity;
   CartModel({this.product, this.quantity});
@@ -16,11 +16,19 @@ class CartModel {
     product = Products.fromJson(parsedJson['product']);
     quantity = parsedJson['quantity'];
   }
+  void setQuantity(int quantity) {
+    if (quantity > 0) this.quantity = quantity;
+    notifyListeners();
+  }
 }
 
 class Cart with ChangeNotifier {
   List<CartModel> cartModel;
-  Cart({this.cartModel});
+  SharedPreferences sharedUser;
+
+  Cart({this.cartModel}) {
+    sharedPref();
+  }
   Cart.fromJson(Map<String, dynamic> parsedJson) {
     if (parsedJson['cart'] != null) {
       cartModel = <CartModel>[];
@@ -32,7 +40,7 @@ class Cart with ChangeNotifier {
 
   Map<String, dynamic> toJson() => {"cart": cartModel};
 
-  Future<void> setCartModel(CartModel value) async {
+  void setCartModel(CartModel value) {
     // print("VALUEEEEEE: ${value.product.productNameEn} ${value.quantity}");
     if (cartModel == null) {
       cartModel = <CartModel>[];
@@ -48,21 +56,31 @@ class Cart with ChangeNotifier {
               (element) => element.product.productId == value.product.productId)
           .quantity += 1;
     }
-    await encodingFunction();
-    notifyListeners();
+    encodingFunction();
   }
 
-  void removeCart(int index) async {
+  void removeCart(int index) {
     cartModel.removeAt(index);
-    await encodingFunction();
+    encodingFunction();
+  }
+
+  void removeAllCart() {
+    cartModel.clear();
+    encodingFunction();
+  }
+
+  Future<void> sharedPref() async {
+    sharedUser = await SharedPreferences.getInstance();
+    cartModel =
+        Cart.fromJson(jsonDecode(sharedUser.getString("cart"))).cartModel;
+    print(cartModel.length);
     notifyListeners();
   }
 
-  Future<void> encodingFunction() async {
-    SharedPreferences sharedUser = await SharedPreferences.getInstance();
-
+  void encodingFunction() {
     String user = jsonEncode(Cart(cartModel: cartModel).toJson());
     sharedUser.setString('cart', user);
+    notifyListeners();
   }
 
   List<CartModel> get getCartModel => cartModel;

@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> getPrefs() async {
     prefs = await SharedPreferences.getInstance();
 
-    user = Cart.fromJson(jsonDecode(prefs.getString('user')));
+    user = Cart.fromJson(jsonDecode(prefs.getString("cart")));
   }
 
   @override

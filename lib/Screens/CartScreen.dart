@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vendors/AppColor.dart';
 import 'package:vendors/Models/CartModel.dart';
 import 'package:vendors/Screens/HomeScreen/Widgets/ProductWidget.dart';
 
@@ -20,64 +21,95 @@ class CartScreen extends StatelessWidget {
                 onPressed: () => value.removeAllCart())
           ],
         ),
-        body: ListView.builder(
-          itemBuilder: (context, index) => Dismissible(
-            key: Key(value.cartModel[index].product.productId),
-            direction: DismissDirection.endToStart,
-            onDismissed: (direction) {
-              value.removeCart(index);
-            },
-            background: Container(
-                color: Colors.red,
-                child: Align(
-                    alignment: Alignment.centerRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Icon(
-                        Icons.delete_forever,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ))),
-            child: ListTile(
-              leading: ImageView(
-                productsModel: value.cartModel[index].product,
-                width: 130.0,
-                height: 200.0,
-              ),
-              title: Column(
-                children: [
-                  Text(
-                    value.cartModel[index].product.productNameEn,
-                    overflow: TextOverflow.ellipsis,
+        body: Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: (context, index) => Dismissible(
+                  key: Key(value.cartModel[index].product.productId),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (direction) {
+                    value.removeCart(index);
+                  },
+                  background: Container(
+                      color: Colors.red,
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Icon(
+                              Icons.delete_forever,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                          ))),
+                  child: ListTile(
+                    leading: ImageView(
+                      productsModel: value.cartModel[index].product,
+                      width: 130.0,
+                      height: 200.0,
+                    ),
+                    title: Column(
+                      children: [
+                        Text(
+                          value.cartModel[index].product.productNameEn,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                                icon: Icon(Icons.remove),
+                                onPressed: () {
+                                  value.decrement(index);
+                                }),
+                            Text(value.cartModel[index].quantity.toString()),
+                            IconButton(
+                                icon: Icon(Icons.add),
+                                onPressed: () {
+                                  value.increment(index);
+                                })
+                          ],
+                        )
+                      ],
+                    ),
+                    isThreeLine: true,
+                    subtitle: PriceText(
+                      price: value.cartModel[index].product.productPrice,
+                    ),
                   ),
-                  Row(
-                    children: [
-                      IconButton(
-                          icon: Icon(Icons.remove),
-                          onPressed: () {
-                            if (value.cartModel[index].quantity-- > 0)
-                              value.cartModel[index]
-                                  .setQuantity(value.cartModel[index].quantity);
-                            else
-                              value.removeCart(index);
-                          }),
-                      Text(value.cartModel[index].quantity.toString()),
-                      IconButton(
-                          icon: Icon(Icons.add),
-                          onPressed: () {
-                            value.cartModel[index].quantity++;
-                          })
-                    ],
-                  )
+                ),
+                itemCount: value.cartModel.length,
+              ),
+            ),
+            Divider(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 34),
+              child: Row(
+                children: [
+                  const Text("Total"),
+                  Spacer(),
+                  PriceText(
+                      price: value.cartModel
+                          .map((e) => e.product.productPrice * e.quantity)
+                          .reduce((value, element) => value + element))
                 ],
               ),
-              isThreeLine: true,
-              subtitle:
-                  Text(value.cartModel[index].product.productPrice.toString()),
             ),
-          ),
-          itemCount: value.cartModel.length,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 20),
+              child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  child: RaisedButton(
+                    color: AppColor.PrimaryColor,
+                    onPressed: () {},
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text("Checkout"),
+                  )),
+            )
+          ],
         ),
       ),
     );

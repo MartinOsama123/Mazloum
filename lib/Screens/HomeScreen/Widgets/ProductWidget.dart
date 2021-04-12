@@ -41,13 +41,7 @@ class ProductWidget extends StatelessWidget {
             )),
         Row(
           children: [
-            Text(
-              "${productsModel.productPrice} L.E",
-              style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: AppColor.PrimaryColor),
-            ),
+            PriceText(price: productsModel.productPrice),
             Spacer(),
             Consumer<Cart>(builder: (context, value, child) {
               return IconButton(
@@ -65,6 +59,26 @@ class ProductWidget extends StatelessWidget {
         ),
         Spacer()
       ],
+    );
+  }
+}
+
+class PriceText extends StatelessWidget {
+  const PriceText({
+    Key key,
+    @required this.price,
+  }) : super(key: key);
+
+  final price;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "$price L.E",
+      style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+          color: AppColor.PrimaryColor),
     );
   }
 }

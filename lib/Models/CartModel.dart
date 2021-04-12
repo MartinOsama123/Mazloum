@@ -68,6 +68,17 @@ class Cart with ChangeNotifier {
     cartModel.clear();
     encodingFunction();
   }
+  void increment(int i){
+    cartModel[i].quantity += 1;
+    encodingFunction();
+    notifyListeners();
+  }
+  void decrement(int i){
+    cartModel[i].quantity -= 1;
+    if(cartModel[i].quantity <= 0) removeCart(i);
+    encodingFunction();
+    notifyListeners();
+  }
 
   Future<void> sharedPref() async {
     sharedUser = await SharedPreferences.getInstance();

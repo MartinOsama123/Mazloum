@@ -90,6 +90,7 @@ class CartScreen extends StatelessWidget {
                   const Text("Total"),
                   Spacer(),
                   PriceText(
+                    size: 16,
                       price: value.cartModel
                           .map((e) => e.product.productPrice * e.quantity)
                           .reduce((value, element) => value + element))
@@ -106,7 +107,7 @@ class CartScreen extends StatelessWidget {
                     onPressed: () {},
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    child: Text("Checkout"),
+                    child: Text("Checkout",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16),),
                   )),
             )
           ],

@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Screens/CartScreen.dart';
-import 'package:vendors/Screens/HomeScreen/HomeScreen.dart';
+import 'file:///F:/mazloum-flutter/lib/Screens/HomeScreen.dart';
 import 'package:vendors/Screens/ProductsScreen.dart';
 
 import 'AppColor.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           // When navigating to the "/" route, build the FirstScreen widget.
-          '/': (context) => MyHomePage(),
+          '/': (context) => ProductsScreen(),
           // When navigating to the "/second" route, build the SecondScreen widget.
         },
       ),
@@ -75,48 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        shape: ContinuousRectangleBorder(
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(50.0),
-          ),
-        ),
-        toolbarHeight: 70,
-        leading: IconButton(
-          icon: const Icon(Icons.search),
-          tooltip: 'Show Snackbar',
-          onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('This is a snackbar')));
-          },
-        ),
-        title: const Text(
-          'MAZLOUM',
-          style: TextStyle(fontSize: 35),
-        ),
-        centerTitle: true,
-        actions: <Widget>[
-          Consumer<Cart>(builder: (context, value, child) {
-            child:
-            return Badge(
-              position: BadgePosition.topEnd(end: 0, top: 0),
-              badgeColor: Colors.blue,
-              badgeContent: Text(
-                '${value.getCartModel?.length ?? 0}',
-                style: TextStyle(color: Colors.white),
-              ),
-              child: IconButton(
-                icon: Icon(Icons.shopping_cart),
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CartScreen()));
-                },
-              ),
-            );
-          }),
-        ],
-      ),
+
       body: Stack(
         children: [
           Padding(

@@ -1,8 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:vendors/Models/ProductModel.dart';
-
-import 'HomeScreen/Widgets/ProductWidget.dart';
+import 'package:vendors/Widgets/ProductWidget.dart';
 
 class GridViewWidget extends StatelessWidget {
   final int length;

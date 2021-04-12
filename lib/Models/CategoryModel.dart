@@ -1,65 +1,68 @@
 class CategoryModel {
-  String _status;
-  List<Categories> _categories;
+  String status;
+  List<Categories> categories;
 
   CategoryModel({String status, List<Categories> categories}) {
-    this._status = status;
-    this._categories = categories;
+    this.status = status;
+    this.categories = categories;
   }
 
 
   CategoryModel.fromJson(Map<String, dynamic> json) {
-    _status = json['status'];
+    status = json['status'];
     if (json['categories'] != null) {
-      _categories = <Categories>[];
+      categories = <Categories>[];
       json['categories'].forEach((v) {
-        _categories.add(new Categories.fromJson(v));
+        categories.add(new Categories.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this._status;
-    if (this._categories != null) {
-      data['categories'] = this._categories.map((v) => v.toJson()).toList();
+    data['status'] = this.status;
+    if (this.categories != null) {
+      data['categories'] = this.categories.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class Categories {
-  int _categoryId;
-  String _categoryNameEn;
-  String _categoryNameAr;
-  int _parentCategoryId;
+  int categoryId;
+  String categoryNameEn;
+  String categoryNameAr;
+  int parentCategoryId;
+  String _image;
+
+  String get image => "https://mazloum.genesiscreations.co/core/img/categories/$categoryId.png";
 
   Categories(
       {int categoryId,
         String categoryNameEn,
         String categoryNameAr,
         int parentCategoryId}) {
-    this._categoryId = categoryId;
-    this._categoryNameEn = categoryNameEn;
-    this._categoryNameAr = categoryNameAr;
-    this._parentCategoryId = parentCategoryId;
+    this.categoryId = categoryId;
+    this.categoryNameEn = categoryNameEn;
+    this.categoryNameAr = categoryNameAr;
+    this.parentCategoryId = parentCategoryId;
   }
 
 
 
   Categories.fromJson(Map<String, dynamic> json) {
-    _categoryId = json['category_id'];
-    _categoryNameEn = json['category_name_en'];
-    _categoryNameAr = json['category_name_ar'];
-    _parentCategoryId = json['parent_category_id'];
+    categoryId = json['category_id'];
+    categoryNameEn = json['category_name_en'];
+    categoryNameAr = json['category_name_ar'];
+    parentCategoryId = json['parent_category_id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['category_id'] = this._categoryId;
-    data['category_name_en'] = this._categoryNameEn;
-    data['category_name_ar'] = this._categoryNameAr;
-    data['parent_category_id'] = this._parentCategoryId;
+    data['category_id'] = this.categoryId;
+    data['category_name_en'] = this.categoryNameEn;
+    data['category_name_ar'] = this.categoryNameAr;
+    data['parent_category_id'] = this.parentCategoryId;
     return data;
   }
 }

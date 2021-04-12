@@ -3,7 +3,7 @@ import 'package:vendors/AppColor.dart';
 import 'package:vendors/Data.dart';
 import 'package:vendors/Models/ProductModel.dart';
 
-import '../GridViewWidget.dart';
+import '../Widgets/GridViewWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

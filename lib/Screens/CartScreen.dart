@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Models/CartModel.dart';
-import 'package:vendors/Screens/HomeScreen/Widgets/ProductWidget.dart';
+import 'package:vendors/Widgets/ImageView.dart';
+import 'package:vendors/Widgets/PriceText.dart';
+
 
 class CartScreen extends StatelessWidget {
   @override
@@ -10,13 +12,17 @@ class CartScreen extends StatelessWidget {
     return Consumer<Cart>(
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
           centerTitle: true,
-          title: const Text("My Cart"),
+          title: const Text("My Cart",style: TextStyle( color: AppColor.SecondColor,fontSize: 16),),
           leading: IconButton(
+            color: AppColor.SecondColor,
               icon: Icon(Icons.arrow_back),
               onPressed: () => Navigator.pop(context)),
           actions: [
             IconButton(
+                color: AppColor.SecondColor,
                 icon: Icon(Icons.delete),
                 onPressed: () => value.removeAllCart())
           ],
@@ -45,38 +51,46 @@ class CartScreen extends StatelessWidget {
                             ),
                           ))),
                   child: ListTile(
-                    leading: ImageView(
-                      productsModel: value.cartModel[index].product,
-                      width: 130.0,
-                      height: 200.0,
+
+                    leading:  ImageView(
+                        productsModel: value.cartModel[index].product,
+                      width: 100.0,
+                      ),
+
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 36,vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            value.cartModel[index].product.productNameEn,
+                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+
+                                  icon: Icon(Icons.remove),
+                                  onPressed: () {
+                                    value.decrement(index);
+                                  }),
+                              Text(value.cartModel[index].quantity.toString(),style: TextStyle(color: AppColor.PrimaryColor),),
+                              IconButton(
+                                  icon: Icon(Icons.add),
+                                  onPressed: () {
+                                    value.increment(index);
+                                  })
+                            ],
+                          ),
+                          PriceText(
+                            price: value.cartModel[index].product.productPrice,
+                          ),
+                        ],
+                      ),
                     ),
-                    title: Column(
-                      children: [
-                        Text(
-                          value.cartModel[index].product.productNameEn,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Row(
-                          children: [
-                            IconButton(
-                                icon: Icon(Icons.remove),
-                                onPressed: () {
-                                  value.decrement(index);
-                                }),
-                            Text(value.cartModel[index].quantity.toString()),
-                            IconButton(
-                                icon: Icon(Icons.add),
-                                onPressed: () {
-                                  value.increment(index);
-                                })
-                          ],
-                        )
-                      ],
-                    ),
-                    isThreeLine: true,
-                    subtitle: PriceText(
-                      price: value.cartModel[index].product.productPrice,
-                    ),
+
                   ),
                 ),
                 itemCount: value.cartModel.length,
@@ -87,7 +101,7 @@ class CartScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 34),
               child: Row(
                 children: [
-                  const Text("Total"),
+                  const Text("Total",style: TextStyle(color: AppColor.SecondColor,fontWeight: FontWeight.w600),),
                   Spacer(),
                   PriceText(
                     size: 16,
@@ -107,7 +121,7 @@ class CartScreen extends StatelessWidget {
                     onPressed: () {},
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    child: Text("Checkout",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16),),
+                    child: const Text("CHECKOUT",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 14),),
                   )),
             )
           ],

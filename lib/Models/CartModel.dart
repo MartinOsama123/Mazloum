@@ -6,20 +6,32 @@ import 'package:vendors/Models/ProductModel.dart';
 
 class CartModel with ChangeNotifier {
   Products product;
-  int quantity;
-  CartModel({this.product, this.quantity});
+  int count;
+  CartModel({this.product, this.count});
   Map<String, dynamic> toJson() => {
         'product': product,
-        'quantity': quantity,
+        'count': count,
       };
+
   CartModel.fromJson(Map<String, dynamic> parsedJson) {
     product = Products.fromJson(parsedJson['product']);
-    quantity = parsedJson['quantity'];
+    count = parsedJson['count'];
   }
   void setQuantity(int quantity) {
-    if (quantity > 0) this.quantity = quantity;
+    if (quantity > 0) this.count = quantity;
     notifyListeners();
   }
+}
+class SendCart {
+  var productId;
+  var count;
+
+  SendCart(this.productId, this.count);
+
+  Map<String, dynamic> toJson() => {
+    'product_id': productId,
+    'count': count,
+  };
 }
 
 class Cart with ChangeNotifier {
@@ -54,7 +66,7 @@ class Cart with ChangeNotifier {
       cartModel
           .firstWhere(
               (element) => element.product.productId == value.product.productId)
-          .quantity += 1;
+          .count += 1;
     }
     encodingFunction();
   }
@@ -69,13 +81,13 @@ class Cart with ChangeNotifier {
     encodingFunction();
   }
   void increment(int i){
-    cartModel[i].quantity += 1;
+    cartModel[i].count += 1;
     encodingFunction();
     notifyListeners();
   }
   void decrement(int i){
-    cartModel[i].quantity -= 1;
-    if(cartModel[i].quantity <= 0) removeCart(i);
+    cartModel[i].count -= 1;
+    if(cartModel[i].count <= 0) removeCart(i);
     encodingFunction();
     notifyListeners();
   }

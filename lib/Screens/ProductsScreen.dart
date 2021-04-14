@@ -35,7 +35,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final newItems = await Data.getProductsList(page: pageKey);
-      print(newItems);
+
       final isLastPage = newItems.length < 10;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);

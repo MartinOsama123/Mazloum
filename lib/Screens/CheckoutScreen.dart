@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:provider/provider.dart';
 import 'package:vendors/AppColor.dart';
+import 'package:vendors/Models/CartModel.dart';
 import 'package:vendors/Models/CreditCardModel.dart';
+import 'package:vendors/Models/GateModel.dart';
 import 'package:vendors/Models/ShippingAddressModel.dart';
 
 import '../Data.dart';
@@ -318,7 +323,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       keyboardType: TextInputType.number,
                       autocorrect: false,
                       onSaved: (String value) {
-                        cardModel.expireMonth = value;
+                        cardModel.expireYear = value;
                       },
                       maxLines: 1,
                       maxLength: 3,
@@ -345,7 +350,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               keyboardType: TextInputType.streetAddress,
               autocorrect: false,
               onSaved: (String value) {
-                addressModel.country = value;
+                cardModel.CVV = value;
               },
               maxLines: 1,
               maxLength: 4,
@@ -372,25 +377,28 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Container(
      
       height: 60,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: AppColor.PrimaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-        onPressed: () {
-          // Increment activeStep, when the next button is tapped. However, check for upper bound.
-          if (_activeStep < formKeys.length) {
-          if(formKeys[_activeStep].currentState.validate()) {
+      child: Consumer<Cart>(
+        builder: (context, value, child) => ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: AppColor.PrimaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+          onPressed: () {
 
-              formKeys[_activeStep].currentState.save();
-              print(addressModel.firstName);
-              setState(() {
-                _activeStep = _activeStep + 1;
-              });
+            if (_activeStep < formKeys.length) {
+            if(formKeys[_activeStep].currentState.validate()) {
+
+                formKeys[_activeStep].currentState.save();
+                print(addressModel.firstName);
+                setState(() {
+                  _activeStep = _activeStep + 1;
+                });
+              }
+            }else {
+              final temp = jsonEncode(value.cartModel.map((e) => SendCart(e.product.productId, e.count).toJson()).toList());
+              print("Afffffff: $temp");
+              Data.payment(cart: temp).then((value) => _payment(value));
             }
-          }else {
-            print("Entereeeed");
-            _payment();
-          }
-        },
-        child: Text('Next'),
+          },
+          child: Text('Next'),
+        ),
       ),
     );
   }
@@ -416,7 +424,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  void _payment() async {
+  void _payment(GateModel gateModel) async {
     var sendMap = <String, dynamic> {
       "firstName" : addressModel.firstName,
       "lastName" : addressModel.lastName,
@@ -428,8 +436,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       "cardName" : cardModel.cardName,
       "expireMonth" : cardModel.expireMonth,
       "expireYear" : cardModel.expireYear,
-      "CVV" : cardModel.CVV
+      "CVV" : cardModel.CVV,
+      "merchantID": gateModel.merchantID,
+      "sessionID": gateModel.sessionID,
+      "api": gateModel.apiVersion
     };
+
     var value;
     try {
       value = await Data.PLATFORM.invokeMethod("payment",sendMap);

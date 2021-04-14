@@ -77,7 +77,7 @@ class CartScreen extends StatelessWidget {
                                   onPressed: () {
                                     value.decrement(index);
                                   }),
-                              Text(value.cartModel[index].quantity.toString(),style: TextStyle(color: AppColor.PrimaryColor),),
+                              Text(value.cartModel[index].count.toString(),style: TextStyle(color: AppColor.PrimaryColor),),
                               IconButton(
 
                                   icon: Icon(Icons.add),
@@ -108,7 +108,7 @@ class CartScreen extends StatelessWidget {
                   PriceText(
                     size: 16,
                       price: value.cartModel
-                          .map((e) => e.product.productPrice * e.quantity)
+                          .map((e) => e.product.productPrice * e.count)
                           .reduce((value, element) => value + element))
                 ],
               ),

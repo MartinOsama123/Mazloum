@@ -70,7 +70,7 @@ class ProductWidget extends StatelessWidget {
                       iconSize: 18,
                       onPressed: () {
                         value.setCartModel(
-                            CartModel(product: productsModel, quantity: 1));
+                            CartModel(product: productsModel, count: 1));
                         print(value.getCartModel.length);
                       });
                 }),

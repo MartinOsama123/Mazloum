@@ -28,13 +28,49 @@ import MPGSDK
                         guard let args = call.arguments else { return }
                         
                         let myArgs = args as? [String: Any]
-                        let firstName = myArgs?["firstName"] as? String
+                        let group = DispatchGroup()
+                        var request = GatewayMap()
+                        request[at: "sourceOfFunds.provided.card.nameOnCard"] = myArgs?["cardName"] as? String
+                        request[at: "sourceOfFunds.provided.card.number"] = myArgs?["cardNumber"] as? String
+                        request[at: "sourceOfFunds.provided.card.securityCode"] = myArgs?["CVV"] as? String
+                        request[at: "sourceOfFunds.provided.card.expiry.month"] = myArgs?["expireMonth"] as? String
+                        request[at: "sourceOfFunds.provided.card.expiry.year"] = myArgs?["expireYear"] as? String
                         
-                        result("Swift = \(firstName)")
-                        
+                        let gateway = Gateway(region: GatewayRegion.asiaPacific, merchantId: myArgs?["merchantID"] as? String ?? "")
+                        var temp: String = "Error"
+                      
+                        gateway.updateSession(myArgs?["sessionID"] as? String ?? "", apiVersion: String(myArgs?["api"] as? String ?? "49"),payload: request) { (value) in
+                            switch value {
+                            case .success(let response):
+                                print("Success:")
+                                temp = "Success"
+                                print(myArgs?["sessionID"] as? String)
+                                print(myArgs?["merchantID"] as? String)
+                                print(myArgs?["api"] as? String)
+                                print(myArgs?["cardName"] as? String)
+                                print(myArgs?["cardNumber"] as? String)
+                                print(myArgs?["CVV"] as? String)
+                                print(myArgs?["expireMonth"] as? String)
+                                print(myArgs?["expireYear"] as? String)
+                               
+                            case .error(let error):
+                                print("Errorrr:")
+                                print(myArgs?["sessionID"] as? String)
+                                print(myArgs?["merchantID"] as? String)
+                                print(myArgs?["api"] as? String)
+                                print(myArgs?["cardName"] as? String)
+                                print(myArgs?["cardNumber"] as? String)
+                                print(myArgs?["CVV"] as? String)
+                                print(myArgs?["expireMonth"] as? String)
+                                print(myArgs?["expireYear"] as? String)
+                          
+                            }
+                            
+                        }
+                     
                      }
                      else {
-                  result(FlutterMethodNotImplemented)
+                        result(FlutterMethodNotImplemented)
                   return
                  }
              //  self?.receiveBatteryLevel(result: result)

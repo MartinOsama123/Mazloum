@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Screens/CartScreen.dart';
+import 'package:vendors/Screens/HomeScreen.dart';
 import 'Data.dart';
-import 'file:///F:/mazloum-flutter/lib/Screens/HomeScreen.dart';
 import 'package:vendors/Screens/ProductsScreen.dart';
 
 import 'AppColor.dart';

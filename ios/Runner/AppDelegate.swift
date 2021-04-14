@@ -25,6 +25,12 @@ import MPGSDK
                         }
                         controller.present(nav, animated: true, completion: nil)
                      } else if (call.method == "payment") {
+                        guard let args = call.arguments else { return }
+                        
+                        let myArgs = args as? [String: Any]
+                        let firstName = myArgs?["firstName"] as? String
+                        
+                        result("Swift = \(firstName)")
                         
                      }
                      else {

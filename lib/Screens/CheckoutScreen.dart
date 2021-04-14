@@ -376,16 +376,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         style: ElevatedButton.styleFrom(primary: AppColor.PrimaryColor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
         onPressed: () {
           // Increment activeStep, when the next button is tapped. However, check for upper bound.
+          if (_activeStep < formKeys.length) {
           if(formKeys[_activeStep].currentState.validate()) {
-            if (_activeStep < formKeys.length) {
+
               formKeys[_activeStep].currentState.save();
               print(addressModel.firstName);
               setState(() {
                 _activeStep = _activeStep + 1;
               });
-            } else {
-             _payment();
             }
+          }else {
+            print("Entereeeed");
+            _payment();
           }
         },
         child: Text('Next'),

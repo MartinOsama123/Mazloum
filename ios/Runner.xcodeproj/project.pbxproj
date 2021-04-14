@@ -13,12 +13,27 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		C931CA2D26270E4600BFE0FA /* MPGSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; };
+		C931CA382627147400BFE0FA /* MPGSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; };
+		C931CA392627147400BFE0FA /* MPGSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9F35051261B1D6000D34699 /* FocusNode in Frameworks */ = {isa = PBXBuildFile; productRef = C9F35050261B1D6000D34699 /* FocusNode */; };
 		C9F35053261B1F1300D34699 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F35052261B1F1300D34699 /* ViewController.swift */; };
 		C9F35055261B1F1900D34699 /* AR.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F35054261B1F1900D34699 /* AR.storyboard */; };
 		CE0809193314EF9B3774476B /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C931CA3A2627147400BFE0FA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				C931CA392627147400BFE0FA /* MPGSDK.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
@@ -50,7 +65,7 @@
 			files = (
 				C9F35051261B1D6000D34699 /* FocusNode in Frameworks */,
 				CE0809193314EF9B3774476B /* Pods_Runner.framework in Frameworks */,
-				C931CA2D26270E4600BFE0FA /* MPGSDK.xcframework in Frameworks */,
+				C931CA382627147400BFE0FA /* MPGSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +152,7 @@
 				97C146EC1CF9000F007C117D /* Resources */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				CE28769F432DAB1DC9942F74 /* [CP] Embed Pods Frameworks */,
+				C931CA3A2627147400BFE0FA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

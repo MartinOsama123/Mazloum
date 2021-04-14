@@ -13,24 +13,12 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
-		C9F35051261B1D6000D34699 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = C9F35050261B1D6000D34699 /* SwiftPackageProductDependency */; };
+		C931CA2D26270E4600BFE0FA /* MPGSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; };
+		C9F35051261B1D6000D34699 /* FocusNode in Frameworks */ = {isa = PBXBuildFile; productRef = C9F35050261B1D6000D34699 /* FocusNode */; };
 		C9F35053261B1F1300D34699 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F35052261B1F1300D34699 /* ViewController.swift */; };
 		C9F35055261B1F1900D34699 /* AR.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F35054261B1F1900D34699 /* AR.storyboard */; };
 		CE0809193314EF9B3774476B /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9705A1C41CF9048500538489 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
@@ -50,6 +38,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MPGSDK.xcframework; path = Carthage/Build/MPGSDK.xcframework; sourceTree = "<group>"; };
 		C9F35052261B1F1300D34699 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C9F35054261B1F1900D34699 /* AR.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AR.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -59,8 +48,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9F35051261B1D6000D34699 /* BuildFile in Frameworks */,
+				C9F35051261B1D6000D34699 /* FocusNode in Frameworks */,
 				CE0809193314EF9B3774476B /* Pods_Runner.framework in Frameworks */,
+				C931CA2D26270E4600BFE0FA /* MPGSDK.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +64,6 @@
 				51E2E296E2012B12C77E62F8 /* Pods-Runner.release.xcconfig */,
 				82ADF36F451A95D8DF1C934D /* Pods-Runner.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -128,6 +117,7 @@
 		C0B8995B7FFC017D558D2C3D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */,
 				C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */,
 			);
 			name = Frameworks;
@@ -145,7 +135,6 @@
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
 				97C146EC1CF9000F007C117D /* Resources */,
-				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				CE28769F432DAB1DC9942F74 /* [CP] Embed Pods Frameworks */,
 			);
@@ -155,7 +144,7 @@
 			);
 			name = Runner;
 			packageProductDependencies = (
-				C9F35050261B1D6000D34699 /* SwiftPackageProductDependency */,
+				C9F35050261B1D6000D34699 /* FocusNode */,
 			);
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
@@ -186,7 +175,7 @@
 			);
 			mainGroup = 97C146E51CF9000F007C117D;
 			packageReferences = (
-				C9F3504F261B1D6000D34699 /* RemoteSwiftPackageReference */,
+				C9F3504F261B1D6000D34699 /* XCRemoteSwiftPackageReference "ARKit-FocusNode" */,
 			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
@@ -592,7 +581,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		C9F3504F261B1D6000D34699 /* RemoteSwiftPackageReference */ = {
+		C9F3504F261B1D6000D34699 /* XCRemoteSwiftPackageReference "ARKit-FocusNode" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maxxfrazer/ARKit-FocusNode.git";
 			requirement = {
@@ -603,9 +592,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		C9F35050261B1D6000D34699 /* SwiftPackageProductDependency */ = {
+		C9F35050261B1D6000D34699 /* FocusNode */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C9F3504F261B1D6000D34699 /* RemoteSwiftPackageReference */;
+			package = C9F3504F261B1D6000D34699 /* XCRemoteSwiftPackageReference "ARKit-FocusNode" */;
 			productName = FocusNode;
 		};
 /* End XCSwiftPackageProductDependency section */

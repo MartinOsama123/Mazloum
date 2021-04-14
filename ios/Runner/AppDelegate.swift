@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import MPGSDK
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -16,13 +17,17 @@ import Flutter
                  
                  // Note: this method is invoked on the UI thread.
                      if (call.method == "printy"){
+                        
                         let sb = UIStoryboard(name: "AR", bundle: nil)
                         let nav = sb.instantiateViewController(withIdentifier: "AR")
                         if let vc = nav.children.first as? ViewController {
                           //  vc.bodyTitle = "AR BITCH"
                         }
                         controller.present(nav, animated: true, completion: nil)
-                    } else {
+                     } else if (call.method == "payment") {
+                        
+                     }
+                     else {
                   result(FlutterMethodNotImplemented)
                   return
                  }
@@ -31,8 +36,5 @@ import Flutter
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
-    private func openSecondPage(param: String) {
-      
-    }
 }
 

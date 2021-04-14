@@ -1,0 +1,28 @@
+{
+  "Mac" : [
+
+  ],
+  "watchOS" : [
+
+  ],
+  "tvOS" : [
+
+  ],
+  "commitish" : "1.1.5",
+  "iOS" : [
+    {
+      "swiftToolchainVersion" : "5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)",
+      "hash" : "cb06349b39e676355c88a4edc8f7e1fd3df87006aedeebcfb12e39bb604c8a8d",
+      "name" : "MPGSDK",
+      "container" : "MPGSDK.xcframework",
+      "identifier" : "ios-arm64_i386_x86_64-simulator"
+    },
+    {
+      "swiftToolchainVersion" : "5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)",
+      "hash" : "bf57a12bf5439b98b6f6d67257178791ee31eefa69c3e64a3293eb5fe2b7e140",
+      "name" : "MPGSDK",
+      "container" : "MPGSDK.xcframework",
+      "identifier" : "ios-arm64_armv7"
+    }
+  ]
+}

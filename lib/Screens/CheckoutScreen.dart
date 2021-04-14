@@ -4,6 +4,8 @@ import 'package:vendors/AppColor.dart';
 import 'package:vendors/Models/CreditCardModel.dart';
 import 'package:vendors/Models/ShippingAddressModel.dart';
 
+import '../Data.dart';
+
 class CheckoutScreen extends StatefulWidget {
   @override
   _CheckoutScreenState createState() => _CheckoutScreenState();
@@ -94,6 +96,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                   child: TextFormField(
                     keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
                     autocorrect: false,
                     onSaved: (String value) {
                        addressModel.firstName = value;
@@ -119,7 +122,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                     child: TextFormField(
-
+                      textInputAction: TextInputAction.next,
                         keyboardType: TextInputType.text,
                         autocorrect: false,
                         onSaved: (String value) {
@@ -151,6 +154,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
               autocorrect: false,
               onSaved: (String value) {
                 addressModel.street = value;
@@ -174,6 +178,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               autocorrect: false,
               onSaved: (String value) {
@@ -198,6 +203,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
+              textInputAction: TextInputAction.next,
               keyboardType: TextInputType.streetAddress,
               autocorrect: false,
               onSaved: (String value) {
@@ -378,7 +384,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 _activeStep = _activeStep + 1;
               });
             } else {
-              _activeStep = 0;
+             _payment();
             }
           }
         },
@@ -406,5 +412,28 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         padding: const EdgeInsets.all(0),
       ),
     );
+  }
+
+  void _payment() async {
+    var sendMap = <String, dynamic> {
+      "firstName" : addressModel.firstName,
+      "lastName" : addressModel.lastName,
+      "street" : addressModel.street,
+      "postCode" : addressModel.postCode,
+      "country" : addressModel.country,
+      "city" : "cairo",
+      "cardNumber" : cardModel.cardNumber,
+      "cardName" : cardModel.cardName,
+      "expireMonth" : cardModel.expireMonth,
+      "expireYear" : cardModel.expireYear,
+      "CVV" : cardModel.CVV
+    };
+    var value;
+    try {
+      value = await Data.PLATFORM.invokeMethod("payment",sendMap);
+    } catch (e) {
+      print(e.toString());
+    }
+    print(value);
   }
 }

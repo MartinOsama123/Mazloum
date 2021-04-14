@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Screens/CartScreen.dart';
+import 'Data.dart';
 import 'file:///F:/mazloum-flutter/lib/Screens/HomeScreen.dart';
 import 'package:vendors/Screens/ProductsScreen.dart';
 
@@ -59,13 +60,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static const platform = const MethodChannel("com.flutter.epic/epic");
+
   int navPos = 0;
 
   void _incrementCounter() async {
     var value;
     try {
-      value = await platform.invokeMethod("printy");
+      value = await Data.PLATFORM.invokeMethod("printy");
     } catch (e) {
       print(e.toString());
     }

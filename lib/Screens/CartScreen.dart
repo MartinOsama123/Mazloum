@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Models/CartModel.dart';
+import 'package:vendors/Screens/CheckoutScreen.dart';
 import 'package:vendors/Widgets/ImageView.dart';
 import 'package:vendors/Widgets/PriceText.dart';
 
@@ -78,6 +79,7 @@ class CartScreen extends StatelessWidget {
                                   }),
                               Text(value.cartModel[index].quantity.toString(),style: TextStyle(color: AppColor.PrimaryColor),),
                               IconButton(
+
                                   icon: Icon(Icons.add),
                                   onPressed: () {
                                     value.increment(index);
@@ -118,7 +120,10 @@ class CartScreen extends StatelessWidget {
                   height: 60,
                   child: RaisedButton(
                     color: AppColor.PrimaryColor,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => CheckoutScreen()));
+                    },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     child: const Text("CHECKOUT",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 14),),

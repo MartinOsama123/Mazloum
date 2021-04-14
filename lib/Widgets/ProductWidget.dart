@@ -24,7 +24,13 @@ class ProductWidget extends StatelessWidget {
     return Container(
       height: 250,
       width: 200,
-      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15),boxShadow:[
+        BoxShadow(
+          color: Color(0xFFBEBEBE),
+          blurRadius: 6,
+          offset: Offset(0, 3),
+        ),
+      ]),
       child: Padding(
         padding: const EdgeInsets.all(11.0),
         child: Column(

@@ -8,8 +8,8 @@ class ImageView extends StatelessWidget {
   const ImageView({
     Key key,
     @required this.productsModel,
-    this.width = 150.0,
-    this.height = 150.0,
+    this.width = 100.0,
+    this.height = 100.0,
   }) : super(key: key);
 
   final Products productsModel;
@@ -28,6 +28,7 @@ class ImageView extends StatelessWidget {
                     child: CircularProgressIndicator(
                       value: downloadProgress.progress,
                       backgroundColor: Colors.red,
+                      
                     )),
             errorWidget: (context, url, error) => Icon(Icons.error),
             fit: BoxFit.fill));

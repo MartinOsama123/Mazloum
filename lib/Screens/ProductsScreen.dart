@@ -69,7 +69,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
             Consumer<Cart>(builder: (context, value, child) {
               child:
               return Badge(
-                position: BadgePosition.topEnd(end: 0, top: 0),
+                position: BadgePosition.topEnd(end: 5, top: 0),
                 badgeColor: AppColor.PrimaryColor,
                 badgeContent: Text(
                   '${value.getCartModel?.length ?? 0}',

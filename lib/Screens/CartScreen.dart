@@ -95,7 +95,7 @@ class CartScreen extends StatelessWidget {
 
                   ),
                 ),
-                itemCount: value.cartModel.length,
+                itemCount: value.cartModel.length ?? 0,
               ),
             ),
             Divider(),
@@ -107,9 +107,9 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   PriceText(
                     size: 16,
-                      price: value.cartModel
+                      price: value.cartModel.isNotEmpty ? value.cartModel
                           .map((e) => e.product.productPrice * e.count)
-                          .reduce((value, element) => value + element))
+                          .reduce((value, element) => value + element) : 0)
                 ],
               ),
             ),

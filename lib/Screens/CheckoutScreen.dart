@@ -82,7 +82,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ? addressStep()
                   : _activeStep == 1
                       ? cardStep()
-                      : addressStep(),
+                      : summaryStep(),
             )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -404,6 +404,81 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
+  Widget summaryStep() {
+    return   Consumer<Cart>(
+      builder: (context, value, child) =>SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10)),
+          child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 75,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(5),color: AppColor.PrimaryColor.withOpacity(0.10),),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: const Text(
+                        "Details",
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: AppColor.PrimaryColor),
+                      ),
+                    ),
+                  ),
+                ),
+               Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: const Text("Products",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
+                    ),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(
+                                  "${value.cartModel[index].count}X ${value.cartModel[index].product.productNameEn}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14)),
+                            subtitle: Text("${value.cartModel[index].product.productPrice} L.E",style: TextStyle(color: AppColor.PrimaryColor,fontWeight: FontWeight.w600,fontSize: 14)),);
+                          },
+                          itemCount: value.cartModel.length,
+                        ),
+
+                    Divider(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Total",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 14)),
+                          Text("${value.cartModel.map((e) => e.count * e.product.productPrice).reduce((value, element) => value + element)}",style: TextStyle(color: AppColor.PrimaryColor,fontWeight: FontWeight.bold,fontSize: 20))
+                        ],
+                      ),
+                    ),
+                    Divider(),
+                    const Text("Your Data",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16)),
+                    ListTile(leading: Icon(Icons.location_on,color: AppColor.SecondColor),title: const Text("Address",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 12)),subtitle: Text("${addressModel.street},${addressModel.country},${addressModel.city}",style: TextStyle(color: AppColor.SecondColor,fontWeight: FontWeight.w600,fontSize: 13)),),
+                    ListTile(leading: Icon(Icons.credit_card,color: AppColor.SecondColor),title: const Text("Name",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 12)),subtitle: Text("${cardModel.cardName}",style: TextStyle(color: AppColor.SecondColor,fontWeight: FontWeight.w600,fontSize: 13)),),
+                    ListTile(leading: SizedBox(),title: const Text("Number",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 12)),subtitle: Text("${cardModel.cardNumber}",style: TextStyle(color: AppColor.SecondColor,fontWeight: FontWeight.w600,fontSize: 13))),
+                    ListTile(leading: SizedBox(),title: const Text("Exp Date",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 12)),subtitle: Text("${cardModel.expireMonth}/${cardModel.expireYear}",style: TextStyle(color: AppColor.SecondColor,fontWeight: FontWeight.w600,fontSize: 13))),
+                    ListTile(leading: SizedBox(),title: const Text("CVV",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 12)),subtitle: Text("${cardModel.CVV}",style: TextStyle(color: AppColor.SecondColor,fontWeight: FontWeight.w600,fontSize: 13))),
+                  ],
+    ),
+                ),
+            
+            ],
+          ),
+        ),
+      ));
+
+  }
+
   /// Returns the next button.
   Widget nextButton() {
     return Container(
@@ -411,7 +486,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       child: Consumer<Cart>(
         builder: (context, value, child) => ElevatedButton(
           style: ElevatedButton.styleFrom(
-              primary: AppColor.PrimaryColor,
+              primary: _activeStep  != 2 ? AppColor.PrimaryColor : Colors.green,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),
           onPressed: () {
@@ -431,7 +506,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               Data.payment(cart: temp).then((value) => _payment(value));
             }
           },
-          child: Text('Next'),
+          child: Text(_activeStep  != 2 ? "NEXT" : "DONE"),
         ),
       ),
     );

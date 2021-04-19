@@ -13,7 +13,7 @@ import MPGSDK
                                                  binaryMessenger: controller.binaryMessenger)
       
                  batteryChannel.setMethodCallHandler({
-                 [weak self] (call: FlutterMethodCall, result: FlutterResult) -> Void in
+                 [weak self] (call: FlutterMethodCall, result:  FlutterResult) -> Void in
                  
                  // Note: this method is invoked on the UI thread.
                      if (call.method == "printy"){
@@ -38,7 +38,7 @@ import MPGSDK
                         
                         let gateway = Gateway(region: GatewayRegion.asiaPacific, merchantId: myArgs?["merchantID"] as? String ?? "")
                         var temp: String = "Error"
-                      
+                        group.enter()
                         gateway.updateSession(myArgs?["sessionID"] as? String ?? "", apiVersion: String(myArgs?["api"] as? String ?? "49"),payload: request) { (value) in
                             switch value {
                             case .success(let response):
@@ -52,7 +52,8 @@ import MPGSDK
                                 print(myArgs?["CVV"] as? String)
                                 print(myArgs?["expireMonth"] as? String)
                                 print(myArgs?["expireYear"] as? String)
-                               
+                                group.leave()
+                            
                             case .error(let error):
                                 print("Errorrr:")
                                 print(myArgs?["sessionID"] as? String)
@@ -63,10 +64,15 @@ import MPGSDK
                                 print(myArgs?["CVV"] as? String)
                                 print(myArgs?["expireMonth"] as? String)
                                 print(myArgs?["expireYear"] as? String)
-                          
+                                group.leave()
                             }
+                        
                             
                         }
+                        group.wait()
+                            result(temp)
+                        
+                       
                      
                      }
                      else {

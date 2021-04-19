@@ -26,7 +26,7 @@ class ProductWidget extends StatelessWidget {
       width: 200,
       decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15),boxShadow:[
         BoxShadow(
-          color: Color(0xFFBEBEBE),
+          color: AppColor.ShadowColor,
           blurRadius: 6,
           offset: Offset(0, 3),
         ),

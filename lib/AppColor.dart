@@ -4,7 +4,7 @@ class AppColor {
   static const PrimaryColor = Color(0xFFe1131b);
   static const SecondColor = Color(0xFF555555);
   static const AccentColor = Color(0xFF60c33c);
-  static const YellowColor = Color(0xFF60c33c);
+  static const ShadowColor = Color(0xFF46000005);
   static const SilverColor = Color(0xFF989494);
   static const OffWhiteColor = Color(0xFFFBFBFB);
   static const SupplierPrimaryColor = Color(0xFFe56760);

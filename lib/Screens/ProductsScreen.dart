@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:vendors/Models/CartModel.dart';
 import 'package:vendors/Models/CategoryModel.dart';
 import 'package:vendors/Models/ProductModel.dart';
+import 'package:vendors/Screens/SearchScreen.dart';
 import 'package:vendors/Widgets/ImageView.dart';
 import 'package:vendors/Widgets/ProductWidget.dart';
 
@@ -55,8 +56,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           elevation: 0,
           backgroundColor: Colors.transparent,
           leading: IconButton(
-            icon: const Icon(Icons.search),
-            tooltip: 'Show Snackbar',
+            icon: const Icon(Icons.person),
             color: AppColor.SecondColor,
             onPressed: () {},
           ),
@@ -66,6 +66,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ),
           centerTitle: true,
           actions: <Widget>[
+        IconButton(
+        icon: const Icon(Icons.search),
+      color: AppColor.SecondColor,
+      onPressed: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => SearchScreen()))),
             Consumer<Cart>(builder: (context, value, child) {
               child:
               return Badge(
@@ -180,7 +185,7 @@ class CategoryView extends StatelessWidget {
           Container(width: 56,height: 56,
               decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),boxShadow:[
                 BoxShadow(
-                  color: Color(0xFF46000014),
+                  color: AppColor.ShadowColor,
                   blurRadius: 6,
                   offset: Offset(0, 3),
                 ),

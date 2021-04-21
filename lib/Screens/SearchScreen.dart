@@ -39,10 +39,9 @@ class _SearchScreenState extends State<SearchScreen> {
         _pagingController.itemList = [];
       }
       previousSearch = searchQuery;
-      final newItems = [];
-   //   await Data.searchMovies(query: searchQuery, page: pageKey);
+      final newItems = await Data.getProductsList(query: "&search=$searchQuery", page: pageKey);
 
-      final isLastPage = newItems.length < 20;
+      final isLastPage = newItems.length < 12;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
       } else {
@@ -138,7 +137,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         borderRadius:
                                         BorderRadius.circular(10),
                                         child: CachedNetworkImage(
-                                            imageUrl: item.productImages[0],
+                                            imageUrl: item.productImage,
                                             progressIndicatorBuilder: (context,
                                                 url,
                                                 downloadProgress) =>
@@ -162,12 +161,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ),
                                     title: Text(item.productNameEn,
                                         style:
-                                        TextStyle(color: Colors.black)),
-                                    trailing: IconButton(
-                                      icon:
-                                      Icon(Icons.arrow_forward_rounded),
-                                      onPressed: () {},
-                                    ),
+                                        TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.w600)),
+                                    subtitle: Text("${item.productPrice} L.E",style: TextStyle(fontSize: 13,fontWeight: FontWeight.bold,color: AppColor.PrimaryColor),),
+
                                   ),
                                 ),
                               ),

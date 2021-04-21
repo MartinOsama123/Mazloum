@@ -27,7 +27,7 @@ class ProductWidget extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(15),boxShadow:[
         BoxShadow(
           color: AppColor.ShadowColor,
-          blurRadius: 6,
+          blurRadius:  5,
           offset: Offset(0, 3),
         ),
       ]),
@@ -57,7 +57,7 @@ class ProductWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                PriceText(price: productsModel.productPrice),
+                PriceText(price: productsModel.productPrice,discount: productsModel.productDiscount,),
                 Spacer(),
                 SizedBox(width: 18,child: IconButton(icon: Icon(Icons.favorite_border), onPressed: (){},color: AppColor.SecondColor,iconSize: 18,)),
                 Consumer<Cart>(builder: (context, value, child) {

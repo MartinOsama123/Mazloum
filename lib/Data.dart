@@ -42,11 +42,11 @@ class Data with ChangeNotifier {
     return categoryModel;
   }
 
-  static Future<List<Products>> getProductsList({int page = 1}) async {
+  static Future<List<Products>> getProductsList({int page = 1,String query = ""}) async {
     ProductModel productModel;
 
     var response =
-        await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS&page=$page"));
+        await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS&page=$page$query"));
     if (response != null && response.statusCode == 200) {
       try {
         productModel = ProductModel.fromJson(jsonDecode(response.body));
@@ -54,7 +54,7 @@ class Data with ChangeNotifier {
         print(e.toString());
       }
     }
-
+    print("$IP_ADDRESS?q=$PRODUCTS&page=$page$query");
     return productModel.products;
   }
   static Future<GateModel> payment({String cart}) async {

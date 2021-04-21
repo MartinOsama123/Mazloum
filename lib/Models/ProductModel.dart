@@ -179,12 +179,12 @@ class Products {
 }
 
 class Specifications {
-  int specId;
-  String specNameEn;
-  String specNameAr;
-  int valueId;
-  String valueNameEn;
-  String valueNameAr;
+  var specId;
+  var specNameEn;
+  var specNameAr;
+  var valueId;
+  var valueNameEn;
+  var valueNameAr;
 
   Specifications(
       {this.specId,

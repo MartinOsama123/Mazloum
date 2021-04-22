@@ -136,7 +136,7 @@ print("entereeeed");
                             filterModel = FilterModel();
 
                           });
-                          _pagingController.refresh();
+                       _pagingController.refresh();
                           Navigator.pop(context,true);
 
                         }, child: Text("Apply")),
@@ -153,7 +153,7 @@ print("entereeeed");
             padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 10),
             child: Column(
               children: [
-                if (searchQuery.isNotEmpty)
+
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
@@ -215,8 +215,7 @@ print("entereeeed");
                       ),
                     ),
                   )
-                else
-                  Container()
+
               ],
             ),
           ),

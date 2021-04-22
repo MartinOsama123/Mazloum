@@ -1,12 +1,14 @@
-class ProductModel {
+import 'package:flutter/material.dart';
+
+class ProductModel with ChangeNotifier {
   var status;
   List<Products> products;
   var totalProducts;
   var totalPages;
-  List<Specifications> colors;
-  List<Specifications> materials;
-  List<Specifications> brands;
-  List<Specifications> dimensions;
+  List<SpecificationsAll> colors;
+  List<SpecificationsAll> materials;
+  List<SpecificationsAll> brands;
+  List<SpecificationsAll> dimensions;
   var lowestPrice;
   var highestPrice;
 
@@ -33,27 +35,27 @@ class ProductModel {
     totalProducts = json['total_products'];
     totalPages = json['total_pages'];
     if (json['colors'] != null) {
-      colors = <Specifications>[];
+      colors = <SpecificationsAll>[];
       json['colors'].forEach((v) {
-        colors.add(new Specifications.fromJson(v));
+        colors.add(new SpecificationsAll.fromJson(v));
       });
     }
     if (json['materials'] != null) {
-      materials = <Specifications>[];
+      materials = <SpecificationsAll>[];
       json['materials'].forEach((v) {
-        materials.add(new Specifications.fromJson(v));
+        materials.add(new SpecificationsAll.fromJson(v));
       });
     }
     if (json['brands'] != null) {
-      brands = <Specifications>[];
+      brands = <SpecificationsAll>[];
       json['brands'].forEach((v) {
-        brands.add(new Specifications.fromJson(v));
+        brands.add(new SpecificationsAll.fromJson(v));
       });
     }
     if (json['dimensions'] != null) {
-      dimensions = <Specifications>[];
+      dimensions = <SpecificationsAll>[];
       json['dimensions'].forEach((v) {
-        dimensions.add(new Specifications.fromJson(v));
+        dimensions.add(new SpecificationsAll.fromJson(v));
       });
     }
     lowestPrice = json['lowest_price'];
@@ -212,5 +214,35 @@ class Specifications {
     data['value_name_en'] = this.valueNameEn;
     data['value_name_ar'] = this.valueNameAr;
     return data;
+  }
+}
+class SpecificationsAll with ChangeNotifier {
+  var id;
+  var nameEn;
+  var nameAr;
+
+  var selected = false;
+
+  SpecificationsAll(
+      {this.id,
+        this.nameEn,
+        this.nameAr});
+
+  SpecificationsAll.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    nameEn = json['name_en'];
+    nameAr = json['name_ar'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name_en'] = this.nameEn;
+    data['name_ar'] = this.nameAr;
+    return data;
+  }
+  void setSelected(bool b){
+    selected = b;
+    notifyListeners();
   }
 }

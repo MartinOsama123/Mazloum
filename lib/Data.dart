@@ -13,10 +13,10 @@ class Data with ChangeNotifier {
   static const CATEGORY = "categories";
   static const PAYMENT = "payment";
   static const PLATFORM = const MethodChannel("com.flutter.epic/epic");
-  static Future<ProductModel> getProducts() async {
+  static Future<ProductModel> getProducts({String query = ""}) async {
     ProductModel productModel;
 
-    var response = await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS"));
+    var response = await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS$query"));
     if (response != null && response.statusCode == 200) {
       try {
         productModel = ProductModel.fromJson(jsonDecode(response.body));
@@ -24,7 +24,7 @@ class Data with ChangeNotifier {
         print(e.toString());
       }
     }
-
+    print("$IP_ADDRESS?q=$PRODUCTS$query");
     return productModel;
   }
   static Future<CategoryModel> getCategory() async {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -18,9 +19,10 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchQueryController = TextEditingController();
-  String searchQuery = "", previousSearch = "",filterQuery="";
+  String searchQuery = "", previousSearch = "", filterQuery = "";
   bool _showClearButton = false;
   bool _isLoading = true;
+  List<bool> expandedList = [false, false, false, false];
   final PagingController<int, Products> _pagingController =
       PagingController(firstPageKey: 1);
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -31,7 +33,7 @@ class _SearchScreenState extends State<SearchScreen> {
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(searchQuery, pageKey);
     });
-  print("State entered");
+    print("State entered");
     _searchQueryController.addListener(() {
       setState(() {
         _showClearButton = _searchQueryController.text.length > 0;
@@ -48,8 +50,10 @@ class _SearchScreenState extends State<SearchScreen> {
       }
       previousSearch = searchQuery;
       final newItems = await Data.getProductsList(
-          query: "$filterQuery", page: pageKey);
-print("entereeeed");
+          query:
+              "${searchQuery.isNotEmpty ? "&search=$searchQuery" : ""}$filterQuery",
+          page: pageKey);
+      print("entereeeed");
       final isLastPage = newItems.length < 12;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
@@ -64,7 +68,7 @@ print("entereeeed");
 
   @override
   Widget build(BuildContext context) {
-    return  ChangeNotifierProvider<FilterModel>.value(
+    return ChangeNotifierProvider<FilterModel>.value(
       value: filterModel,
       child: Scaffold(
         key: _scaffoldKey,
@@ -89,63 +93,119 @@ print("entereeeed");
         ),
         endDrawer: Drawer(
           child: FutureBuilder<ProductModel>(
-            future: Data.getProducts(query: searchQuery),
-            builder: (context, snapshot) =>
-                snapshot.hasData ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 15),
-              child: ListView(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    children: <Widget>[
-                     FilterList(title: "Brands",productModel: snapshot.data.brands),
-                      FilterList(title: "Colors",productModel: snapshot.data.colors),
-                      FilterList(title: "Dimensions",productModel: snapshot.data.dimensions),
-                      FilterList(title: "Materials",productModel: snapshot.data.materials),
-                      Consumer<FilterModel>(
-                        builder: (context, value, child) =>  FlatButton(onPressed: () {
-                          filterQuery = "";
-                          setState(() {
-                            if(filterModel.brands != null && filterModel.brands.isNotEmpty){
-                              filterQuery="&brand=";
-                              filterQuery += filterModel.brands[0].toString();
-                              for(int i = 1; i<filterModel.brands.length; i++){
-                                filterQuery += "-${filterModel.brands[i]}";
-                              }
-                            }
-                            if(filterModel.colors != null && filterModel.colors.isNotEmpty){
-                              filterQuery="&colors=";
-                              filterQuery += filterModel.colors[0].toString();
-                              for(int i = 1; i<filterModel.colors.length; i++){
-                                filterQuery += "-${filterModel.colors[i]}";
-                              }
-                            }
-                            if(filterModel.dims != null && filterModel.dims.isNotEmpty){
-                              filterQuery="&dimensions=";
-                              filterQuery += filterModel.dims[0].toString();
-                              for(int i = 1; i<filterModel.dims.length; i++){
-                                filterQuery += "-${filterModel.dims[i]}";
-                              }
-                            }
-                            if(filterModel.mats != null && filterModel.mats.isNotEmpty){
-                              filterQuery="&materials=";
-                              filterQuery += filterModel.mats[0].toString();
-                              for(int i = 1; i<filterModel.mats.length; i++){
-                                filterQuery += "-${filterModel.mats[i]}";
-                              }
-                            }
+            future: Data.getProducts(query: searchQuery.isNotEmpty ? "&search=$searchQuery" : ""),
+            builder: (context, snapshot) => snapshot.hasData
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: ListView(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      children: <Widget>[
+                        ExpansionPanelList(
+                          animationDuration: Duration(milliseconds: 800),
+                          expansionCallback: (panelIndex, isExpanded) {setState(() {
+                            expandedList[panelIndex] = !isExpanded;
+                          });},
+                          children: [
+                            ExpansionPanel(
+                                headerBuilder: (context, isExpanded) =>
+                                    ListTile(
+                                      title: Text("Brands"),
+                                    ),
+                                body: FilterList(
+                                    title: "Brands",
+                                    productModel: snapshot.data.brands),isExpanded: expandedList[0]),
+                            ExpansionPanel(
+                                headerBuilder: (context, isExpanded) =>
+                                    ListTile(
+                                      title: Text("Colors"),
+                                    ),
+                                body: FilterList(
+                                    title: "Colors",
+                                    productModel: snapshot.data.colors),isExpanded: expandedList[1]),
+                            ExpansionPanel(
+                                headerBuilder: (context, isExpanded) =>
+                                    ListTile(
+                                      title: Text("Dimensions"),
+                                    ),
+                                body: FilterList(
+                                    title: "Dimensions",
+                                    productModel: snapshot.data.dimensions),isExpanded: expandedList[2]),
+                            ExpansionPanel(
+                                headerBuilder: (context, isExpanded) =>
+                                    ListTile(
+                                      title: Text("Materials"),
+                                    ),
+                                body: FilterList(
+                                    title: "Materials",
+                                    productModel: snapshot.data.materials),isExpanded: expandedList[3])
+                          ],
+                        ),
+                        Consumer<FilterModel>(
+                          builder: (context, value, child) =>
+                            FlatButton(
 
-                            filterModel = FilterModel();
+                                onPressed: () {
+                                  filterQuery = "";
+                                  setState(() {
+                                    if (filterModel.brands != null &&
+                                        filterModel.brands.isNotEmpty) {
+                                      filterQuery = "&brand=";
+                                      filterQuery +=
+                                          filterModel.brands[0].toString();
+                                      for (int i = 1;
+                                          i < filterModel.brands.length;
+                                          i++) {
+                                        filterQuery +=
+                                            "-${filterModel.brands[i]}";
+                                      }
+                                    }
+                                    if (filterModel.colors != null &&
+                                        filterModel.colors.isNotEmpty) {
+                                      filterQuery = "&colors=";
+                                      filterQuery +=
+                                          filterModel.colors[0].toString();
+                                      for (int i = 1;
+                                          i < filterModel.colors.length;
+                                          i++) {
+                                        filterQuery +=
+                                            "-${filterModel.colors[i]}";
+                                      }
+                                    }
+                                    if (filterModel.dims != null &&
+                                        filterModel.dims.isNotEmpty) {
+                                      filterQuery = "&dimensions=";
+                                      filterQuery +=
+                                          filterModel.dims[0].toString();
+                                      for (int i = 1;
+                                          i < filterModel.dims.length;
+                                          i++) {
+                                        filterQuery += "-${filterModel.dims[i]}";
+                                      }
+                                    }
+                                    if (filterModel.mats != null &&
+                                        filterModel.mats.isNotEmpty) {
+                                      filterQuery = "&materials=";
+                                      filterQuery +=
+                                          filterModel.mats[0].toString();
+                                      for (int i = 1;
+                                          i < filterModel.mats.length;
+                                          i++) {
+                                        filterQuery += "-${filterModel.mats[i]}";
+                                      }
+                                    }
 
-                          });
-                       _pagingController.refresh();
-                          Navigator.pop(context,true);
+                                    filterModel = FilterModel();
+                                  });
+                                  _pagingController.refresh();
+                                  Navigator.pop(context, true);
+                                },
+                                child: Text("Apply")),
 
-                        }, child: Text("Apply")),
-                      )
-                    ],
-                  ),
-
-
-            ) : CircularProgressIndicator(),
+                        )
+                      ],
+                    ),
+                  )
+                : CircularProgressIndicator(),
           ),
         ),
         body: SafeArea(
@@ -153,69 +213,75 @@ print("entereeeed");
             padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 10),
             child: Column(
               children: [
-
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
-                      child: Consumer<FilterModel>(
-                        builder: (context, value, child) => PagedListView<int, Products>(
-                          pagingController: _pagingController,
-                          shrinkWrap: true,
-                          physics: BouncingScrollPhysics(),
-                          builderDelegate: PagedChildBuilderDelegate<Products>(
-                              noItemsFoundIndicatorBuilder: (context) => Center(
-                                    child: _isLoading
-                                        ? CircularProgressIndicator()
-                                        : Text(
-                                            "No items found...",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 20),
-                                          ),
-                                  ),
-                              itemBuilder: (context, item, index) => Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: GestureDetector(
-                                          onTap: () {
-
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder:
-                                                        (BuildContext context) =>
-                                                        DetailedScreen(product: item)));
-                                          },
-                                          child: ListTile(
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+                    child: Consumer<FilterModel>(
+                      builder: (context, value, child) =>
+                          PagedListView<int, Products>(
+                        pagingController: _pagingController,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        builderDelegate: PagedChildBuilderDelegate<Products>(
+                            noItemsFoundIndicatorBuilder: (context) => Center(
+                                  child: _isLoading
+                                      ? CircularProgressIndicator()
+                                      : Text(
+                                          "No items found...",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 20),
+                                        ),
+                                ),
+                            itemBuilder: (context, item, index) => Column(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          DetailedScreen(
+                                                              product: item)));
+                                        },
+                                        child: ListTile(
                                             leading: Container(
                                               width: 100,
                                               height: 150,
                                               child: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
-                                                child: ImageView(productsModel: item),
+                                                child: ImageView(
+                                                    productsModel: item),
                                               ),
                                             ),
                                             title: Text(item.productNameEn,
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 12,
-                                                    fontWeight: FontWeight.w600)),
-                                            subtitle: Align(alignment:Alignment.centerLeft,child: PriceText(price: item.productPrice,discount: item.productDiscount,))
-                                          ),
-                                        ),
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                            subtitle: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: PriceText(
+                                                  price: item.productPrice,
+                                                  discount:
+                                                      item.productDiscount,
+                                                ))),
                                       ),
-                                      Divider(
-                                        color: Colors.grey,
-                                      )
-                                    ],
-                                  )),
-                        ),
+                                    ),
+                                    Divider(
+                                      color: Colors.grey,
+                                    )
+                                  ],
+                                )),
                       ),
                     ),
-                  )
-
+                  ),
+                )
               ],
             ),
           ),
@@ -280,8 +346,8 @@ print("entereeeed");
       icon: Icon(Icons.clear),
     );
   }
-
 }
+
 class FilterList extends StatefulWidget {
   final productModel;
   final String title;
@@ -294,49 +360,40 @@ class FilterList extends StatefulWidget {
 class _FilterListState extends State<FilterList> {
   @override
   Widget build(BuildContext context) {
-    return    Consumer<FilterModel>(
-      builder: (context, filter, child) =>  Container(
-        height: 200,
-        child: Column(
-          children: [
-            Container(
-
-              child: Text(widget.title),decoration: BoxDecoration(color: Colors.grey),),
-            Flexible(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: widget.productModel.length,
-                  itemBuilder: (context, index) {
-                    return CheckboxListTile(
-                        value: widget.productModel[index].selected,
-                        title: Text(widget.productModel[index].nameEn ?? ""),
-                        onChanged: (bool value) {
-
-                          widget.productModel[index].setSelected(value);
-                          if(widget.productModel[index].selected) {
-                            if(widget.title == "Brands"){
-                              filter.addBrand(widget.productModel[index].id);
-                            }
-                            else if(widget.title == "Colors"){
-                             filter.addColor(widget.productModel[index].id);
-                            }
-                            else if(widget.title == "Dimensions"){filter.addDim(widget.productModel[index].id);}
-                            else if(widget.title == "Materials"){filter.addMat(widget.productModel[index].id);}
-                          }else{
-                            if(widget.title == "Brands"){filter.removeBrand(widget.productModel[index].id);}
-                            else if(widget.title == "Colors"){filter.removeColor(widget.productModel[index].id);}
-                            else if(widget.title == "Dimensions"){filter.removeDim(widget.productModel[index].id);}
-                            else if(widget.title == "Materials"){filter.removeMat(widget.productModel[index].id);}
-                          }
-
-                        });}),
-            )
-          ],
-        ),
-      ),
+    return Consumer<FilterModel>(
+      builder: (context, filter, child) => ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: widget.productModel.length,
+          itemBuilder: (context, index) {
+            return CheckboxListTile(
+                value: widget.productModel[index].selected,
+                title: Text(widget.productModel[index].nameEn ?? ""),
+                onChanged: (bool value) {
+                  widget.productModel[index].setSelected(value);
+                  if (widget.productModel[index].selected) {
+                    if (widget.title == "Brands") {
+                      filter.addBrand(widget.productModel[index].id);
+                    } else if (widget.title == "Colors") {
+                      filter.addColor(widget.productModel[index].id);
+                    } else if (widget.title == "Dimensions") {
+                      filter.addDim(widget.productModel[index].id);
+                    } else if (widget.title == "Materials") {
+                      filter.addMat(widget.productModel[index].id);
+                    }
+                  } else {
+                    if (widget.title == "Brands") {
+                      filter.removeBrand(widget.productModel[index].id);
+                    } else if (widget.title == "Colors") {
+                      filter.removeColor(widget.productModel[index].id);
+                    } else if (widget.title == "Dimensions") {
+                      filter.removeDim(widget.productModel[index].id);
+                    } else if (widget.title == "Materials") {
+                      filter.removeMat(widget.productModel[index].id);
+                    }
+                  }
+                });
+          }),
     );
   }
 }
-
-
-

@@ -1,7 +1,9 @@
 import 'package:badges/badges.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:im_stepper/stepper.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'package:vendors/Models/CartModel.dart';
@@ -33,6 +35,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       _scrollPosition = _scrollController.position.pixels;
     });
   }
+
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) {
@@ -44,8 +47,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-   // print(_scrollPosition);
-    if(pageKey == 1) {
+    // print(_scrollPosition);
+    if (pageKey == 1) {
       try {
         final newItems = await Data.getProductsList(page: pageKey);
 
@@ -60,7 +63,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
         _pagingController.error = error;
       }
     }
-
   }
 
   @override
@@ -80,11 +82,11 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ),
           centerTitle: true,
           actions: <Widget>[
-        IconButton(
-        icon: const Icon(Icons.search),
-      color: AppColor.SecondColor,
-      onPressed: () => Navigator.push(context,
-          MaterialPageRoute(builder: (context) => SearchScreen()))),
+            IconButton(
+                icon: const Icon(Icons.search),
+                color: AppColor.SecondColor,
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SearchScreen()))),
             Consumer<Cart>(builder: (context, value, child) {
               child:
               return Badge(
@@ -110,75 +112,123 @@ class _ProductsScreenState extends State<ProductsScreen> {
           onRefresh: () => Future.sync(
             () => _pagingController.refresh(),
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 10, horizontal: AppColor.HorizontalPadding),
-            child: SingleChildScrollView(
-           //   controller: _scrollController,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                    child: Container(
-                      height: 100,
-                      child: Swiper(
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () {},
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: Image.network(
-                                "https://www.manilaonsale.com/wp-content/uploads/2019/11/National-Everything-On-Sale-2019-Poster-1920x812.jpg",
-                                fit: BoxFit.cover,
-                              ),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10, horizontal: AppColor.HorizontalPadding),
+                child: Scrollbar(
+                  showTrackOnHover: true,
+                  child: SingleChildScrollView(
+                    //   controller: _scrollController,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          child: Container(
+                            height: 100,
+                            child: Swiper(
+                              itemBuilder: (BuildContext context, int index) {
+                                return InkWell(
+                                  onTap: () {},
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      "https://www.manilaonsale.com/wp-content/uploads/2019/11/National-Everything-On-Sale-2019-Poster-1920x812.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                );
+                              },
+                              itemCount: titles.length,
+                              viewportFraction: 0.85,
+                              scale: 0.9,
                             ),
-                          );
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 5, 0, 12),
+                          child: Container(
+                            height: 90,
+                            child: FutureBuilder<CategoryModel>(
+                                future: Data.getCategory(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData)
+                                    return ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: 15,
+                                      itemBuilder: (context, index) =>
+                                          CategoryView(
+                                              category: snapshot
+                                                  .data.categories[index]),
+                                    );
+                                  else
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                }),
+                          ),
+                        ),
+                        Flexible(
+                          child: PagedGridView<int, Products>(
+                            pagingController: _pagingController,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    childAspectRatio: 0.7,
+                                    crossAxisCount:
+                                        MediaQuery.of(context).size.width ~/
+                                            150,
+                                    crossAxisSpacing: 20,
+                                    mainAxisSpacing: 20),
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            builderDelegate:
+                                PagedChildBuilderDelegate<Products>(
+                                    itemBuilder: (context, item, index) =>
+                                        ProductWidget(
+                                          productsModel: item,
+                                        )),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                  bottom: 10,
+                  child: Consumer<Cart>(
+                    builder: (context, value, child) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen(),));
                         },
-                        itemCount: titles.length,
-                        viewportFraction: 0.85,
-                        scale: 0.9,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadiusDirectional.circular(8)),
+                          width: MediaQuery.of(context).size.width * 0.95,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle, color: Colors.white),
+                                child: Text(
+                                    value.getCartModel?.length.toString() ?? "0"),
+                              ),
+
+                              Text("View Cart",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w400)),
+                              Text(value.getCartModel.isNotEmpty ? "${value.getCartModel.map((e) => e.product.productPrice * e.count).reduce((value, element) => value + element)} L.E" : "0",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.white),)
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 0, 12),
-                    child: Container(
-                      height: 90,
-                      child: FutureBuilder<CategoryModel>(
-                          future: Data.getCategory(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData)
-                              return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 15,
-                                itemBuilder: (context, index) => CategoryView(category: snapshot.data.categories[index]),
-                              );
-                            else
-                              return Center(child: CircularProgressIndicator());
-                          }),
-                    ),
-                  ),
-                  Flexible(
-                    child: PagedGridView<int, Products>(
-                      pagingController: _pagingController,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 0.7,
-                          crossAxisCount:
-                              MediaQuery.of(context).size.width ~/ 150,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20),
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      builderDelegate: PagedChildBuilderDelegate<Products>(
-                          itemBuilder: (context, item, index) => ProductWidget(
-                                productsModel: item,
-                              )),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                  ))
+            ],
           ),
         ));
   }
@@ -187,31 +237,46 @@ class _ProductsScreenState extends State<ProductsScreen> {
 class CategoryView extends StatelessWidget {
   final Categories category;
   const CategoryView({
-    Key key, this.category,
+    Key key,
+    this.category,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
       child: Column(
         children: [
-          Container(width: 56,height: 56,
-              decoration: BoxDecoration(color: Colors.white,borderRadius: BorderRadius.circular(10),boxShadow:[
-                BoxShadow(
-                  color: AppColor.ShadowColor,
-                  blurRadius: 6,
-                  offset: Offset(0, 3),
-                ),
-              ],),
+          Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.ShadowColor,
+                    blurRadius: 6,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Image.network(category.image,fit: BoxFit.fill),
+                child: Image.network(category.image, fit: BoxFit.fill),
               )),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
-            child: SizedBox(height: 15,child: Text(category.categoryNameEn,style: TextStyle(fontSize: 12,color: AppColor.SilverColor,fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis,)),
+            child: SizedBox(
+                height: 15,
+                child: Text(
+                  category.categoryNameEn,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: AppColor.SilverColor,
+                      fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                )),
           )
         ],
       ),

@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Models/ProductModel.dart';
+import 'package:vendors/Widgets/ImageView.dart';
+
+import '../Data.dart';
 
 class DetailedScreen extends StatelessWidget {
   final Products product;
@@ -28,16 +31,7 @@ class DetailedScreen extends StatelessWidget {
               children: [
                 Container(
                   height: 300,
-                  child: CachedNetworkImage(
-                      imageUrl: product.productImage,
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Center(
-                                  child: CircularProgressIndicator(
-                                value: downloadProgress.progress,
-                                backgroundColor: Colors.red,
-                              )),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      fit: BoxFit.fill),
+                  child: ImageView()
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -63,7 +57,7 @@ class DetailedScreen extends StatelessWidget {
                                   Icons.aspect_ratio_outlined,
                                   color: Colors.green,
                                 ),
-                                onPressed: () {}),
+                                onPressed: () => _ar()),
                             IconButton(
                                 icon: Icon(
                                   Icons.favorite_border,
@@ -134,6 +128,15 @@ class DetailedScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+  void _ar() async {
+    var value;
+    try {
+      value = await Data.PLATFORM.invokeMethod("printy");
+    } catch (e) {
+      print(e.toString());
+    }
+    print(value);
   }
 }
 

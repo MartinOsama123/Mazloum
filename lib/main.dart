@@ -63,15 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int navPos = 0;
 
-  void _incrementCounter() async {
-    var value;
-    try {
-      value = await Data.PLATFORM.invokeMethod("printy");
-    } catch (e) {
-      print(e.toString());
-    }
-    print(value);
-  }
+
 
   @override
   Widget build(BuildContext context) {

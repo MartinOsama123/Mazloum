@@ -143,7 +143,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         Consumer<FilterModel>(
                           builder: (context, value, child) =>
                             FlatButton(
-
                                 onPressed: () {
                                   filterQuery = "";
                                   setState(() {

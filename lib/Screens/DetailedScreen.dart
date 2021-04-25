@@ -31,7 +31,7 @@ class DetailedScreen extends StatelessWidget {
               children: [
                 Container(
                   height: 300,
-                  child: ImageView()
+                  child: ImageView(productsModel: product,)
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -130,15 +130,25 @@ class DetailedScreen extends StatelessWidget {
     );
   }
   void _ar() async {
+    List<String> temp = _parseDim();
+    var sendMap = <String, dynamic>{
+      "image": product.productImage ?? "",
+      "dimX": temp[0] ?? "0",
+      "dimY": temp[1] ?? "1",
+      "tilesUnit": product.tilesInUnit ?? 1.0
+    };
     var value;
     try {
-      value = await Data.PLATFORM.invokeMethod("printy");
+      value = await Data.PLATFORM.invokeMethod("printy",sendMap);
     } catch (e) {
       print(e.toString());
     }
     print(value);
   }
+  List<String> _parseDim() => product.specifications.firstWhere((element) => element.specId == 3).valueNameEn.toString().replaceAll(new RegExp(r'[^0-9]^(.*)'),'').split("*").toList();
+
 }
+
 
 class AddCartWidget extends StatefulWidget {
   const AddCartWidget({

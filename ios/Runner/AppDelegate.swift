@@ -17,12 +17,26 @@ import MPGSDK
                  
                  // Note: this method is invoked on the UI thread.
                      if (call.method == "printy"){
+                        guard let args = call.arguments else { return }
+                        
+                        let myArgs = args as? [String: Any]
                         
                         let sb = UIStoryboard(name: "AR", bundle: nil)
-                        let nav = sb.instantiateViewController(withIdentifier: "AR")
-                        if let vc = nav.children.first as? ViewController {
-                          //  vc.bodyTitle = "AR BITCH"
-                        }
+                        let nav = sb.instantiateViewController(withIdentifier: "AR") as! ViewController
+                        //self.controller?.showViewController(nav, sender: nil)
+//                        if let vc = nav.children.first as? ViewController {
+//                          //  vc.bodyTitle = "AR BITCH"
+//                        }
+                      
+                        nav.url = myArgs?["image"] as? String ?? ""
+                        var dims = [Float]( repeating: 0.0,count: 2)
+                        var x  = (myArgs?["dimX"] as? NSString ?? "1.0").floatValue
+                       var y = (myArgs?["dimY"] as? NSString ?? "1.0").floatValue
+                        dims[0]  = x
+                        dims[1] = y
+                        nav.dims = dims
+                        var unit = (myArgs?["tilesUnit"] as? NSString ?? "1.0").floatValue
+                        nav.tilesInUnit = unit
                         controller.present(nav, animated: true, completion: nil)
                      } else if (call.method == "payment") {
                         guard let args = call.arguments else { return }

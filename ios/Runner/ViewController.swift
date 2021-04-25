@@ -14,6 +14,7 @@ import SmartHitTest
 import SceneKit.ModelIO
 import SwiftUI
 import Combine
+import Flutter
 extension ARSCNView: ARSmartHitTest {}
 class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNViewDelegate {
     
@@ -37,7 +38,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     var coachingOverlay = ARCoachingOverlayView()
     var arrayOfPoint: [SCNVector3] = []
     var horiPressed = true
- 
+    var url: String = ""
     var customObjectsCount = 1;
     var customObjectsMaxCount = 5;
    // var tempURL: Product = Product(id: UUID(), product_id: "0", product_name_en: "", product_category_id: 0, product_category_name_en: "", product_category_name_ar: "", product_price: 0, product_images: [], product_details: "", is_wishlisted: "", is_available: "", specifications: [],tiles_in_unit: 0, offset: 0)
@@ -49,7 +50,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     //var cartItemsNumber = CartClass()
     var shapeNode = SCNNode()
     var dims = [Float]()
-    
+    var tilesInUnit: Float = 1.0
     var badgeCount: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,8 +204,12 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
        }
    
    
-//    @IBAction func allProductsPressed(_ sender: Any) {
-//        var cancellable: AnyCancellable!
+    @IBAction func allProductsPressed(_ sender: Any) {
+       // let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).flutterEngine
+//           let flutterViewController =
+//               ProductScreen(engine: flutterEngine, nibName: nil, bundle: nil)
+//           present(flutterViewController, animated: true, completion: nil)
+////        var cancellable: AnyCancellable!
 //        let delegate = ProductsDelegate()
 //        let bridge = ViewModel()
 //                let vc = UIHostingController(rootView: AddressScreen(delegate: delegate, vm: bridge))
@@ -225,7 +230,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
 //                    }
 //                }
 //                self.present(vc, animated: true, completion: nil)
-//    }
+    }
     
     
     @IBAction func cartPressed(_ sender: Any) {
@@ -423,24 +428,22 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
       path.addLine(to: CGPoint(x: CGFloat(self.arrayOfPoint[0].x), y: CGFloat(self.arrayOfPoint[0].z)))
         path.close()
         let totalArea = (abs(total) / 2.0)
-        //let tilesNeeded = ((totalArea * 100) / ( dims[0] * dims[1] )) * 100
-      //  let numberOfBox = Int(ceil(tilesNeeded / Float(tempURL.tiles_in_unit ?? 0)))
+        let tilesNeeded = ((totalArea * 100) / ( dims[0] * dims[1] )) * 100
+        let numberOfBox = Int(ceil(tilesNeeded / tilesInUnit))
         let shape = SCNShape(path: path, extrusionDepth: 0.001)
         
-     //   let url = URL(string: appendingStringImage(text: tempURL.product_images?[0] ?? ""))
-  
       
         shape.chamferRadius = 0.1
         let shapeNode = SCNNode(geometry: shape)
         var imageTemp: UIImage? = nil
      
-//       DispatchQueue.global().async {
-//            let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-//            DispatchQueue.main.async {
-//                imageTemp = UIImage(data: data!)
-//                shapeNode.geometry?.firstMaterial?.diffuse.contents = imageTemp
-//            }
-//        }
+       DispatchQueue.global().async {
+        let data = try? Data(contentsOf: URL(string: self.url)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+            DispatchQueue.main.async {
+                imageTemp = UIImage(data: data!)
+                shapeNode.geometry?.firstMaterial?.diffuse.contents = imageTemp
+            }
+        }
       //  shapeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "FloorTile")
         shapeNode.geometry?.firstMaterial?.diffuse.wrapS = SCNWrapMode.repeat
     
@@ -458,7 +461,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
         if(customObjectsCount < customObjectsMaxCount){
         customObjectsCount += 1
         }
-      //  showAlertController(areaDetails: totalArea, totalTiles: tilesNeeded, totalBoxes: numberOfBox)
+        showAlertController(areaDetails: totalArea, totalTiles: tilesNeeded, totalBoxes: numberOfBox)
     }
     func addLineBetween(start: SCNVector3, end: SCNVector3) {
         let lineGeometry = SCNGeometry.lineFrom(vector: start, toVector: end)

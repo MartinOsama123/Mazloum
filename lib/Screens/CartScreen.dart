@@ -34,7 +34,7 @@ class CartScreen extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: (context, index) => Dismissible(
-                  key: Key(value.cartModel[index].product.productId),
+                  key: Key(value.getCartModel[index].product.productId),
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
                     value.removeCart(index);
@@ -54,7 +54,7 @@ class CartScreen extends StatelessWidget {
                   child: ListTile(
 
                     leading:  ImageView(
-                        productsModel: value.cartModel[index].product,
+                        productsModel: value.getCartModel[index].product,
                       width: 100.0,
                       ),
 
@@ -65,7 +65,7 @@ class CartScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            value.cartModel[index].product.productNameEn,
+                            value.getCartModel[index].product.productNameEn,
                             style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -77,7 +77,7 @@ class CartScreen extends StatelessWidget {
                                   onPressed: () {
                                     value.decrement(index);
                                   }),
-                              Text(value.cartModel[index].count.toString(),style: TextStyle(color: AppColor.PrimaryColor),),
+                              Text(value.getCartModel[index].count.toString(),style: TextStyle(color: AppColor.PrimaryColor),),
                               IconButton(
 
                                   icon: Icon(Icons.add),
@@ -87,7 +87,7 @@ class CartScreen extends StatelessWidget {
                             ],
                           ),
                           PriceText(
-                            price: value.cartModel[index].product.productPrice,
+                            price: value.getCartModel[index].product.productPrice,
                           ),
                         ],
                       ),
@@ -95,7 +95,7 @@ class CartScreen extends StatelessWidget {
 
                   ),
                 ),
-                itemCount: value.cartModel.length ?? 0,
+                itemCount: value.getCartModel.length ?? 0,
               ),
             ),
             Divider(),
@@ -120,10 +120,10 @@ class CartScreen extends StatelessWidget {
                   height: 60,
                   child: RaisedButton(
                     color: AppColor.PrimaryColor,
-                    onPressed: () {
+                    onPressed: value.getCartModel.isNotEmpty ? () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => CheckoutScreen()));
-                    },
+                    }: null,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     child: const Text("CHECKOUT",style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600,fontSize: 14),),

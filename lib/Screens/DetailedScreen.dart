@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:vendors/AppColor.dart';
 import 'package:vendors/Models/CartModel.dart';
 import 'package:vendors/Models/ProductModel.dart';
+import 'package:vendors/Screens/CartScreen.dart';
 import 'package:vendors/Widgets/ImageView.dart';
 
 import '../Data.dart';
@@ -207,11 +208,17 @@ class _AddCartWidgetState extends State<AddCartWidget> {
                       content: Icon(Icons.check,color: Colors.green,size: 50,),
                       actions: <Widget>[
                         TextButton(
-                          child: Text('OK!'),
+                          child: Text('Checkout',style: TextStyle(color: AppColor.PrimaryColor),),
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()))
+                          ,
+                        ),
+                        TextButton(
+                          child: Text('Continue'),
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
                         ),
+
                       ],
                     );
                   },

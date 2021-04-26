@@ -30,13 +30,13 @@ import MPGSDK
                       
                         nav.url = myArgs?["image"] as? String ?? ""
                         var dims = [Float]( repeating: 0.0,count: 2)
-                        var x  = (myArgs?["dimX"] as? NSString ?? "1.0").floatValue
-                       var y = (myArgs?["dimY"] as? NSString ?? "1.0").floatValue
-                        dims[0]  = x
-                        dims[1] = y
+                        dims[0]  = (myArgs?["dimX"] as? NSString ?? "1.0").floatValue
+                        dims[1] = (myArgs?["dimY"] as? NSString ?? "1.0").floatValue
                         nav.dims = dims
-                        var unit = (myArgs?["tilesUnit"] as? NSString ?? "1.0").floatValue
-                        nav.tilesInUnit = unit
+                        
+                        nav.tilesInUnit = (myArgs?["tilesUnit"] as? NSString ?? "1.0").floatValue
+                        nav.productNameS = myArgs?["name"] as? String ?? ""
+                        nav.productBrandS = myArgs?["brand"] as? String ?? ""
                         controller.present(nav, animated: true, completion: nil)
                      } else if (call.method == "payment") {
                         guard let args = call.arguments else { return }
@@ -55,29 +55,15 @@ import MPGSDK
                         group.enter()
                         gateway.updateSession(myArgs?["sessionID"] as? String ?? "", apiVersion: String(myArgs?["api"] as? String ?? "49"),payload: request) { (value) in
                             switch value {
-                            case .success(let response):
-                                print("Success:")
+                            case .success(let _):
+                              
                                 temp = "Success"
-                                print(myArgs?["sessionID"] as? String)
-                                print(myArgs?["merchantID"] as? String)
-                                print(myArgs?["api"] as? String)
-                                print(myArgs?["cardName"] as? String)
-                                print(myArgs?["cardNumber"] as? String)
-                                print(myArgs?["CVV"] as? String)
-                                print(myArgs?["expireMonth"] as? String)
-                                print(myArgs?["expireYear"] as? String)
+                               
                                 group.leave()
                             
-                            case .error(let error):
+                            case .error(let _):
                                 print("Errorrr:")
-                                print(myArgs?["sessionID"] as? String)
-                                print(myArgs?["merchantID"] as? String)
-                                print(myArgs?["api"] as? String)
-                                print(myArgs?["cardName"] as? String)
-                                print(myArgs?["cardNumber"] as? String)
-                                print(myArgs?["CVV"] as? String)
-                                print(myArgs?["expireMonth"] as? String)
-                                print(myArgs?["expireYear"] as? String)
+                            
                                 group.leave()
                             }
                         

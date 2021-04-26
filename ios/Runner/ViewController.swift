@@ -19,6 +19,9 @@ extension ARSCNView: ARSmartHitTest {}
 class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNViewDelegate {
     
     
+    @IBOutlet weak var productBrand: UILabel!
+    @IBOutlet weak var productName: UILabel!
+    @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var plusButton: UIButton!
     @IBOutlet weak var horizontalButton: UIButton!
@@ -52,22 +55,35 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     var dims = [Float]()
     var tilesInUnit: Float = 1.0
     var badgeCount: UILabel!
+    var imageTemp: UIImage? = nil
+    var productNameS: String = ""
+    var productBrandS: String = ""
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        badgeCount = UILabel(frame: CGRect(x: 25, y: 4, width: 15, height: 15))
-        badgeCount.layer.borderColor = UIColor.clear.cgColor
-        badgeCount.layer.borderWidth = 2
-        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height / 2
-        badgeCount.textAlignment = .center
-        badgeCount.layer.masksToBounds = true
-        badgeCount.textColor = .white
-        badgeCount.font = badgeCount.font.withSize(12)
-        badgeCount.backgroundColor = .red
-    //    badgeCount.text = "\(cartItemsNumber.items.count)"
-        cartButton.addSubview(badgeCount)
+//        badgeCount = UILabel(frame: CGRect(x: 25, y: 4, width: 15, height: 15))
+//        badgeCount.layer.borderColor = UIColor.clear.cgColor
+//        badgeCount.layer.borderWidth = 2
+//        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height / 2
+//        badgeCount.textAlignment = .center
+//        badgeCount.layer.masksToBounds = true
+//        badgeCount.textColor = .white
+//        badgeCount.font = badgeCount.font.withSize(12)
+//        badgeCount.backgroundColor = .red
+//    //    badgeCount.text = "\(cartItemsNumber.items.count)"
+//        cartButton.addSubview(badgeCount)
         undoButton.isHidden = true
         undoButton.isEnabled = false
-       
+        productName.text = productNameS
+        productBrand.text = productBrandS
+        DispatchQueue.global().async {
+         let data = try? Data(contentsOf: URL(string: self.url)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+             DispatchQueue.main.async {
+                self.imageTemp = UIImage(data: data!)
+                self.productImage.image = self.imageTemp
+               
+             }
+         }
         sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints]
        setupCoachingOverlay()
         self.sceneView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -435,15 +451,11 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
       
         shape.chamferRadius = 0.1
         let shapeNode = SCNNode(geometry: shape)
-        var imageTemp: UIImage? = nil
      
-       DispatchQueue.global().async {
-        let data = try? Data(contentsOf: URL(string: self.url)!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-            DispatchQueue.main.async {
-                imageTemp = UIImage(data: data!)
-                shapeNode.geometry?.firstMaterial?.diffuse.contents = imageTemp
-            }
-        }
+      
+        shapeNode.geometry?.firstMaterial?.diffuse.contents = self.imageTemp
+            
+        
       //  shapeNode.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "FloorTile")
         shapeNode.geometry?.firstMaterial?.diffuse.wrapS = SCNWrapMode.repeat
     
@@ -522,6 +534,36 @@ extension SCNGeometry {
         let element = SCNGeometryElement(indices: indices, primitiveType: .line)
         
         return SCNGeometry(sources: [source], elements: [element])
+    }
+}
+extension UIView {
+
+    @IBInspectable var cornerRadiusV: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
+    }
+
+    @IBInspectable var borderWidthV: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+
+    @IBInspectable var borderColorV: UIColor? {
+        get {
+            return UIColor(cgColor: layer.borderColor!)
+        }
+        set {
+            layer.borderColor = newValue?.cgColor
+        }
     }
 }
 

@@ -59,7 +59,7 @@ class ProductWidget extends StatelessWidget {
               children: [
                 PriceText(price: productsModel.productPrice,discount: productsModel.productDiscount,),
                 Spacer(),
-                SizedBox(width: 18,child: IconButton(icon: Icon(Icons.favorite_border), onPressed: (){},color: AppColor.SecondColor,iconSize: 18,)),
+               // SizedBox(width: 18,child: IconButton(icon: Icon(Icons.favorite_border), onPressed: (){},color: AppColor.SecondColor,iconSize: 18,)),
                 Consumer<Cart>(builder: (context, value, child) {
                   return IconButton(
                       icon: Icon(
@@ -67,7 +67,7 @@ class ProductWidget extends StatelessWidget {
 
                         color: AppColor.PrimaryColor,
                       ),
-                      iconSize: 18,
+                      iconSize: 20,
                       onPressed: () {
                         value.setCartModel(
                             CartModel(product: productsModel, count: 1));

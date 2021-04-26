@@ -13,12 +13,13 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		C90FC8C826363E50001630D3 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */; };
+		C90FC8C926363E50001630D3 /* Pods_Runner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C931CA382627147400BFE0FA /* MPGSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; };
 		C931CA392627147400BFE0FA /* MPGSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C9F35051261B1D6000D34699 /* FocusNode in Frameworks */ = {isa = PBXBuildFile; productRef = C9F35050261B1D6000D34699 /* FocusNode */; };
 		C9F35053261B1F1300D34699 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F35052261B1F1300D34699 /* ViewController.swift */; };
 		C9F35055261B1F1900D34699 /* AR.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F35054261B1F1900D34699 /* AR.storyboard */; };
-		CE0809193314EF9B3774476B /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				C90FC8C926363E50001630D3 /* Pods_Runner.framework in Embed Frameworks */,
 				C931CA392627147400BFE0FA /* MPGSDK.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -64,8 +66,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9F35051261B1D6000D34699 /* FocusNode in Frameworks */,
-				CE0809193314EF9B3774476B /* Pods_Runner.framework in Frameworks */,
 				C931CA382627147400BFE0FA /* MPGSDK.xcframework in Frameworks */,
+				C90FC8C826363E50001630D3 /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +325,9 @@
 		249021D3217E4FDB00AE95B9 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -374,7 +378,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = F4Q3RGBUR9;
@@ -395,6 +401,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesiscreations.vendors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -404,7 +411,9 @@
 		97C147031CF9000F007C117D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -459,7 +468,9 @@
 		97C147041CF9000F007C117D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -512,7 +523,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = F4Q3RGBUR9;
@@ -544,7 +557,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = F4Q3RGBUR9;
@@ -563,8 +578,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.genesiscreations.vendors;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

@@ -31,7 +31,7 @@ class DetailedScreen extends StatelessWidget {
               children: [
                 Container(
                   height: 300,
-                  child: ImageView(productsModel: product,)
+                  child: ImageView(productsModel: product,width: MediaQuery.of(context).size.width,)
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -135,8 +135,11 @@ class DetailedScreen extends StatelessWidget {
       "image": product.productImage ?? "",
       "dimX": temp[0] ?? "0",
       "dimY": temp[1] ?? "1",
+      "name": product.productNameEn ?? "",
+      "brand": product.productBrandNameEn ?? "",
       "tilesUnit": product.tilesInUnit ?? 1.0
     };
+    print(product.productNameEn);
     var value;
     try {
       value = await Data.PLATFORM.invokeMethod("printy",sendMap);

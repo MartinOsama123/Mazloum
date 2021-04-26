@@ -204,12 +204,12 @@ class _AddCartWidgetState extends State<AddCartWidget> {
                   barrierDismissible: true, // user must tap button!
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Added Successfully'),
+                      title: Text('Added to Cart'),
                       content: Icon(Icons.check,color: Colors.green,size: 50,),
                       actions: <Widget>[
                         TextButton(
                           child: Text('Checkout',style: TextStyle(color: AppColor.PrimaryColor),),
-                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen()))
+                          onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen())); }
                           ,
                         ),
                         TextButton(

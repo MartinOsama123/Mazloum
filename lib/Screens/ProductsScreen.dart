@@ -27,32 +27,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
       PagingController(firstPageKey: 1);
 
   final List<String> titles = ["On Sale", "New Arrived", "Most Sold"];
-  ScrollController _scrollController;
-  double _scrollPosition;
 
-  _scrollListener() {
-    setState(() {
-      _scrollPosition = _scrollController.position.pixels;
-    });
-  }
 
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) {
       _fetchPage(pageKey);
     });
-    _scrollController = ScrollController();
-    _scrollController.addListener(_scrollListener);
     super.initState();
   }
 
   Future<void> _fetchPage(int pageKey) async {
     // print(_scrollPosition);
-    if (pageKey == 1) {
+    if(pageKey < 5) {
       try {
         final newItems = await Data.getProductsList(page: pageKey);
 
-        final isLastPage = newItems.length < 10;
+        final isLastPage = newItems.length < 12;
         if (isLastPage) {
           _pagingController.appendLastPage(newItems);
         } else {

@@ -66,7 +66,7 @@ class Cart with ChangeNotifier {
       cartModel
           .firstWhere(
               (element) => element.product.productId == value.product.productId)
-          .count += 1;
+          .count += value.count;
     }
     encodingFunction();
   }

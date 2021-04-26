@@ -22,7 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
   String searchQuery = "", previousSearch = "", filterQuery = "";
   bool _showClearButton = false;
   bool _isLoading = true;
-  List<bool> expandedList = [false, false, false, false];
+
   final PagingController<int, Products> _pagingController =
       PagingController(firstPageKey: 1);
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -100,52 +100,13 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: ListView(
                       padding: EdgeInsets.symmetric(vertical: 20),
                       children: <Widget>[
-                        ExpansionPanelList(
-                          animationDuration: Duration(milliseconds: 800),
-                          expansionCallback: (panelIndex, isExpanded) {setState(() {
-                            expandedList[panelIndex] = !isExpanded;
-                          });},
-                          children: [
-                            ExpansionPanel(
-                                headerBuilder: (context, isExpanded) =>
-                                    ListTile(
-                                      title: Text("Brands"),
-                                    ),
-                                body: FilterList(
-                                    title: "Brands",
-                                    productModel: snapshot.data.brands),isExpanded: expandedList[0]),
-                            ExpansionPanel(
-                                headerBuilder: (context, isExpanded) =>
-                                    ListTile(
-                                      title: Text("Colors"),
-                                    ),
-                                body: FilterList(
-                                    title: "Colors",
-                                    productModel: snapshot.data.colors),isExpanded: expandedList[1]),
-                            ExpansionPanel(
-                                headerBuilder: (context, isExpanded) =>
-                                    ListTile(
-                                      title: Text("Dimensions"),
-                                    ),
-                                body: FilterList(
-                                    title: "Dimensions",
-                                    productModel: snapshot.data.dimensions),isExpanded: expandedList[2]),
-                            ExpansionPanel(
-                                headerBuilder: (context, isExpanded) =>
-                                    ListTile(
-                                      title: Text("Materials"),
-                                    ),
-                                body: FilterList(
-                                    title: "Materials",
-                                    productModel: snapshot.data.materials),isExpanded: expandedList[3])
-                          ],
-                        ),
+                       ExpansionFilters(data: snapshot.data,),
                         Consumer<FilterModel>(
                           builder: (context, value, child) =>
                             FlatButton(
                                 onPressed: () {
                                   filterQuery = "";
-                                  setState(() {
+
                                     if (filterModel.brands != null &&
                                         filterModel.brands.isNotEmpty) {
                                       filterQuery = "&brand=";
@@ -194,7 +155,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     }
 
                                     filterModel = FilterModel();
-                                  });
+
                                   _pagingController.refresh();
                                   Navigator.pop(context, true);
                                 },
@@ -393,6 +354,60 @@ class _FilterListState extends State<FilterList> {
                   }
                 });
           }),
+    );
+  }
+}
+class ExpansionFilters extends StatefulWidget{
+  final data;
+
+  const ExpansionFilters({Key key, this.data}) : super(key: key);
+  @override
+  _ExpansionFiltersState createState() => _ExpansionFiltersState();
+}
+
+class _ExpansionFiltersState extends State<ExpansionFilters> {
+  List<bool> expandedList = [false, false, false, false];
+  @override
+  Widget build(BuildContext context) {
+    return  ExpansionPanelList(
+      animationDuration: Duration(milliseconds: 800),
+      expansionCallback: (panelIndex, isExpanded) {setState(() {
+        expandedList[panelIndex] = !isExpanded;
+      });},
+      children: [
+        ExpansionPanel(
+            headerBuilder: (context, isExpanded) =>
+                ListTile(
+                  title: Text("Brands"),
+                ),
+            body: FilterList(
+                title: "Brands",
+                productModel: widget.data.brands),isExpanded: expandedList[0]),
+        ExpansionPanel(
+            headerBuilder: (context, isExpanded) =>
+                ListTile(
+                  title: Text("Colors"),
+                ),
+            body: FilterList(
+                title: "Colors",
+                productModel: widget.data.colors),isExpanded: expandedList[1]),
+        ExpansionPanel(
+            headerBuilder: (context, isExpanded) =>
+                ListTile(
+                  title: Text("Dimensions"),
+                ),
+            body: FilterList(
+                title: "Dimensions",
+                productModel: widget.data.dimensions),isExpanded: expandedList[2]),
+        ExpansionPanel(
+            headerBuilder: (context, isExpanded) =>
+                ListTile(
+                  title: Text("Materials"),
+                ),
+            body: FilterList(
+                title: "Materials",
+                productModel: widget.data.materials),isExpanded: expandedList[3])
+      ],
     );
   }
 }

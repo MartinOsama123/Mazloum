@@ -71,7 +71,24 @@ class ProductWidget extends StatelessWidget {
                       onPressed: () {
                         value.setCartModel(
                             CartModel(product: productsModel, count: 1));
-                        print(value.getCartModel.length);
+                        return showDialog<void>(
+                          context: context,
+                          barrierDismissible: true, // user must tap button!
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Added Successfully'),
+                              content: Icon(Icons.check,color: Colors.green,size: 50,),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('OK!'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       });
                 }),
               ],

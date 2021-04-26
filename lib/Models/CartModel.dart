@@ -106,5 +106,5 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  List<CartModel> get getCartModel => cartModel;
+  List<CartModel> get getCartModel {if(cartModel == null) {cartModel = <CartModel>[]; }return cartModel; }
 }

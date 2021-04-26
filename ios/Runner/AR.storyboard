@@ -22,67 +22,15 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BrB-h1-WRS">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
                             </arscnView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="96" translatesAutoresizingMaskIntoConstraints="NO" id="hWV-7h-lH8">
-                                <rect key="frame" x="20" y="747" width="374" height="70.5"/>
-                                <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiE-29-31W" userLabel="Undo Button">
-                                        <rect key="frame" x="0.0" y="6.5" width="39" height="58"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="48"/>
-                                        <color key="tintColor" name="mazloumBack"/>
-                                        <state key="normal">
-                                            <imageReference key="image" image="arrow.counterclockwise.circle.fill" catalog="system" symbolScale="default"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="medium"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="undoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="ghQ-vd-IY9"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zub-WX-xu1">
-                                        <rect key="frame" x="135" y="0.0" width="71.5" height="70.5"/>
-                                        <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="48"/>
-                                        <color key="tintColor" name="mazloumBack"/>
-                                        <state key="normal">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="bold"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addButtonPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="UM3-sr-LVr"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="500" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hlj-50-kuU" userLabel="Product Button">
-                                        <rect key="frame" x="302.5" y="0.0" width="71.5" height="70.5"/>
-                                        <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="48"/>
-                                        <color key="tintColor" name="mazloumBack"/>
-                                        <state key="normal">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <imageReference key="image" image="magnifyingglass.circle.fill" catalog="system" symbolScale="large"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="bold"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addButtonPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="OmG-a2-gbK"/>
-                                            <action selector="allProductsPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="lBx-z0-dmc"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x48-X9-53u">
-                                <rect key="frame" x="20" y="663" width="374" height="58"/>
+                                <rect key="frame" x="20" y="663" width="374" height="55.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xub-6E-Uvy">
-                                        <rect key="frame" x="0.0" y="0.0" width="82" height="56"/>
-                                        <color key="backgroundColor" systemColor="linkColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="82" id="IFT-ux-OXR"/>
-                                        </constraints>
-                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="medium" weight="medium">
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                        </preferredSymbolConfiguration>
-                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js6-wq-CZE">
+                                        <rect key="frame" x="306" y="8" width="60" height="42"/>
+                                        <state key="normal" image="cart.circle.fill" catalog="system">
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="23" scale="large" weight="black"/>
+                                        </state>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DLa-jL-pzn">
                                         <rect key="frame" x="90" y="5" width="208" height="20.5"/>
                                         <constraints>
@@ -101,16 +49,26 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js6-wq-CZE">
-                                        <rect key="frame" x="306" y="8" width="60" height="42"/>
-                                        <state key="normal" image="cart.circle.fill" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="23" scale="large" weight="black"/>
-                                        </state>
-                                    </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xub-6E-Uvy">
+                                        <rect key="frame" x="8" y="4" width="74" height="51"/>
+                                        <color key="backgroundColor" systemColor="linkColor"/>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="medium" weight="medium">
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        </preferredSymbolConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="DLa-jL-pzn" firstAttribute="top" secondItem="x48-X9-53u" secondAttribute="top" constant="5" id="05C-2Q-zgt"/>
+                                    <constraint firstItem="Xub-6E-Uvy" firstAttribute="leading" secondItem="x48-X9-53u" secondAttribute="leading" constant="8" id="84m-oh-fYg"/>
                                     <constraint firstItem="Xub-6E-Uvy" firstAttribute="top" secondItem="x48-X9-53u" secondAttribute="top" id="Ib2-rV-HQT"/>
                                     <constraint firstAttribute="bottom" secondItem="Xub-6E-Uvy" secondAttribute="bottom" constant="2" id="Ih7-50-hg8"/>
                                     <constraint firstItem="BMt-5o-rJF" firstAttribute="top" secondItem="DLa-jL-pzn" secondAttribute="bottom" constant="8" symbolic="YES" id="ZoG-2z-TPF"/>
@@ -126,32 +84,90 @@
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                        <real key="value" value="15"/>
+                                        <real key="value" value="10"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="SFS-4I-T0U" appends="YES" id="Xqg-ac-DyD"/>
+                                </connections>
                             </view>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiE-29-31W" userLabel="Undo Button">
+                                <rect key="frame" x="33.5" y="753" width="56.5" height="58"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <color key="tintColor" name="mazloumBack"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="arrow.counterclockwise.circle.fill" catalog="system" symbolScale="default"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="medium"/>
+                                </state>
+                                <connections>
+                                    <action selector="undoButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="ghQ-vd-IY9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zub-WX-xu1">
+                                <rect key="frame" x="172" y="747" width="71.5" height="70.5"/>
+                                <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71.5" id="j0c-dq-bKr"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="48"/>
+                                <color key="tintColor" name="mazloumBack"/>
+                                <state key="normal">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="48" scale="large" weight="bold"/>
+                                </state>
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="BV1-FR-VrT" eventType="primaryActionTriggered" id="UM3-sr-LVr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X1m-pi-v5B">
+                                <rect key="frame" x="0.0" y="69" width="66" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="HsC-U7-kFs"/>
+                                </constraints>
+                                <state key="normal" image="arrowshape.turn.up.backward.circle.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large" weight="black"/>
+                                </state>
+                                <connections>
+                                    <action selector="backPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="27C-t6-ttw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fQZ-KI-GVf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="zub-WX-xu1" firstAttribute="top" secondItem="x48-X9-53u" secondAttribute="bottom" constant="28.5" id="4L0-uN-ejV"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="fQZ-KI-GVf" secondAttribute="leading" id="E5k-Vl-902"/>
-                            <constraint firstItem="hWV-7h-lH8" firstAttribute="leading" secondItem="BrB-h1-WRS" secondAttribute="trailing" constant="-394" id="Ktb-nB-akc"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="zub-WX-xu1" secondAttribute="bottom" constant="44.5" id="Kh4-SQ-3qd"/>
+                            <constraint firstItem="X1m-pi-v5B" firstAttribute="leading" secondItem="BrB-h1-WRS" secondAttribute="leading" id="PXl-f7-9ba"/>
+                            <constraint firstItem="zub-WX-xu1" firstAttribute="leading" secondItem="BrB-h1-WRS" secondAttribute="trailing" constant="-242" id="Q08-Ge-lZn"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="x48-X9-53u" secondAttribute="centerX" id="SNf-mR-tkV"/>
+                            <constraint firstItem="BrB-h1-WRS" firstAttribute="leading" secondItem="X1m-pi-v5B" secondAttribute="trailing" constant="-66" id="UZi-fX-rRr"/>
+                            <constraint firstItem="zub-WX-xu1" firstAttribute="leading" secondItem="JiE-29-31W" secondAttribute="trailing" constant="82" id="VZX-V5-VIn"/>
+                            <constraint firstItem="JiE-29-31W" firstAttribute="top" secondItem="BrB-h1-WRS" secondAttribute="bottom" constant="-85" id="Y28-TT-28t"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="centerX" secondItem="U0K-SW-4ec" secondAttribute="centerX" id="YdM-9g-DtM"/>
+                            <constraint firstItem="zub-WX-xu1" firstAttribute="top" secondItem="BrB-h1-WRS" secondAttribute="bottom" constant="-91" id="bTn-Pi-DXG"/>
                             <constraint firstItem="BrB-h1-WRS" firstAttribute="top" secondItem="U0K-SW-4ec" secondAttribute="topMargin" constant="-44" id="cpf-Pg-tAY"/>
-                            <constraint firstItem="hWV-7h-lH8" firstAttribute="top" secondItem="x48-X9-53u" secondAttribute="bottom" constant="26" id="dtf-Kz-ve6"/>
-                            <constraint firstItem="x48-X9-53u" firstAttribute="centerX" secondItem="hWV-7h-lH8" secondAttribute="centerX" id="idZ-9i-49Q"/>
-                            <constraint firstItem="hWV-7h-lH8" firstAttribute="top" secondItem="BrB-h1-WRS" secondAttribute="bottom" constant="-91" id="me6-KT-3gk"/>
+                            <constraint firstItem="x48-X9-53u" firstAttribute="top" secondItem="X1m-pi-v5B" secondAttribute="bottom" constant="549" id="cyu-f1-D8U"/>
+                            <constraint firstItem="X1m-pi-v5B" firstAttribute="top" secondItem="fQZ-KI-GVf" secondAttribute="top" constant="25" id="f9X-nh-7Pa"/>
+                            <constraint firstItem="zub-WX-xu1" firstAttribute="leading" secondItem="BrB-h1-WRS" secondAttribute="trailing" constant="-242" id="g54-8P-sMN"/>
+                            <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="JiE-29-31W" secondAttribute="bottom" constant="51" id="hQS-7P-vlb"/>
                             <constraint firstItem="x48-X9-53u" firstAttribute="leading" secondItem="BrB-h1-WRS" secondAttribute="trailing" constant="-394" id="nba-VK-1y8"/>
                             <constraint firstItem="fQZ-KI-GVf" firstAttribute="bottom" secondItem="BrB-h1-WRS" secondAttribute="bottom" constant="24" id="oIE-23-KAY"/>
                             <constraint firstItem="x48-X9-53u" firstAttribute="top" secondItem="BrB-h1-WRS" secondAttribute="bottom" constant="-175" id="rHJ-tl-XZx"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="SFS-4I-T0U" appends="YES" id="u2k-AZ-ZHz"/>
+                        </connections>
                     </view>
                     <connections>
-                        <outlet property="allProductsButton" destination="Hlj-50-kuU" id="cNI-La-4Jt"/>
+                        <outlet property="backButton" destination="X1m-pi-v5B" id="XUF-4Q-cnF"/>
                         <outlet property="cartButton" destination="js6-wq-CZE" id="s0X-ol-bM4"/>
                         <outlet property="plusButton" destination="zub-WX-xu1" id="gmV-Fo-qSY"/>
                         <outlet property="productBrand" destination="BMt-5o-rJF" id="0Wf-iu-dS6"/>
@@ -162,14 +178,20 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="SFS-4I-T0U">
+                    <connections>
+                        <action selector="searchProducts:" destination="BV1-FR-VrT" id="qNC-2E-jTt"/>
+                        <outlet property="delegate" destination="x48-X9-53u" id="zNH-vn-mHo"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="118.52678571428571"/>
         </scene>
     </scenes>
     <resources>
         <image name="arrow.counterclockwise.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="arrowshape.turn.up.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="cart.circle.fill" catalog="system" width="128" height="121"/>
-        <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="mazloumBack">
             <color red="0.99607843137254903" green="0.99607843137254903" blue="0.99607843137254903" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

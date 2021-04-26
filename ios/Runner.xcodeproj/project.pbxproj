@@ -17,6 +17,13 @@
 		C90FC8C926363E50001630D3 /* Pods_Runner.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C931CA382627147400BFE0FA /* MPGSDK.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; };
 		C931CA392627147400BFE0FA /* MPGSDK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C9442ECB26367DFA00523500 /* AddressScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9442ECA26367DFA00523500 /* AddressScreen.swift */; };
+		C9442ECD26367E5D00523500 /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9442ECC26367E5D00523500 /* Products.swift */; };
+		C9442ECF26367E6D00523500 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9442ECE26367E6D00523500 /* Data.swift */; };
+		C9442ED126367F0000523500 /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9442ED026367F0000523500 /* ListItemView.swift */; };
+		C9442ED326367F2300523500 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9442ED226367F2300523500 /* ImageView.swift */; };
+		C9442ED626367F8200523500 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = C9442ED526367F8200523500 /* URLImage */; };
+		C9442EDE26368FDC00523500 /* Assets.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = C9442EDD26368FDC00523500 /* Assets.scnassets */; };
 		C9F35051261B1D6000D34699 /* FocusNode in Frameworks */ = {isa = PBXBuildFile; productRef = C9F35050261B1D6000D34699 /* FocusNode */; };
 		C9F35053261B1F1300D34699 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F35052261B1F1300D34699 /* ViewController.swift */; };
 		C9F35055261B1F1900D34699 /* AR.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9F35054261B1F1900D34699 /* AR.storyboard */; };
@@ -56,6 +63,12 @@
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C0DDCDDE46C6DDA63CB9787F /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C931CA2C26270E4600BFE0FA /* MPGSDK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MPGSDK.xcframework; path = Carthage/Build/MPGSDK.xcframework; sourceTree = "<group>"; };
+		C9442ECA26367DFA00523500 /* AddressScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressScreen.swift; sourceTree = "<group>"; };
+		C9442ECC26367E5D00523500 /* Products.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
+		C9442ECE26367E6D00523500 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		C9442ED026367F0000523500 /* ListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
+		C9442ED226367F2300523500 /* ImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		C9442EDD26368FDC00523500 /* Assets.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Assets.scnassets; sourceTree = "<group>"; };
 		C9F35052261B1F1300D34699 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		C9F35054261B1F1900D34699 /* AR.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AR.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +80,7 @@
 			files = (
 				C9F35051261B1D6000D34699 /* FocusNode in Frameworks */,
 				C931CA382627147400BFE0FA /* MPGSDK.xcframework in Frameworks */,
+				C9442ED626367F8200523500 /* URLImage in Frameworks */,
 				C90FC8C826363E50001630D3 /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,10 +131,16 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				C9442ED226367F2300523500 /* ImageView.swift */,
+				C9442ED026367F0000523500 /* ListItemView.swift */,
+				C9442ECE26367E6D00523500 /* Data.swift */,
+				C9442ECC26367E5D00523500 /* Products.swift */,
+				C9442ECA26367DFA00523500 /* AddressScreen.swift */,
 				C9F35054261B1F1900D34699 /* AR.storyboard */,
 				C9F35052261B1F1300D34699 /* ViewController.swift */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
+				C9442EDD26368FDC00523500 /* Assets.scnassets */,
 				97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */,
 				97C147021CF9000F007C117D /* Info.plist */,
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
@@ -163,6 +183,7 @@
 			name = Runner;
 			packageProductDependencies = (
 				C9F35050261B1D6000D34699 /* FocusNode */,
+				C9442ED526367F8200523500 /* URLImage */,
 			);
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
@@ -194,6 +215,7 @@
 			mainGroup = 97C146E51CF9000F007C117D;
 			packageReferences = (
 				C9F3504F261B1D6000D34699 /* XCRemoteSwiftPackageReference "ARKit-FocusNode" */,
+				C9442ED426367F8200523500 /* XCRemoteSwiftPackageReference "url-image" */,
 			);
 			productRefGroup = 97C146EF1CF9000F007C117D /* Products */;
 			projectDirPath = "";
@@ -209,6 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9442EDE26368FDC00523500 /* Assets.scnassets in Resources */,
 				C9F35055261B1F1900D34699 /* AR.storyboard in Resources */,
 				97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */,
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
@@ -294,7 +317,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9442ED326367F2300523500 /* ImageView.swift in Sources */,
+				C9442ECB26367DFA00523500 /* AddressScreen.swift in Sources */,
+				C9442ED126367F0000523500 /* ListItemView.swift in Sources */,
+				C9442ECF26367E6D00523500 /* Data.swift in Sources */,
 				C9F35053261B1F1300D34699 /* ViewController.swift in Sources */,
+				C9442ECD26367E5D00523500 /* Products.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
@@ -614,6 +642,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C9442ED426367F8200523500 /* XCRemoteSwiftPackageReference "url-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmytro-anokhin/url-image";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.19;
+			};
+		};
 		C9F3504F261B1D6000D34699 /* XCRemoteSwiftPackageReference "ARKit-FocusNode" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/maxxfrazer/ARKit-FocusNode.git";
@@ -625,6 +661,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C9442ED526367F8200523500 /* URLImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C9442ED426367F8200523500 /* XCRemoteSwiftPackageReference "url-image" */;
+			productName = URLImage;
+		};
 		C9F35050261B1D6000D34699 /* FocusNode */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C9F3504F261B1D6000D34699 /* XCRemoteSwiftPackageReference "ARKit-FocusNode" */;

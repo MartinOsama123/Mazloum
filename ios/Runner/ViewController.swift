@@ -24,10 +24,9 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var plusButton: UIButton!
-    @IBOutlet weak var horizontalButton: UIButton!
-    @IBOutlet weak var verticalButton: UIButton!
+    
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var cartButton: UIButton!
-    @IBOutlet weak var allProductsButton: UIButton!
     
     
     @IBOutlet weak var undoButton: UIButton!
@@ -58,7 +57,8 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     var imageTemp: UIImage? = nil
     var productNameS: String = ""
     var productBrandS: String = ""
- 
+    var stack  = [SCNNode]()
+    var bridge = ViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
 //        badgeCount = UILabel(frame: CGRect(x: 25, y: 4, width: 15, height: 15))
@@ -220,35 +220,37 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
        }
    
    
-    @IBAction func allProductsPressed(_ sender: Any) {
-       // let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).flutterEngine
-//           let flutterViewController =
-//               ProductScreen(engine: flutterEngine, nibName: nil, bundle: nil)
-//           present(flutterViewController, animated: true, completion: nil)
-////        var cancellable: AnyCancellable!
-//        let delegate = ProductsDelegate()
-//        let bridge = ViewModel()
-//                let vc = UIHostingController(rootView: AddressScreen(delegate: delegate, vm: bridge))
-//                bridge.closeAction = { [weak vc] in
-//                    vc?.dismiss(animated: true)
-//
-//                    cancellable = delegate.$ARProductID.sink { temp in
-//
-//                        self.tempURL = temp
-//                        DispatchQueue.global().async {
-//                            let data = try? Data(contentsOf: URL(string: appendingStringImage(text: self.tempURL.product_images?[0] ?? ""))!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
-//                             DispatchQueue.main.async {
-//                                 let imageTemp = UIImage(data: data!)
-//                                self.shapeNode.geometry?.firstMaterial?.diffuse.contents = imageTemp
-//
-//                             }
-//                         }
-//                    }
-//                }
-//                self.present(vc, animated: true, completion: nil)
+    @IBAction func searchProducts(_ sender: Any) {
+        var cancellable: AnyCancellable!
+        let delegate = ProductsDelegate()
+        let bridge = ViewModel()
+                let vc = UIHostingController(rootView: AddressScreen(delegate: delegate, vm: bridge))
+                bridge.closeAction = { [weak vc] in
+                    vc?.dismiss(animated: true)
+                 
+                    cancellable = delegate.$ARProductID.sink { temp in
+                      
+                        
+                        DispatchQueue.global().async {
+                            let data = try? Data(contentsOf: URL(string: appendingStringImage(text: temp.product_images?[0] ?? ""))!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
+                             DispatchQueue.main.async {
+                                self.imageTemp = UIImage(data: data!)
+                                self.shapeNode.geometry?.firstMaterial?.diffuse.contents = self.imageTemp
+                                self.productImage.image = self.imageTemp
+                                self.productName.text = temp.product_name_en
+                                self.productBrand.text = temp.product_brand_name_en
+                               
+                             }
+                         }
+                    }
+                }
+                self.present(vc, animated: true, completion: nil)
     }
-    
-    
+        
+    @IBAction func backPressed(_ sender: Any) {
+        self.bridge.closeAction()
+        
+    }
     @IBAction func cartPressed(_ sender: Any) {
 //        var cancellable: AnyCancellable!
 //        let delegate = ProductsDelegate()
@@ -274,27 +276,28 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     }
     @IBAction func undoButtonPressed(_ sender: Any) {
        
-//        if(lastNode != nil && !stack.isEmpty()){
-//        if (lastNode?.name == "sphere") {
-//            if(size >= 2){
-//
-//
-//                lastNode = stack.pop()
-//                lastNode?.removeFromParentNode()
-//            }
-//            size -= 1
-//
-//            	arrayOfPoint.removeLast()
-//
-//        }else if( customObjectsCount > 1) {
-//            customObjectsCount -= 1
-//        }
-//
-//        lastNode = stack.pop()
-//            lastNode?.removeFromParentNode()
-//
-//        }
-//
+        if(lastNode != nil && !stack.isEmpty){
+        if (lastNode?.name == "sphere") {
+            if(size >= 2){
+
+
+                lastNode = stack.removeLast()
+                
+                lastNode?.removeFromParentNode()
+            }
+            size -= 1
+
+            	arrayOfPoint.removeLast()
+
+        }else if( customObjectsCount > 1) {
+            customObjectsCount -= 1
+        }
+
+        lastNode = stack.removeLast()
+            lastNode?.removeFromParentNode()
+
+        }
+
     }
     @IBAction func addButtonPressed(_ sender: Any) {
         if(focusNode.onPlane){
@@ -318,23 +321,27 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
          let touchLcoation = sender.location(in: sceneView)
     
       guard  let hitTestResultNode = self.sceneView.hitTest(touchLcoation, options: nil).first?.node else {
+        selectedNode?.position.y = (selectedNode?.position.y ?? 0.8) - 0.1
         selectedNode = nil
         return
     
       }
         if (selectedNode != nil){ selectedNode?.enumerateChildNodes { (node, stop) in
+            selectedNode?.position.y = (selectedNode?.position.y ?? 0.1) - 0.1
+            selectedNode = nil
             node.removeFromParentNode()
+            
         }}
         if hitTestResultNode.name == "3D"{
         selectedNode = hitTestResultNode
-        let tempNode = SCNNode(geometry: SCNPlane(width: 0.7, height: 0.7))
+            selectedNode?.position.y = selectedNode!.position.y + 0.1
+        let tempNode = SCNNode(geometry: SCNPlane(width: 1, height: 1))
         let tempMaterial = SCNMaterial()
         tempMaterial.diffuse.contents = UIImage(named: "focus-circle")
         tempNode.geometry?.materials = [tempMaterial]
         selectedNode?.addChildNode(tempNode)
-   
         tempNode.transform = SCNMatrix4MakeRotation(  -(.pi) / 2.0, 1.0, 0.0, 0.0)
-        tempNode.position.y = tempNode.position.y - 0.2
+            tempNode.position.y = tempNode.position.y - 0.8
         }
         
      }
@@ -343,7 +350,6 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
 
         if selectedNode != nil && !isRotating{
 
-        //1. Get The Current Touch Point
         let currentTouchPoint = gesture.location(in: self.sceneView)
 
         //2. Get The Next Feature Point Etc
@@ -360,7 +366,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
         //5. Apply To The Node
             selectedNode?.simdPosition.x = newPosition.x
             selectedNode?.simdPosition.z = newPosition.z
-           
+         
             }
         
     }
@@ -394,10 +400,11 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
         let objectNode: SCNNode = customObject!.rootNode.childNode(withName: "\(objectName)", recursively: true)!// Get the
         objectNode.geometry?.materials = [material]
         objectNode.position = focusNode.worldPosition
-        objectNode.position.y = objectNode.position.y + 0.02
+        objectNode.position.y = objectNode.position.y + 0.03
         objectNode.name = "3D"
         lastNode = objectNode
-      //  stack.push(lastNode!)
+        stack.append(lastNode!)
+
         sceneView.scene.rootNode.addChildNode(objectNode)
         if(customObjectsCount < customObjectsMaxCount){
         customObjectsCount += 1
@@ -423,7 +430,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     sphere.name = "sphere"
     sceneView.scene.rootNode.addChildNode(sphere)
     lastNode = sphere
-  //  stack.push(lastNode!)
+    stack.append(lastNode!)
     arrayOfPoint.append(sphere.position)
     size += 1
    
@@ -469,7 +476,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
         sceneView.scene.rootNode.addChildNode(shapeNode)
    
         lastNode = shapeNode
-      //  stack.push(lastNode!)
+        stack.append(lastNode!)
         if(customObjectsCount < customObjectsMaxCount){
         customObjectsCount += 1
         }
@@ -478,7 +485,7 @@ class ViewController: UIViewController, ARCoachingOverlayViewDelegate, ARSCNView
     func addLineBetween(start: SCNVector3, end: SCNVector3) {
         let lineGeometry = SCNGeometry.lineFrom(vector: start, toVector: end)
         let lineNode = SCNNode(geometry: lineGeometry)
-      //  stack.push(lineNode)
+        stack.append(lineNode)
         sceneView.scene.rootNode.addChildNode(lineNode)
     }
     func showAlertController(areaDetails: Float, totalTiles: Float, totalBoxes: Int)

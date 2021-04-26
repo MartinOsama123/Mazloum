@@ -164,8 +164,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                                   .data.categories[index]),
                                     );
                                   else
-                                    return Center(
-                                        child: CircularProgressIndicator());
+                                    return  Center(
+                                          child: CircularProgressIndicator()
+                                    );
                                 }),
                           ),
                         ),
@@ -204,7 +205,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => CartScreen(),));
                         },
-                        child: Container(
+                        child: value.getCartModel.isNotEmpty ? Container(
                           decoration: BoxDecoration(
                               color: Colors.green,
                               borderRadius: BorderRadiusDirectional.circular(8)),
@@ -224,7 +225,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                               Text(value.getCartModel.isNotEmpty ? "${value.getCartModel.map((e) => e.product.productPrice * e.count).reduce((value, element) => value + element)} L.E" : "0",style: TextStyle(fontWeight: FontWeight.w600,color: Colors.white),)
                             ],
                           ),
-                        ),
+                        ) : Container(),
                       ),
                     ),
                   ))

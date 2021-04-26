@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vendors/AppColor.dart';
+import 'package:vendors/Models/CartModel.dart';
 import 'package:vendors/Models/ProductModel.dart';
 import 'package:vendors/Widgets/ImageView.dart';
 
@@ -124,7 +126,7 @@ class DetailedScreen extends StatelessWidget {
             ),
           ),
           Spacer(),
-          AddCartWidget(),
+          AddCartWidget(product: product,),
         ],
       ),
     );
@@ -154,8 +156,9 @@ class DetailedScreen extends StatelessWidget {
 
 
 class AddCartWidget extends StatefulWidget {
+  final Products product;
   const AddCartWidget({
-    Key key,
+    Key key, this.product,
   }) : super(key: key);
 
   @override
@@ -191,18 +194,40 @@ class _AddCartWidgetState extends State<AddCartWidget> {
         Expanded(
           child: SizedBox(
             height: 45,
-            child: RaisedButton(
-              onPressed: () {},
-              child: const Text(
-                "Add to Cart",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                    color: Colors.white),
+            child: Consumer<Cart>(
+              builder: (context, value, child) =>  RaisedButton(
+                onPressed: () { value.setCartModel(CartModel(product: widget.product,count: quantity));
+
+                return showDialog<void>(
+                  context: context,
+                  barrierDismissible: true, // user must tap button!
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Added Successfully'),
+                      content: Icon(Icons.check,color: Colors.green,size: 50,),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('OK!'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );}
+                ,
+                child: const Text(
+                  "Add to Cart",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: Colors.white),
+                ),
+                color: AppColor.PrimaryColor,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
               ),
-              color: AppColor.PrimaryColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
             ),
           ),
         )

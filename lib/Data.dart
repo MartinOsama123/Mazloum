@@ -12,6 +12,7 @@ class Data with ChangeNotifier {
   static const PRODUCTS = "products";
   static const CATEGORY = "categories";
   static const PAYMENT = "payment";
+  static const TOKENIZE = "tokenize";
   static const PLATFORM = const MethodChannel("com.flutter.epic/epic");
   static Future<ProductModel> getProducts({String query = ""}) async {
     ProductModel productModel;
@@ -71,5 +72,19 @@ class Data with ChangeNotifier {
     }
     print("$IP_ADDRESS?q=$PAYMENT&user_id=-10&auth_token=test&shopping_cart=$cart&mobile=1");
     return gateModel;
+  }
+  static Future<String> token({String sessionId, String orderId}) async {
+
+
+    var response =
+    await http.post(Uri.parse("$IP_ADDRESS?q=$TOKENIZE&user_id=-10&auth_token=test&session_id=$sessionId&order_id=$orderId&mobile=1"));
+    if (response != null && response.statusCode == 200) {
+      try {
+        return "Success";
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+    return "Failed";
   }
 }

@@ -18,6 +18,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   int _activeStep = 0;
+  bool isLoadingPayment = false;
   List<GlobalKey<FormState>> formKeys = [
     GlobalKey<FormState>(),
     GlobalKey<FormState>()
@@ -82,9 +83,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ? addressStep()
                   : _activeStep == 1
                       ? cardStep()
-                      : summaryStep(),
+                      : isLoadingPayment ? Center(child: CircularProgressIndicator()) : summaryStep(),
             )),
-            Row(
+             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 if (_activeStep != 0) previousButton(),
@@ -444,10 +445,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               title: Text(
-                                  "${value.cartModel[index].count}X ${value.cartModel[index].product.productNameEn}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14)),
+                                  "${value.getCartModel[index].count}X ${value.cartModel[index].product.productNameEn}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14)),
                             subtitle: Text("${value.cartModel[index].product.productPrice} L.E",style: TextStyle(color: AppColor.PrimaryColor,fontWeight: FontWeight.w600,fontSize: 14)),);
                           },
-                          itemCount: value.cartModel.length,
+                          itemCount: value.getCartModel.length,
                         ),
 
                     Divider(),
@@ -457,7 +458,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text("Total",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w600,fontSize: 14)),
-                          Text("${value.cartModel.map((e) => e.count * e.product.productPrice).reduce((value, element) => value + element)}",style: TextStyle(color: AppColor.PrimaryColor,fontWeight: FontWeight.bold,fontSize: 20))
+                          Text("${value.getCartModel.isNotEmpty ? value.getCartModel.map((e) => e.count * e.product.productPrice).reduce((value, element) => value + element) : "0"}",style: TextStyle(color: AppColor.PrimaryColor,fontWeight: FontWeight.bold,fontSize: 20))
                         ],
                       ),
                     ),
@@ -489,7 +490,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               primary: _activeStep  != 2 ? AppColor.PrimaryColor : Colors.green,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),
-          onPressed: () {
+          onPressed: !isLoadingPayment ? () {
             if (_activeStep < formKeys.length) {
               if (formKeys[_activeStep].currentState.validate()) {
                 formKeys[_activeStep].currentState.save();
@@ -502,10 +503,51 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               final temp = jsonEncode(value.cartModel
                   .map((e) => SendCart(e.product.productId, e.count).toJson())
                   .toList());
-              print("Afffffff: $temp");
-              Data.payment(cart: temp).then((value) => _payment(value));
+              setState(() {
+                isLoadingPayment = true;
+              });
+              Data.payment(cart: temp).then((data) => _payment(data).then((data1) => data1 == "Success" ? Data.token(sessionId: data.sessionID,orderId: data.orderID).then((data2) {
+
+                value.removeAllCart();
+                return showDialog<void>(
+                context: context,
+                barrierDismissible: true, // user must tap button!
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Success'),
+                    content: Icon(Icons.check,color: Colors.green,size: 50,),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('OK!'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );}) :    showDialog<void>(
+                context: context,
+                barrierDismissible: true, // user must tap button!
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Failed'),
+                    content: Icon(Icons.close,color: Colors.red,size: 50,),
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('OK!'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              )));
             }
-          },
+          } : null,
           child: Text(_activeStep  != 2 ? "NEXT" : "DONE"),
         ),
       ),
@@ -521,13 +563,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           border: Border.all(color: AppColor.PrimaryColor, width: 1),
           borderRadius: BorderRadius.circular(10)),
       child: FlatButton(
-        onPressed: () {
+
+        onPressed: !isLoadingPayment ? () {
           if (_activeStep > 0) {
             setState(() {
               _activeStep--;
             });
           }
-        },
+        } : null,
         child: Icon(
           Icons.arrow_back,
           color: AppColor.PrimaryColor,
@@ -537,7 +580,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
   }
 
-  void _payment(GateModel gateModel) async {
+  Future<String> _payment(GateModel gateModel) async {
     var sendMap = <String, dynamic>{
       "firstName": addressModel.firstName,
       "lastName": addressModel.lastName,
@@ -561,6 +604,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     } catch (e) {
       print(e.toString());
     }
-    print(value);
+   return value;
   }
 }

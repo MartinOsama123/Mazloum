@@ -17,6 +17,8 @@ import MPGSDK
                  
                  // Note: this method is invoked on the UI thread.
                      if (call.method == "printy"){
+                        var bridge = ViewModel()
+                        
                         guard let args = call.arguments else { return }
                         
                         let myArgs = args as? [String: Any]
@@ -37,7 +39,13 @@ import MPGSDK
                         nav.tilesInUnit = (myArgs?["tilesUnit"] as? NSString ?? "1.0").floatValue
                         nav.productNameS = myArgs?["name"] as? String ?? ""
                         nav.productBrandS = myArgs?["brand"] as? String ?? ""
+                        nav.bridge = bridge
+                        bridge.closeAction = { [weak nav] in
+                            nav?.dismiss(animated: true)
+                            
+                        }
                         controller.present(nav, animated: true, completion: nil)
+                      
                      } else if (call.method == "payment") {
                         guard let args = call.arguments else { return }
                         

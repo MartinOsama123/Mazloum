@@ -96,7 +96,6 @@ class Cart with ChangeNotifier {
     sharedUser = await SharedPreferences.getInstance();
     cartModel =
         Cart.fromJson(jsonDecode(sharedUser.getString("cart"))).cartModel;
-    print(cartModel.length);
     notifyListeners();
   }
 

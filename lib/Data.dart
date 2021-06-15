@@ -25,7 +25,6 @@ class Data with ChangeNotifier {
         print(e.toString());
       }
     }
-    print("$IP_ADDRESS?q=$PRODUCTS$query");
     return productModel;
   }
   static Future<CategoryModel> getCategory() async {
@@ -55,7 +54,6 @@ class Data with ChangeNotifier {
         print(e.toString());
       }
     }
-    print("$IP_ADDRESS?q=$PRODUCTS&page=$page$query");
     return productModel.products;
   }
   static Future<GateModel> payment({String cart}) async {
@@ -70,7 +68,6 @@ class Data with ChangeNotifier {
         print(e.toString());
       }
     }
-    print("$IP_ADDRESS?q=$PAYMENT&user_id=-10&auth_token=test&shopping_cart=$cart&mobile=1");
     return gateModel;
   }
   static Future<String> token({String sessionId, String orderId}) async {

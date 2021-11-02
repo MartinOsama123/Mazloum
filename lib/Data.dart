@@ -6,6 +6,7 @@ import 'package:vendors/Models/CategoryModel.dart';
 import 'package:vendors/Models/GateModel.dart';
 import 'package:vendors/Models/ProductModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:vendors/Models/UserModel.dart';
 
 class Data with ChangeNotifier {
   static const IP_ADDRESS = "https://mazloum.genesiscreations.co/core/core.php";
@@ -56,6 +57,20 @@ class Data with ChangeNotifier {
     var response =
     await http.post(Uri.parse("$IP_ADDRESS?q=$TOKENIZE&user_id=-10&auth_token=test&session_id=$sessionId&order_id=$orderId&mobile=1"));
     if (response != null && response.statusCode == 200) {
+      try {
+        return "Success";
+      } catch (e) {
+        print(e.toString());
+      }
+    }
+    return "Failed";
+  }
+  static Future<String> register(UserModel userModel) async {
+    print(jsonEncode(userModel));
+    var response = await http.post(Uri.parse("https://localhost:9080/register"),  headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },body: jsonEncode(userModel));
+    if (response.statusCode == 200) {
       try {
         return "Success";
       } catch (e) {

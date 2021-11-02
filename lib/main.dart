@@ -1,13 +1,8 @@
-import 'dart:convert';
 
-import 'package:badges/badges.dart';
-import 'package:curved_bottom_navigation/curved_bottom_navigation.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/AppColor.dart';
-import 'package:vendors/Screens/CartScreen.dart';
 import 'package:vendors/Screens/HomeScreen.dart';
 import 'Data.dart';
 import 'package:vendors/Screens/ProductsScreen.dart';
@@ -68,7 +63,23 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: CurvedNavigationBar(
 
+        items: <Widget>[
+          Icon(Icons.add_shopping_cart,
+              color: navPos == 0 ? AppColor.PrimaryColor : Colors.grey),
+          Icon(Icons.home,
+              color: navPos == 1 ? AppColor.PrimaryColor : Colors.grey),
+          //  Icon(Icons.category, color: navPos == 2 ? AppColor.PrimaryColor : Colors.white),
+          Icon(Icons.person,
+              color: navPos == 2 ? AppColor.PrimaryColor : Colors.grey),
+        ],
+        onTap: (index) {
+          setState(() {
+            navPos = index;
+          });
+        },
+      ),
       body: Stack(
         children: [
           Padding(
@@ -79,31 +90,6 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 HomeScreen(),
                 ProductsScreen(),
-
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: CurvedBottomNavigation(
-              navHeight: 50,
-              bgColor: Colors.white,
-              fabBgColor: Colors.white,
-              fabSize: 50,
-              selected: navPos,
-              onItemClick: (i) {
-                setState(() {
-                  navPos = i;
-                });
-              },
-              items: [
-                Icon(Icons.add_shopping_cart,
-                    color: navPos == 0 ? AppColor.PrimaryColor : Colors.grey),
-                Icon(Icons.home,
-                    color: navPos == 1 ? AppColor.PrimaryColor : Colors.grey),
-                //  Icon(Icons.category, color: navPos == 2 ? AppColor.PrimaryColor : Colors.white),
-                Icon(Icons.person,
-                    color: navPos == 2 ? AppColor.PrimaryColor : Colors.grey),
               ],
             ),
           ),

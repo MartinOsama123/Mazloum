@@ -14,12 +14,8 @@ class LoginScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return  Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/background.png"), fit: BoxFit.cover)),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
+    return   Scaffold(
+
         body: SafeArea(
               child: Column(
                 children: [
@@ -40,7 +36,6 @@ class LoginScreen extends StatelessWidget{
                                    child: TextField(
                                       controller: _emailController,
                                       decoration: InputDecoration(
-
                                         fillColor: AppColor.PrimaryColor,
                                         border: OutlineInputBorder(),
                                         labelText: "Email",
@@ -81,15 +76,9 @@ class LoginScreen extends StatelessWidget{
                                     },
                                 ),
                               ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: GestureDetector(),
-                  )
                 ],
               ),
         )
-      ),
-    );
+      );
   }
 }

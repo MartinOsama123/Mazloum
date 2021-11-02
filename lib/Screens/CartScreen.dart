@@ -95,7 +95,7 @@ class CartScreen extends StatelessWidget {
 
                   ),
                 ),
-                itemCount: value.getCartModel.length ?? 0,
+                itemCount: value.getCartModel.length ,
               ),
             ),
             Divider(),

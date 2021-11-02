@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'package:vendors/Models/CartModel.dart';
@@ -12,6 +12,7 @@ import 'package:vendors/Widgets/ProductWidget.dart';
 import '../AppColor.dart';
 import '../Data.dart';
 import 'CartScreen.dart';
+import 'LoginScreen.dart';
 
 class ProductsScreen extends StatefulWidget {
   @override
@@ -61,7 +62,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
           leading: IconButton(
             icon: const Icon(Icons.person),
             color: AppColor.SecondColor,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
           ),
           title: const Text(
             'MAZLOUM',

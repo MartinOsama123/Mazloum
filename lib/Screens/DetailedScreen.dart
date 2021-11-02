@@ -134,9 +134,9 @@ class DetailedScreen extends StatelessWidget {
   void _ar() async {
     List<String> temp = _parseDim();
     var sendMap = <String, dynamic>{
-      "image": product.productImage ?? "",
-      "dimX": temp[0] ?? "0",
-      "dimY": temp[1] ?? "1",
+      "image": product.productImage ,
+      "dimX": temp[0],
+      "dimY": temp[1],
       "name": product.productNameEn ?? "",
       "brand": product.productBrandNameEn ?? "",
       "tilesUnit": product.tilesInUnit ?? 1.0

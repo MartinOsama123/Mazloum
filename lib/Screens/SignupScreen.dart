@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vendors/Data.dart';
 import 'package:vendors/Models/UserModel.dart';
 import '../AppColor.dart';
 
@@ -16,9 +17,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
+    return  Scaffold(
         appBar: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -31,42 +30,46 @@ class _SignupScreenState extends State<SignupScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Text("Signup", style: TextStyle(fontWeight: FontWeight.bold),),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height / 3,
-                ),
-                Text(
-                  "Signup",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 45,
-                        child: TextField(
-                          controller: _firstNameController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'First',
+                  height: 50,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 45,
+                            width: 20,
+                            child: TextField(
+                              controller: _firstNameController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'First',
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        height: 45,
-                        child: TextField(
-                          controller: _lastNameController,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'Last Name',
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            height: 45,
+
+                            child: TextField(
+                              controller: _lastNameController,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                labelText: 'Last Name',
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -121,6 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           _passwordController.text,
                           _emailController.text.trim(),
                           _phoneController.text.trim());
+                    await  Data.register(user);
                     },
                   ),
                 ),
@@ -128,7 +132,6 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

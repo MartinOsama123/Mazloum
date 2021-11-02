@@ -1,9 +1,9 @@
 
 class ShippingAddressModel {
-  String firstName;
-  String lastName;
-  String postCode;
-  String street;
-  String country;
-  String city;
+  late String firstName;
+  late String lastName;
+  late String postCode;
+  late String street;
+  late String country;
+  late String city;
 }

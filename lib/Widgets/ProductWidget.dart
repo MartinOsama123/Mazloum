@@ -15,9 +15,8 @@ class ProductWidget extends StatelessWidget {
   final Products productsModel;
 
   const ProductWidget({
-    Key key,
-    this.productsModel,
-  }) : super(key: key);
+    required this.productsModel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,7 @@ class ProductWidget extends StatelessWidget {
                       onPressed: () {
                         value.setCartModel(
                             CartModel(product: productsModel, count: 1));
-                        return showDialog<void>(
+                      /*  return showDialog<void>(
                           context: context,
                           barrierDismissible: true, // user must tap button!
                           builder: (BuildContext context) {
@@ -88,7 +87,7 @@ class ProductWidget extends StatelessWidget {
                               ],
                             );
                           },
-                        );
+                        );*/
                       });
                 }),
               ],

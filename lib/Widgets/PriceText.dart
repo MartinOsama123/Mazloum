@@ -4,8 +4,7 @@ import '../AppColor.dart';
 
 class PriceText extends StatelessWidget {
   const PriceText(
-      {Key key, @required this.price, this.size =14, this.discount})
-      : super(key: key);
+      {@required this.price, this.size =14, this.discount});
 
   final price;
   final discount;

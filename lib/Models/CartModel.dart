@@ -5,9 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vendors/Models/ProductModel.dart';
 
 class CartModel with ChangeNotifier {
-  Products product;
-  int count;
-  CartModel({this.product, this.count});
+  late  Products product;
+  late int count;
+  CartModel({required this.product, required this.count});
   Map<String, dynamic> toJson() => {
         'product': product,
         'count': count,
@@ -35,10 +35,10 @@ class SendCart {
 }
 
 class Cart with ChangeNotifier {
-  List<CartModel> cartModel;
-  SharedPreferences sharedUser;
+  late List<CartModel> cartModel;
+  late SharedPreferences sharedUser;
 
-  Cart({this.cartModel}) {
+  Cart({required this.cartModel}) {
     sharedPref();
   }
   Cart.fromJson(Map<String, dynamic> parsedJson) {
@@ -60,7 +60,7 @@ class Cart with ChangeNotifier {
     var temp = cartModel.where((element) =>
             element.product.productId == value.product.productId) ??
         null;
-    if (temp.isEmpty) {
+    if (temp!.isEmpty) {
       cartModel.add(value);
     } else {
       cartModel
@@ -95,7 +95,7 @@ class Cart with ChangeNotifier {
   Future<void> sharedPref() async {
     sharedUser = await SharedPreferences.getInstance();
     cartModel =
-        Cart.fromJson(jsonDecode(sharedUser.getString("cart"))).cartModel;
+        Cart.fromJson(jsonDecode(sharedUser.getString("cart") ?? "")).cartModel;
     notifyListeners();
   }
 
@@ -105,5 +105,5 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-  List<CartModel> get getCartModel {if(cartModel == null) {cartModel = <CartModel>[]; }return cartModel; }
+  List<CartModel> get getCartModel {cartModel = <CartModel>[]; return cartModel; }
 }

@@ -27,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
       PagingController(firstPageKey: 1);
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  FilterModel filterModel;
+  late FilterModel filterModel;
   @override
   void initState() {
     _pagingController.addPageRequestListener((pageKey) {
@@ -54,7 +54,7 @@ class _SearchScreenState extends State<SearchScreen> {
               "${searchQuery.isNotEmpty ? "&search=$searchQuery" : ""}$filterQuery",
           page: pageKey);
       print("entereeeed");
-      final isLastPage = newItems.length < 12;
+      final isLastPage = newItems!.length < 12;
       if (isLastPage) {
         _pagingController.appendLastPage(newItems);
       } else {
@@ -87,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
           actions: [
             IconButton(
               icon: Icon(Icons.filter_list, color: AppColor.SecondColor),
-              onPressed: () => _scaffoldKey.currentState.openEndDrawer(),
+              onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
             )
           ],
         ),
@@ -299,7 +299,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _getClearButton() {
     if (!_showClearButton) {
-      return null;
+      return Container();
     }
     return IconButton(
       onPressed: () => _searchQueryController.clear(),
@@ -312,7 +312,7 @@ class FilterList extends StatefulWidget {
   final productModel;
   final String title;
 
-  const FilterList({Key key, this.productModel, this.title}) : super(key: key);
+  const FilterList({required this.productModel, required this.title});
   @override
   _FilterListState createState() => _FilterListState();
 }
@@ -329,7 +329,7 @@ class _FilterListState extends State<FilterList> {
             return CheckboxListTile(
                 value: widget.productModel[index].selected,
                 title: Text(widget.productModel[index].nameEn ?? ""),
-                onChanged: (bool value) {
+                onChanged: (value){
                   widget.productModel[index].setSelected(value);
                   if (widget.productModel[index].selected) {
                     if (widget.title == "Brands") {
@@ -360,7 +360,7 @@ class _FilterListState extends State<FilterList> {
 class ExpansionFilters extends StatefulWidget{
   final data;
 
-  const ExpansionFilters({Key key, this.data}) : super(key: key);
+  const ExpansionFilters({ this.data});
   @override
   _ExpansionFiltersState createState() => _ExpansionFiltersState();
 }

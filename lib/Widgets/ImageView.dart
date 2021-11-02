@@ -6,11 +6,10 @@ class ImageView extends StatelessWidget {
   final width;
   final height;
   const ImageView({
-    Key key,
-    @required this.productsModel,
+    required this.productsModel,
     this.width = 100.0,
     this.height = 100.0,
-  }) : super(key: key);
+  });
 
   final Products productsModel;
 
@@ -22,7 +21,7 @@ class ImageView extends StatelessWidget {
             width: this.width,
             height: this.width,
             imageUrl:
-            "https://mazloum.genesiscreations.co/core/img/${productsModel.productImages[0]}",
+            "https://mazloum.genesiscreations.co/core/img/${productsModel.productImages![0]}",
             progressIndicatorBuilder: (context, url, downloadProgress) =>
                 Center(
                     child: CircularProgressIndicator(

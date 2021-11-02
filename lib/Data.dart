@@ -18,59 +18,39 @@ class Data with ChangeNotifier {
     ProductModel productModel;
 
     var response = await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS$query"));
-    if (response != null && response.statusCode == 200) {
-      try {
         productModel = ProductModel.fromJson(jsonDecode(response.body));
-      } catch (e) {
-        print(e.toString());
-      }
-    }
+
     return productModel;
   }
   static Future<CategoryModel> getCategory() async {
     CategoryModel categoryModel;
 
     var response = await http.get(Uri.parse("$IP_ADDRESS?q=$CATEGORY"));
-    if (response != null && response.statusCode == 200) {
-      try {
+
         categoryModel = CategoryModel.fromJson(jsonDecode(response.body));
-      } catch (e) {
-        print(e.toString());
-      }
-    }
 
     return categoryModel;
   }
 
-  static Future<List<Products>> getProductsList({int page = 1,String query = ""}) async {
+  static Future<List<Products>?> getProductsList({int page = 1,String query = ""}) async {
     ProductModel productModel;
 
-    var response =
-        await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS&page=$page$query"));
-    if (response != null && response.statusCode == 200) {
-      try {
+    var response = await http.get(Uri.parse("$IP_ADDRESS?q=$PRODUCTS&page=$page$query"));
         productModel = ProductModel.fromJson(jsonDecode(response.body));
-      } catch (e) {
-        print(e.toString());
-      }
-    }
+
     return productModel.products;
   }
-  static Future<GateModel> payment({String cart}) async {
+  static Future<GateModel> payment({required String cart}) async {
     GateModel gateModel;
 
     var response =
     await http.get(Uri.parse("$IP_ADDRESS?q=$PAYMENT&user_id=-10&auth_token=test&shopping_cart=$cart&mobile=1"));
-    if (response != null && response.statusCode == 200) {
-      try {
-        gateModel = GateModel.fromJson(jsonDecode(response.body));
-      } catch (e) {
-        print(e.toString());
-      }
-    }
+
+    gateModel = GateModel.fromJson(jsonDecode(response.body));
+
     return gateModel;
   }
-  static Future<String> token({String sessionId, String orderId}) async {
+  static Future<String> token({required String sessionId, required String orderId}) async {
 
 
     var response =

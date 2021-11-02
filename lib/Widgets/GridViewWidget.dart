@@ -7,8 +7,8 @@ class GridViewWidget extends StatelessWidget {
   final int length;
   final List<Products> products;
   const GridViewWidget({
-    Key key, this.length, this.products,
-  }) : super(key: key);
+    required this.length, required this.products,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -1,18 +1,14 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:im_stepper/stepper.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 import 'package:vendors/Models/CartModel.dart';
 import 'package:vendors/Models/CategoryModel.dart';
 import 'package:vendors/Models/ProductModel.dart';
 import 'package:vendors/Screens/SearchScreen.dart';
-import 'package:vendors/Widgets/ImageView.dart';
 import 'package:vendors/Widgets/ProductWidget.dart';
-
 import '../AppColor.dart';
 import '../Data.dart';
 import 'CartScreen.dart';
@@ -43,7 +39,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       try {
         final newItems = await Data.getProductsList(page: pageKey);
 
-        final isLastPage = newItems.length < 12;
+        final isLastPage = newItems!.length < 12;
         if (isLastPage) {
           _pagingController.appendLastPage(newItems);
         } else {
@@ -152,7 +148,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                       itemBuilder: (context, index) =>
                                           CategoryView(
                                               category: snapshot
-                                                  .data.categories[index]),
+                                                  .data!.categories[index]),
                                     );
                                   else
                                     return  Center(
@@ -229,9 +225,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
 class CategoryView extends StatelessWidget {
   final Categories category;
   const CategoryView({
-    Key key,
-    this.category,
-  }) : super(key: key);
+    required this.category,
+  });
 
   @override
   Widget build(BuildContext context) {

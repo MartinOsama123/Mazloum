@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  Future<ProductModel> productModel;
+  late Future<ProductModel> productModel;
   bool isLoading = false;
   final List<String> titles = ["On Sale", "New Arrived", "Most Sold"];
   @override
@@ -83,8 +83,8 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return GridViewWidget(
-                    length: snapshot.data.products.length,
-                    products: snapshot.data.products,
+                    length: snapshot.data!.products!.length,
+                    products: snapshot.data!.products!,
                   );
                 } else if (snapshot.connectionState ==
                     ConnectionState.waiting) {

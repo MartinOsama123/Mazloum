@@ -1,8 +1,8 @@
 
 class CreditCardModel {
-  String cardName;
-  String cardNumber;
-  String expireMonth;
-  String expireYear;
-  String CVV;
+  late String cardName;
+  late  String cardNumber;
+  late String expireMonth;
+  late String expireYear;
+  late  String CVV;
 }

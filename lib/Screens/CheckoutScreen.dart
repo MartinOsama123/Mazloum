@@ -66,7 +66,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               // This ensures step-tapping updates the activeStep.
               onStepReached: (index) {
                 setState(() {
-                  if (formKeys[_activeStep].currentState.validate()) {
+                  if (formKeys[_activeStep].currentState!.validate()) {
                     if (_activeStep < formKeys.length - 1) {
                       _activeStep = _activeStep + 1;
                     } else {
@@ -118,13 +118,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.next,
                     autocorrect: false,
-                    onSaved: (String value) {
-                      addressModel.firstName = value;
+                    onSaved: (value)  {
+                      addressModel.firstName = value!;
                     },
                     maxLines: 1,
                     // ignore: missing_return
                     validator: (value) {
-                      if (value.isEmpty || value.length < 1) {
+                      if (value == null || value.isEmpty || value.length < 1) {
                         return 'Please enter valid name';
                       }
                     },
@@ -147,13 +147,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.text,
                       autocorrect: false,
-                      onSaved: (String value) {
-                        addressModel.lastName = value;
+                      onSaved: (value) {
+                        addressModel.lastName = value!;
                       },
                       maxLines: 1,
                       // ignore: missing_return
                       validator: (value) {
-                        if (value.isEmpty || value.length < 1) {
+                        if (value == null || value.isEmpty || value.length < 1) {
                           return 'Please enter valid name';
                         }
                       },
@@ -178,13 +178,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               autocorrect: false,
-              onSaved: (String value) {
-                addressModel.street = value;
+              onSaved: ( value) {
+                addressModel.street = value ?? "";
               },
               maxLines: 1,
               // ignore: missing_return
               validator: (value) {
-                if (value.isEmpty || value.length < 1) {
+                if (value == null || value.isEmpty || value.length < 1) {
                   return 'Please enter valid address';
                 }
               },
@@ -204,13 +204,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.number,
               autocorrect: false,
-              onSaved: (String value) {
-                addressModel.postCode = value;
+              onSaved: ( value) {
+                addressModel.postCode = value ?? "";
               },
               maxLines: 1,
               // ignore: missing_return
               validator: (value) {
-                if (value.isEmpty || value.length < 1) {
+                if (value == null || value.isEmpty || value.length < 1) {
                   return 'Please a valid post code';
                 }
               },
@@ -230,13 +230,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.streetAddress,
               autocorrect: false,
-              onSaved: (String value) {
-                addressModel.country = value;
+              onSaved: ( value) {
+                addressModel.country = value ?? "";
               },
               maxLines: 1,
               // ignore: missing_return
               validator: (value) {
-                if (value.isEmpty || value.length < 1) {
+                if (value == null || value.isEmpty || value.length < 1) {
                   return 'Please a valid country';
                 }
               },
@@ -266,14 +266,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             child: TextFormField(
               keyboardType: TextInputType.text,
               autocorrect: false,
-              onSaved: (String value) {
-                cardModel.cardName = value;
+              onSaved: ( value) {
+                cardModel.cardName = value ?? "";
               },
               maxLines: 1,
               maxLength: 16,
               // ignore: missing_return
               validator: (value) {
-                if (value.isEmpty || value.length < 1) {
+                if (value == null || value.isEmpty || value.length < 1) {
                   return 'Please enter valid name';
                 }
               },
@@ -292,14 +292,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             child: TextFormField(
               keyboardType: TextInputType.text,
               autocorrect: false,
-              onSaved: (String value) {
-                cardModel.cardNumber = value;
+              onSaved: (value) {
+                cardModel.cardNumber = value ?? "";
               },
               maxLines: 1,
               maxLength: 16,
               // ignore: missing_return
               validator: (value) {
-                if (value.isEmpty || value.length < 1) {
+                if (value == null || value.isEmpty || value.length < 1) {
                   return 'Please enter valid address';
                 }
               },
@@ -321,14 +321,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   child: TextFormField(
                     keyboardType: TextInputType.number,
                     autocorrect: false,
-                    onSaved: (String value) {
-                      cardModel.expireMonth = value;
+                    onSaved: ( value) {
+                      cardModel.expireMonth = value ?? "";
                     },
                     maxLines: 1,
                     maxLength: 2,
                     // ignore: missing_return
                     validator: (value) {
-                      if (value.isEmpty || value.length < 1) {
+                      if (value == null || value.isEmpty || value.length < 1) {
                         return 'invalid month';
                       }
                     },
@@ -349,14 +349,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     child: TextFormField(
                       keyboardType: TextInputType.number,
                       autocorrect: false,
-                      onSaved: (String value) {
-                        cardModel.expireYear = value;
+                      onSaved: ( value) {
+                        cardModel.expireYear = value ?? "";
                       },
                       maxLines: 1,
                       maxLength: 3,
                       // ignore: missing_return
                       validator: (value) {
-                        if (value.isEmpty || value.length < 1) {
+                        if (value == null || value.isEmpty || value.length < 1) {
                           return 'invalid year';
                         }
                       },
@@ -379,14 +379,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             child: TextFormField(
               keyboardType: TextInputType.streetAddress,
               autocorrect: false,
-              onSaved: (String value) {
-                cardModel.CVV = value;
+              onSaved: ( value) {
+                cardModel.CVV = value!;
               },
               maxLines: 1,
               maxLength: 4,
               // ignore: missing_return
               validator: (value) {
-                if (value.isEmpty || value.length < 1) {
+                if (value == null || value.isEmpty || value.length < 1) {
                   return 'Please a valid country';
                 }
               },
@@ -492,8 +492,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   borderRadius: BorderRadius.circular(10))),
           onPressed: !isLoadingPayment ? () {
             if (_activeStep < formKeys.length) {
-              if (formKeys[_activeStep].currentState.validate()) {
-                formKeys[_activeStep].currentState.save();
+              if (formKeys[_activeStep].currentState!.validate()) {
+                formKeys[_activeStep].currentState!.save();
                 print(addressModel.firstName);
                 setState(() {
                   _activeStep = _activeStep + 1;

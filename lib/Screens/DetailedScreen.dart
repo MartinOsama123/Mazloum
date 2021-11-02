@@ -12,7 +12,7 @@ import '../Data.dart';
 class DetailedScreen extends StatelessWidget {
   final Products product;
 
-  const DetailedScreen({Key key, this.product}) : super(key: key);
+  const DetailedScreen({ required this.product});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +87,7 @@ class DetailedScreen extends StatelessWidget {
                               children: [
                                 const Text("Color"),
                                 Text(
-                                  product.specifications
+                                  product.specifications!
                                       .firstWhere(
                                           (element) => element.specId == 1)
                                       .valueNameEn,
@@ -100,8 +100,7 @@ class DetailedScreen extends StatelessWidget {
                               children: [
                                 const Text("Made In"),
                                 Text(
-                                    product.specifications
-                                        .firstWhere(
+                                    product.specifications!.firstWhere(
                                             (element) => element.specId == 7)
                                         .valueNameEn,
                                     style:
@@ -151,7 +150,7 @@ class DetailedScreen extends StatelessWidget {
     }
     print(value);
   }
-  List<String> _parseDim() => product.specifications.firstWhere((element) => element.specId == 3).valueNameEn.toString().replaceAll(new RegExp(r'[^0-9]^(.*)'),'').split("*").toList();
+  List<String> _parseDim() => product.specifications!.firstWhere((element) => element.specId == 3).valueNameEn.toString().replaceAll(new RegExp(r'[^0-9]^(.*)'),'').split("*").toList();
 
 }
 
@@ -159,8 +158,8 @@ class DetailedScreen extends StatelessWidget {
 class AddCartWidget extends StatefulWidget {
   final Products product;
   const AddCartWidget({
-    Key key, this.product,
-  }) : super(key: key);
+    required this.product,
+  });
 
   @override
   _AddCartWidgetState createState() => _AddCartWidgetState();
@@ -196,10 +195,10 @@ class _AddCartWidgetState extends State<AddCartWidget> {
           child: SizedBox(
             height: 45,
             child: Consumer<Cart>(
-              builder: (context, value, child) =>  RaisedButton(
+              builder: (context, value, child) =>  ElevatedButton(
                 onPressed: () { value.setCartModel(CartModel(product: widget.product,count: quantity));
 
-                return showDialog<void>(
+                /*return showDialog<void>(
                   context: context,
                   barrierDismissible: true, // user must tap button!
                   builder: (BuildContext context) {
@@ -222,7 +221,7 @@ class _AddCartWidgetState extends State<AddCartWidget> {
                       ],
                     );
                   },
-                );}
+                );*/}
                 ,
                 child: const Text(
                   "Add to Cart",
@@ -231,9 +230,8 @@ class _AddCartWidgetState extends State<AddCartWidget> {
                       fontSize: 16,
                       color: Colors.white),
                 ),
-                color: AppColor.PrimaryColor,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
+                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)), primary:AppColor.PrimaryColor)
               ),
             ),
           ),

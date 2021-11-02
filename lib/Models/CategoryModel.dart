@@ -1,8 +1,8 @@
 class CategoryModel {
-  String status;
-  List<Categories> categories;
+  late String status;
+  late List<Categories> categories;
 
-  CategoryModel({String status, List<Categories> categories}) {
+  CategoryModel({required String status, required List<Categories> categories}) {
     this.status = status;
     this.categories = categories;
   }
@@ -29,19 +29,19 @@ class CategoryModel {
 }
 
 class Categories {
-  int categoryId;
-  String categoryNameEn;
-  String categoryNameAr;
-  int parentCategoryId;
-  String _image;
+  late  int categoryId;
+  late String categoryNameEn;
+  late String categoryNameAr;
+  late int parentCategoryId;
+  late  String _image;
 
   String get image => "https://mazloum.genesiscreations.co/core/img/categories/$categoryId.png";
 
   Categories(
-      {int categoryId,
-        String categoryNameEn,
-        String categoryNameAr,
-        int parentCategoryId}) {
+      {required int categoryId,
+        required String categoryNameEn,
+        required String categoryNameAr,
+        required int parentCategoryId}) {
     this.categoryId = categoryId;
     this.categoryNameEn = categoryNameEn;
     this.categoryNameAr = categoryNameAr;

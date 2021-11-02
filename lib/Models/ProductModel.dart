@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ProductModel with ChangeNotifier {
-  var status;
-  List<Products> products;
-  var totalProducts;
-  var totalPages;
-  List<SpecificationsAll> colors;
-  List<SpecificationsAll> materials;
-  List<SpecificationsAll> brands;
-  List<SpecificationsAll> dimensions;
-  var lowestPrice;
-  var highestPrice;
+  late var status;
+  late List<Products>? products;
+  late var totalProducts;
+  late  var totalPages;
+  late  List<SpecificationsAll>? colors;
+  late  List<SpecificationsAll>? materials;
+  late  List<SpecificationsAll>? brands;
+  late  List<SpecificationsAll>? dimensions;
+  late  var lowestPrice;
+  late  var highestPrice;
 
   ProductModel(
       {this.status,
@@ -29,7 +29,7 @@ class ProductModel with ChangeNotifier {
     if (json['products'] != null) {
       products = <Products>[];
       json['products'].forEach((v) {
-        products.add(new Products.fromJson(v));
+        products!.add(new Products.fromJson(v));
       });
     }
     totalProducts = json['total_products'];
@@ -37,25 +37,25 @@ class ProductModel with ChangeNotifier {
     if (json['colors'] != null) {
       colors = <SpecificationsAll>[];
       json['colors'].forEach((v) {
-        colors.add(new SpecificationsAll.fromJson(v));
+        colors!.add(new SpecificationsAll.fromJson(v));
       });
     }
     if (json['materials'] != null) {
       materials = <SpecificationsAll>[];
       json['materials'].forEach((v) {
-        materials.add(new SpecificationsAll.fromJson(v));
+        materials!.add(new SpecificationsAll.fromJson(v));
       });
     }
     if (json['brands'] != null) {
       brands = <SpecificationsAll>[];
       json['brands'].forEach((v) {
-        brands.add(new SpecificationsAll.fromJson(v));
+        brands!.add(new SpecificationsAll.fromJson(v));
       });
     }
     if (json['dimensions'] != null) {
       dimensions = <SpecificationsAll>[];
       json['dimensions'].forEach((v) {
-        dimensions.add(new SpecificationsAll.fromJson(v));
+        dimensions!.add(new SpecificationsAll.fromJson(v));
       });
     }
     lowestPrice = json['lowest_price'];
@@ -66,21 +66,21 @@ class ProductModel with ChangeNotifier {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['status'] = this.status;
     if (this.products != null) {
-      data['products'] = this.products.map((v) => v.toJson()).toList();
+      data['products'] = this.products!.map((v) => v.toJson()).toList();
     }
     data['total_products'] = this.totalProducts;
     data['total_pages'] = this.totalPages;
     if (this.colors != null) {
-      data['colors'] = this.colors.map((v) => v.toJson()).toList();
+      data['colors'] = this.colors!.map((v) => v.toJson()).toList();
     }
     if (this.materials != null) {
-      data['materials'] = this.materials.map((v) => v.toJson()).toList();
+      data['materials'] = this.materials!.map((v) => v.toJson()).toList();
     }
     if (this.brands != null) {
-      data['brands'] = this.brands.map((v) => v.toJson()).toList();
+      data['brands'] = this.brands!.map((v) => v.toJson()).toList();
     }
     if (this.dimensions != null) {
-      data['dimensions'] = this.dimensions.map((v) => v.toJson()).toList();
+      data['dimensions'] = this.dimensions!.map((v) => v.toJson()).toList();
     }
     data['lowest_price'] = this.lowestPrice;
     data['highest_price'] = this.highestPrice;
@@ -89,23 +89,23 @@ class ProductModel with ChangeNotifier {
 }
 
 class Products {
-  var productId;
-  var productNameEn;
-  var productCategoryId;
-  var productCategoryNameEn;
-  var productCategoryNameAr;
-  var productPrice;
-  List<String> productImages;
-  var productBrandId;
-  var productBrandNameEn;
-  var productBrandNameAr;
-  var isWishlisted;
-  var isAvailable;
-  List<Specifications> specifications;
-  List<String> relatedProducts;
-  var numberInUnit;
-  var tilesInUnit;
-  var productDiscount;
+  late var productId;
+  late var productNameEn;
+  late var productCategoryId;
+  late var productCategoryNameEn;
+  late var productCategoryNameAr;
+  late var productPrice;
+  late List<String>? productImages;
+  late  var productBrandId;
+  late  var productBrandNameEn;
+  late  var productBrandNameAr;
+  late  var isWishlisted;
+  late  var isAvailable;
+  late  List<Specifications>? specifications;
+  late List<String>? relatedProducts;
+  late var numberInUnit;
+  late  var tilesInUnit;
+  late var productDiscount;
 
   Products(
       {this.productId,
@@ -126,7 +126,7 @@ class Products {
       this.tilesInUnit,
       this.productDiscount});
   String get productImage {
-    return "https://mazloum.genesiscreations.co/core/img/${productImages[0]}";
+    return "https://mazloum.genesiscreations.co/core/img/${productImages![0]}";
   }
 
   Products.fromJson(Map<String, dynamic> json) {
@@ -143,9 +143,9 @@ class Products {
     isWishlisted = json['is_wishlisted'];
     isAvailable = json['is_available'];
     if (json['specifications'] != null) {
-      specifications = new List<Specifications>();
+      specifications = <Specifications>[];
       json['specifications'].forEach((v) {
-        specifications.add(new Specifications.fromJson(v));
+        specifications!.add(new Specifications.fromJson(v));
       });
     }
     relatedProducts = json['related_products'].cast<String>();
@@ -170,7 +170,7 @@ class Products {
     data['is_available'] = this.isAvailable;
     if (this.specifications != null) {
       data['specifications'] =
-          this.specifications.map((v) => v.toJson()).toList();
+          this.specifications!.map((v) => v.toJson()).toList();
     }
     data['related_products'] = this.relatedProducts;
     data['number_in_unit'] = this.numberInUnit;
